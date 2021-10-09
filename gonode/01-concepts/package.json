@@ -8,9 +8,19 @@
     "dev": "nodemon ."
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.4.1"
   }
 }
