@@ -1,0 +1,11 @@
+{% extends "_layouts/auth.njk" %}
+{% block body %}
+  <form action="/signin" method="POST">
+    <img src="/images/logo.svg" alt="GoBarber" height="42">
+    {% include "_partials/flash.njk" %}
+    <input type="email" name="email" placeholder="Your email">
+    <input type="password" name="password" placeholder="Your password">
+    <button type="submit">Signin</button>
+    <a href="/signup">Create free account</a>
+  </form>
+{% endblock body %}
