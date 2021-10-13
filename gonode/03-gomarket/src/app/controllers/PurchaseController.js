@@ -5,14 +5,15 @@ const Mail = require("../services/Mail");
 class PurchaseController {
   async store(req, res) {
     const { ad, content } = req.body;
-    const purchaseAd = await Ad.findById(ad).populate("author");
+    const purchaseAd = (await Ad.findById(ad).populate("author")).toJSON();
     if (!purchaseAd) return res.status(400).json({ error: "Ad not found!" });
-    const user = await User.findById(req.userId);
+    const user = (await User.findById(req.userId)).toJSON();
     await Mail.sendMail({
-      from: `"${user.name}" <${user.email}>`,
+      from: `"Rayan Wilbert" <raymw@raymw.com.br>`,
       to: purchaseAd.author.email,
       subject: `Ordering: ${purchaseAd.title}`,
-      html: `<p>${content}</p>`,
+      template: "purchase",
+      context: { user, content, ad: purchaseAd },
     });
     return res.status(204).send();
   }
