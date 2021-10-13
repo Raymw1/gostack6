@@ -1,3 +1,3 @@
 module.exports = {
-  uri: "mongodb://localhost:27017/gomarket",
+  uri: process.env.MONGO_URL,
 };

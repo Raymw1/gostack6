@@ -1,9 +1,9 @@
 module.exports = {
-  host: "smtp.mailtrap.io",
-  port: 2525,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   secure: false,
   auth: {
-    user: "94562f537c158a",
-    pass: "af008be3643d8b",
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
 };
