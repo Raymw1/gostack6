@@ -10,6 +10,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "express-handlebars": "^5.3.4",
     "express-validation": "^3.0.8",
     "joi": "^17.4.2",
@@ -19,7 +20,8 @@
     "mongoose-paginate": "^5.0.3",
     "nodemailer": "^6.7.0",
     "nodemailer-express-handlebars": "^4.0.0",
-    "require-dir": "^1.2.0"
+    "require-dir": "^1.2.0",
+    "youch": "^2.2.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
