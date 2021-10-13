@@ -1,0 +1,40 @@
+{
+  "name": "03-gomarket",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "dependencies": {
+    "@sentry/node": "^6.13.3",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-handlebars": "^5.3.4",
+    "express-validation": "^3.0.8",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "kue": "^0.11.6",
+    "mongoose": "^6.0.10",
+    "mongoose-paginate": "^5.0.3",
+    "nodemailer": "^6.7.0",
+    "nodemailer-express-handlebars": "^4.0.0",
+    "require-dir": "^1.2.0",
+    "youch": "^2.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.4.1"
+  }
+}
