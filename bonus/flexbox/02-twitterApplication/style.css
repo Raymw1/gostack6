@@ -104,3 +104,82 @@ div.banner {
   justify-content: center;
   color: #fff;
 }
+
+div.bar {
+  height: 5.8rem;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+div.bar .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 28.5rem;
+  height: 100%;
+}
+
+div.bar .content ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+div.bar .content ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.6rem;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+div.bar .content ul li span {
+  color: #667580;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+div.bar .content ul li strong {
+  color: #667580;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 0.2rem;
+}
+
+div.bar .content ul li.active::after {
+  content: "";
+  background-color: var(--blue);
+  height: 0.2rem;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+div.bar .content ul li.active strong {
+  color: var(--blue);
+}
+
+div.bar .content .actions {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+div.bar .content .actions button {
+  height: 3.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 9rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  background-color: #fff;
+  color: var(--blue);
+  border-radius: 1.6rem;
+  border: 1px solid var(--blue);
+  cursor: pointer;
+}
