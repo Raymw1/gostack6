@@ -1,0 +1,106 @@
+:root {
+  font-size: 62.5%;
+  --blue: #3bb9e3;
+  --gray: #e6ecf0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--gray);
+  font-family: "Heletica Neue", "Helvetica", Aria, sans-serif;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  font-size: 1.6rem;
+}
+
+input,
+button {
+  outline: none;
+}
+
+.content {
+  max-width: 110rem;
+  width: 90%;
+  margin: 0 auto;
+}
+
+header#main-header {
+  height: 4.6rem;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+header#main-header .content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header#main-header nav ul {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  list-style: none;
+}
+
+header#main-header nav ul li {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #667580;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+header#main-header .side {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+header#main-header .side img {
+  height: 3.4rem;
+  width: 3.4rem;
+  border-radius: 50%;
+}
+
+header#main-header .side button {
+  height: 3.4rem;
+  background-color: var(--blue);
+  align-items: center;
+  justify-content: center;
+  width: 9rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #fff;
+  border-radius: 1.6rem;
+  border: 0;
+  cursor: pointer;
+}
+
+header#main-header .side input {
+  width: 22rem;
+  border: 1px solid var(--gray);
+  height: 3.4rem;
+  padding: 0 3.2rem 0 1.2rem;
+  border-radius: 1.6rem;
+  font-size: 1.2rem;
+  background: #f5f8fa url("/images/search.svg") no-repeat 19rem center;
+}
+
+div.banner {
+  width: 100%;
+  height: 38rem;
+  background-color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
