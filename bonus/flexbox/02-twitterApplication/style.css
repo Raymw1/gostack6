@@ -3,6 +3,7 @@
   --blue: #3bb9e3;
   --light-gray: #e6ecf0;
   --gray: #667580;
+  --dark: #1f2226;
 }
 
 * {
@@ -206,7 +207,7 @@ div.wrapper-content aside.profile img.avatar {
 
 div.wrapper-content aside.profile h1 {
   font-size: 2.1rem;
-  color: #1f2226;
+  color: var(--dark);
   margin-top: 0.8rem;
 }
 
@@ -217,7 +218,7 @@ div.wrapper-content aside.profile span {
 
 div.wrapper-content aside.profile p {
   font-size: 1.4rem;
-  color: #1f2226;
+  color: var(--dark);
   margin-top: 1.4rem;
 }
 
@@ -292,7 +293,7 @@ div.wrapper-content section.timeline {
 }
 
 div.wrapper-content section.timeline nav {
-  border-bottom: 1px solid #e6ecf0;
+  border-bottom: 1px solid var(--light-gray);
   padding: 1.2rem 1.6rem;
   display: flex;
   align-items: center;
@@ -307,7 +308,7 @@ div.wrapper-content section.timeline nav a {
 }
 
 div.wrapper-content section.timeline nav a.active {
-  color: #1f2226;
+  color: var(--dark);
 }
 
 div.wrapper-content section.timeline ul.tweets {
@@ -315,7 +316,7 @@ div.wrapper-content section.timeline ul.tweets {
 }
 
 div.wrapper-content section.timeline ul.tweets li {
-  border-bottom: 1px solid #e6ecf0;
+  border-bottom: 1px solid var(--light-gray);
   padding: 1.2rem 1.6rem;
   display: flex;
   gap: 0.8rem;
@@ -334,7 +335,7 @@ div.wrapper-content section.timeline ul.tweets li .info {
 
 div.wrapper-content section.timeline ul.tweets li .info strong {
   font-size: 1.4rem;
-  color: #1f2226;
+  color: var(--dark);
 }
 
 div.wrapper-content section.timeline ul.tweets li .info strong span {
@@ -345,7 +346,7 @@ div.wrapper-content section.timeline ul.tweets li .info strong span {
 
 div.wrapper-content section.timeline ul.tweets li .info p {
   font-size: 1.4rem;
-  color: #1f2226;
+  color: var(--dark);
   margin-top: 0.6rem;
 }
 
@@ -361,7 +362,7 @@ div.wrapper-content section.timeline ul.tweets li .actions a {
   align-items: center;
   text-decoration: none;
   gap: 0.6rem;
-  color: #667580;
+  color: var(--gray);
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -386,7 +387,7 @@ div.wrapper-content aside.widgets .widget .title {
 
 div.wrapper-content aside.widgets .widget .title strong {
   font-size: 1.8rem;
-  color: #1f2226;
+  color: var(--dark);
 }
 
 div.wrapper-content aside.widgets .widget .title a {
@@ -447,7 +448,7 @@ div.wrapper-content aside.widgets .follow ul li .profile .info {
 
 div.wrapper-content aside.widgets .follow ul li .profile .info strong {
   font-size: 1.4rem;
-  color: #1f2226;
+  color: var(--dark);
 }
 
 div.wrapper-content aside.widgets .follow ul li .profile .info strong span {
