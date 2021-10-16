@@ -24,23 +24,18 @@ class Button extends Component {
 }
 
 class App extends Component {
-  handleClcik = () => {
-    alert("Click");
+  state = { counter: 0 };
+
+  handleClick = () => {
+    this.setState({ counter: this.state.counter + 1 });
   };
 
   render() {
     return (
       <Fragment>
         <h1>Hello, World!</h1>
-        <Button link="#" onClick={this.handleClcik}>
-          Test
-        </Button>
-        <br />
-        <Button
-          onClick={() => {
-            alert("Button 1");
-          }}
-        />
+        <h2>{this.state.counter}</h2>
+        <Button onClick={this.handleClick}>Add</Button>
       </Fragment>
     );
   }
