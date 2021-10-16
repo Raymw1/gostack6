@@ -5,6 +5,23 @@ import Button from "./Button";
 class App extends Component {
   state = { counter: 0 };
 
+  componentDidMount() {
+    // Initialize
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // Check if it should render
+    return nextState.counter <= 10;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState.counter);
+  }
+
+  componentWillUnmount() {
+    // Unexistence
+  }
+
   handleClick = () => {
     this.setState({ counter: this.state.counter + 1 });
     // this.setState({ counter: this.state.counter + 1 }, () => {
