@@ -1,37 +1,16 @@
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
 import { render } from "react-dom";
-
-class Button extends Component {
-  static defaultProps = {
-    children: "Save",
-    link: "#",
-  };
-
-  static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    children: PropTypes.string,
-    link: PropTypes.string,
-  };
-
-  render() {
-    return (
-      <a href={this.props.link} onClick={this.props.onClick}>
-        {this.props.children || "Save"}
-      </a>
-    );
-  }
-}
+import Button from "./Button";
 
 class App extends Component {
   state = { counter: 0 };
 
   handleClick = () => {
-    // this.setState({ counter: this.state.counter + 1 });
+    this.setState({ counter: this.state.counter + 1 });
     // this.setState({ counter: this.state.counter + 1 }, () => {
     //   console.log(`Callback: ${this.state.counter}`);
     // });
-    this.setState((state) => ({ counter: state.counter + 1 }));
+    // this.setState((state) => ({ counter: state.counter + 1 }));
   };
 
   render() {
