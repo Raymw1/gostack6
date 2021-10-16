@@ -1,15 +1,27 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { render } from "react-dom";
 
 class Button extends Component {
   render() {
     return (
-      <a href={this.props.link || "Link"} onClick={this.props.onClick}>
+      <a href={this.props.link} onClick={this.props.onClick}>
         {this.props.children || "Save"}
       </a>
     );
   }
 }
+
+Button.defaultProps = {
+  children: "Save",
+  link: "#",
+};
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.string,
+  link: PropTypes.string,
+};
 
 class App extends Component {
   handleClcik = () => {
@@ -23,6 +35,12 @@ class App extends Component {
         <Button link="#" onClick={this.handleClcik}>
           Test
         </Button>
+        <br />
+        <Button
+          onClick={() => {
+            alert("Button 1");
+          }}
+        />
       </Fragment>
     );
   }
