@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { render } from "react-dom";
 import Button from "./Button";
 
+import "./style.scss";
+
 class App extends Component {
   state = { counter: 0 };
 
@@ -15,6 +17,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // Get previous props and state
     console.log(prevState.counter);
   }
 
@@ -33,8 +36,8 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Hello, World!</h1>
-        <h2>{this.state.counter}</h2>
+        <h1 className="title">Hello, World!</h1>
+        <h2 style={{ textDecoration: "underline" }}>{this.state.counter}</h2>
         <Button onClick={this.handleClick}>Add</Button>
       </Fragment>
     );
