@@ -6,10 +6,13 @@ module.exports = {
     path: path.resolve(__dirname, "public"),
     filename: "bundle.js",
   },
+  devServer: {
+    watchFiles: path.resolve(__dirname, "public"),
+  },
   module: {
     rules: [
       {
-        test: /\.js%/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
