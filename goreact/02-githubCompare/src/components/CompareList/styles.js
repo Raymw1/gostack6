@@ -4,7 +4,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 5rem;
+  margin: 5rem 0;
+  max-width: 82rem;
+  width: 90%;
+  flex-wrap: wrap;
   gap: 1.8rem;
 `;
 
