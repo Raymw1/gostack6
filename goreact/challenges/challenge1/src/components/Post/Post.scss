@@ -1,0 +1,43 @@
+.post {
+  background-color: #fff;
+  max-width: 70rem;
+  width: 90%;
+  padding: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 2px 2px 4px -2px rgba(0, 0, 0, 0.25);
+}
+
+.post .header {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  padding-bottom: 1.8rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.post .header img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+}
+
+.post .header .user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.post .header .user-info strong {
+  color: #1f1f1f;
+}
+
+.post .header .user-info small {
+  color: #999;
+}
+
+.post .content {
+  color: #1f1f1f;
+}
