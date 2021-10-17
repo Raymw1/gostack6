@@ -24,6 +24,7 @@ export const Repository = styled.div`
     img {
       width: 6.4rem;
       height: 6.4rem;
+      border-radius: 1.6rem;
     }
 
     strong {
