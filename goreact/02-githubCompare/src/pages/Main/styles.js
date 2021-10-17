@@ -25,6 +25,10 @@ export const Form = styled.form`
   }
 
   button {
+    width: 5.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 5.4rem;
     padding: 0 2rem;
     margin-left: 1rem;

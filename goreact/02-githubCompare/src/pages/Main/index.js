@@ -10,6 +10,7 @@ import CompareList from "../../components/CompareList";
 
 export default class Main extends Component {
   state = {
+    loading: false,
     repositoryInput: "",
     repositoryError: false,
     repositories: [],
@@ -19,6 +20,7 @@ export default class Main extends Component {
     e.preventDefault();
     const { repositoryInput } = this.state;
     if (!repositoryInput.trim()) return;
+    this.setState({ loading: true });
     try {
       const { data: repository } = await api.get(`/repos/${repositoryInput}`);
       repository.lastCommit = moment(repository.pushed_at).fromNow();
@@ -29,7 +31,11 @@ export default class Main extends Component {
       });
     } catch (error) {
       console.error(error);
-      this.setState({ repositoryInput: "", repositoryError: true });
+      this.setState({
+        repositoryError: true,
+      });
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
@@ -47,7 +53,13 @@ export default class Main extends Component {
             value={this.state.repositoryInput}
             onChange={(e) => this.setState({ repositoryInput: e.target.value })}
           />
-          <button type="submit">Ok</button>
+          <button type="submit">
+            <i
+              className={
+                this.state.loading ? "fa fa-spinner fa-pulse" : "fa fa-plus"
+              }
+            ></i>
+          </button>
         </Form>
         <CompareList repositories={this.state.repositories} />
       </Container>

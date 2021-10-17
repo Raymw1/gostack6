@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import "font-awesome/css/font-awesome.css";
+
 const GlobalStyle = createGlobalStyle`
   :root {
     font-size: 62.5%;
