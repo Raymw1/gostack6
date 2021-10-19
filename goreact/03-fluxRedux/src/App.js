@@ -2,15 +2,15 @@ import React from "react";
 import { Provider } from "react-redux";
 import "./config/ReactotronConfig";
 
-import TodoList from "./TodoList";
-
 import store from "./store";
+
+import Routes from "./routes";
 
 console.tron.log("Testing...");
 
 const App = () => (
   <Provider store={store}>
-    <TodoList />
+    <Routes />
   </Provider>
 );
 
