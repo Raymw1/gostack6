@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import PropTypes, { string } from "prop-types";
+import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -44,7 +44,7 @@ class Main extends Component {
             onChange={(e) => this.setState({ repositoryInput: e.target.value })}
           />
           <button type="submit">Add</button>
-          {this.props.favorites.loading && <span>Carregando...</span>}
+          {this.props.favorites.loading && <span>Loading...</span>}
           {!!this.props.favorites.error && (
             <span style={{ color: "#F00" }}>{this.props.favorites.error}</span>
           )}
