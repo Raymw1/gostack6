@@ -7,7 +7,7 @@ import deleteSvg from "../../assets/delete.svg";
 import arrowSvg from "../../assets/arrow.svg";
 
 const UsersBar = ({ users }) => (
-  <Bar>
+  <Bar visible={users.data.length > 0}>
     <ul>
       {users.data.map((user) => (
         <li key={user.id}>

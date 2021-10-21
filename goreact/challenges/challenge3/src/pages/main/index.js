@@ -53,6 +53,7 @@ class Main extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { userInput, latitude, longitude } = this.state;
+    if (userInput.trim() === "" || !latitude || !longitude) return;
     this.props.addUserRequest({ userInput, latitude, longitude });
     this.setState({
       latitude: null,

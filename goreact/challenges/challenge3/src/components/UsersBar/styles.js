@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Bar = styled.div`
   padding: 0.8rem;
+  display: ${(props) => (props.visible ? "initial" : "none")};
   position: fixed;
   top: 1.8rem;
   left: 1.8rem;
@@ -10,6 +11,9 @@ export const Bar = styled.div`
   max-width: 30rem;
   background-color: #fff;
   border-radius: 0.4rem;
+  overflow-y: auto;
+  height: auto;
+  max-height: 90%;
 
   ul {
     li {
