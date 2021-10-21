@@ -5,8 +5,11 @@ import { connect } from "react-redux";
 
 import deleteSvg from "../../assets/delete.svg";
 import arrowSvg from "../../assets/arrow.svg";
+import { bindActionCreators } from "redux";
 
-const UsersBar = ({ users }) => (
+import { Creators as UserActions } from "../../store/ducks/users";
+
+const UsersBar = ({ users, removeUserRequest }) => (
   <Bar visible={users.data.length > 0}>
     <ul>
       {users.data.map((user) => (
@@ -20,7 +23,11 @@ const UsersBar = ({ users }) => (
           </div>
           <div className="actions">
             <button>
-              <img src={deleteSvg} alt="Delete" />
+              <img
+                src={deleteSvg}
+                onClick={() => removeUserRequest(user.id)}
+                alt="Delete"
+              />
             </button>
             <button>
               <img src={arrowSvg} alt="Spot" />
@@ -32,8 +39,11 @@ const UsersBar = ({ users }) => (
   </Bar>
 );
 
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(UserActions, dispatch);
+
 const mapStateToProps = (state) => ({
   users: state.users,
 });
 
-export default connect(mapStateToProps)(UsersBar);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersBar);
