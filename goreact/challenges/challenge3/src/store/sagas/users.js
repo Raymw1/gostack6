@@ -9,18 +9,34 @@ export function* addUser(action) {
     const { userInput, latitude, longitude } = action.payload.user;
     const { data } = yield call(api.get, `/users/${userInput}`);
     // DUPLICATED CHECK
-    const userData = {
-      id: data.id,
-      avatar_url: data.avatar_url,
-      name: data.name,
-      username: data.login,
-      latitude,
-      longitude,
-    };
-    console.tron.log(userData);
-    yield put(UserActions.addUserSuccess(userData));
+    const isDuplicated = yield select((state) =>
+      state.users.data.find((user) => user.id === data.id)
+    );
+    if (isDuplicated) {
+      yield put(UserActions.addUserFailed("User already added!"));
+      toast.error("User already added!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      const userData = {
+        id: data.id,
+        avatar_url: data.avatar_url,
+        name: data.name,
+        username: data.login,
+        latitude,
+        longitude,
+      };
+      yield put(UserActions.addUserSuccess(userData));
+    }
   } catch (error) {
     console.tron.log(error);
+    yield put(UserActions.addUserFailed("User not found!"));
     toast.error("User not found!", {
       position: "bottom-right",
       autoClose: 5000,
@@ -30,6 +46,5 @@ export function* addUser(action) {
       draggable: true,
       progress: undefined,
     });
-    yield put(UserActions.addUserFailed("User not found!"));
   }
 }
