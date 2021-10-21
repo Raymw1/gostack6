@@ -8,7 +8,6 @@ export function* addUser(action) {
   try {
     const { userInput, latitude, longitude } = action.payload.user;
     const { data } = yield call(api.get, `/users/${userInput}`);
-    // DUPLICATED CHECK
     const isDuplicated = yield select((state) =>
       state.users.data.find((user) => user.id === data.id)
     );

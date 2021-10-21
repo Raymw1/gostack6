@@ -11,7 +11,24 @@ import { ModalOverlay, Modal, Button } from "./styles";
 
 import UsersBar from "../../components/UsersBar";
 
+import PropTypes from "prop-types";
+
 class Main extends Component {
+  static propTypes = {
+    addUserRequest: PropTypes.func.isRequired,
+    users: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          avatar_url: PropTypes.string.isRequired,
+          name: PropTypes.string,
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+        })
+      ),
+    }).isRequired,
+  };
+
   state = {
     viewport: {
       width: window.innerWidth,

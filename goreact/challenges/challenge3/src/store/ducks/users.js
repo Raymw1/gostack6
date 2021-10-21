@@ -17,7 +17,11 @@ export default function users(state = INITIAL_STATE, action) {
     case Types.ADD_REQUEST:
       return state;
     case Types.ADD_SUCCESS:
-      return { ...state, data: [...state.data, action.payload.user] };
+      return {
+        ...state,
+        data: [...state.data, action.payload.user],
+        error: null,
+      };
     case Types.ADD_FAILURE:
       return { ...state, error: action.payload.error };
     case Types.REMOVE_REQUEST:

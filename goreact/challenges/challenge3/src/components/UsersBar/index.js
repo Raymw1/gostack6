@@ -9,6 +9,8 @@ import { bindActionCreators } from "redux";
 
 import { Creators as UserActions } from "../../store/ducks/users";
 
+import PropTypes from "prop-types";
+
 const UsersBar = ({ handleLocation, users, removeUserRequest }) => (
   <Bar visible={users.data.length > 0}>
     <ul>
@@ -36,6 +38,23 @@ const UsersBar = ({ handleLocation, users, removeUserRequest }) => (
     </ul>
   </Bar>
 );
+
+UsersBar.propTypes = {
+  handleLocation: PropTypes.func.isRequired,
+  removeUserRequest: PropTypes.func.isRequired,
+  users: PropTypes.shape({
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        avatar_url: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        username: PropTypes.string.isRequired,
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+      })
+    ),
+  }).isRequired,
+};
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(UserActions, dispatch);
