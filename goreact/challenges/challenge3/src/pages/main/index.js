@@ -63,10 +63,16 @@ class Main extends Component {
     });
   };
 
+  handleLocation = (latitude, longitude) => {
+    this.setState({
+      viewport: { ...this.state.viewport, latitude, longitude },
+    });
+  };
+
   render() {
     return (
       <Fragment>
-        <UsersBar />
+        <UsersBar handleLocation={this.handleLocation} />
         <ModalOverlay visible={this.state.modalVisibility}>
           <Modal>
             <h3>Add new user</h3>
@@ -98,7 +104,11 @@ class Main extends Component {
           onViewportChange={(viewport) => this.setState({ viewport })}
         >
           {this.props.users.data.map((user) => (
-            <Marker latitude={user.latitude} longitude={user.longitude}>
+            <Marker
+              key={user.id}
+              latitude={user.latitude}
+              longitude={user.longitude}
+            >
               <img
                 style={{
                   borderRadius: 100,

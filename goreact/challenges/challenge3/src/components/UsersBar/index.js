@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 
 import { Creators as UserActions } from "../../store/ducks/users";
 
-const UsersBar = ({ users, removeUserRequest }) => (
+const UsersBar = ({ handleLocation, users, removeUserRequest }) => (
   <Bar visible={users.data.length > 0}>
     <ul>
       {users.data.map((user) => (
@@ -22,14 +22,12 @@ const UsersBar = ({ users, removeUserRequest }) => (
             </div>
           </div>
           <div className="actions">
-            <button>
-              <img
-                src={deleteSvg}
-                onClick={() => removeUserRequest(user.id)}
-                alt="Delete"
-              />
+            <button onClick={() => removeUserRequest(user.id)}>
+              <img src={deleteSvg} alt="Delete" />
             </button>
-            <button>
+            <button
+              onClick={() => handleLocation(user.latitude, user.longitude)}
+            >
               <img src={arrowSvg} alt="Spot" />
             </button>
           </div>
