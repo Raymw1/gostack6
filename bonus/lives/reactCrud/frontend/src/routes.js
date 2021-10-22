@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import UserList from "./pages/UserList";
-import UserForm from "./pages/UserForm";
+import UserForm from "./pages/UserForm/formik";
 
 export default function Routes() {
   return (
