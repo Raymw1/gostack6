@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Header, Repositories } from "./styles";
+import { Header, Repositories, GlobalStyle } from "./styles";
 
 export default class App extends Component {
   state = {
@@ -45,6 +45,7 @@ export default class App extends Component {
             </li>
           ))}
         </Repositories>
+        <GlobalStyle />
       </>
     );
   }
