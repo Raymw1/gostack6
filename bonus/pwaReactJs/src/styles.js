@@ -63,7 +63,7 @@ export const Header = styled.header`
 
 export const Repositories = styled.ul`
   list-style: none;
-  margin: 7.2rem 2rem 2rem;
+  margin: 7.2rem 2rem 5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   gap: 1.6rem;
@@ -110,4 +110,18 @@ export const Repositories = styled.ul`
       }
     }
   }
+`;
+
+export const Offline = styled.footer`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 4rem;
+  width: 100%;
+  background-color: #c15959;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 `;
