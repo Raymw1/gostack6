@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 
+import Todo from './components/Todo';
+
 export default class App extends Component {
   render() {
-    return <View style={styles.container}></View>;
+    return (
+      <View style={styles.container}>
+        <Todo title="Study GoStack" />
+        <Todo />
+      </View>
+    );
   }
 }
 
