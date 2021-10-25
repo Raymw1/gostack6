@@ -9,9 +9,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({todos: [{id: 0, text: 'Component Mounted!'}]});
-    }, 3000);
+    this.setState({todos: [{id: 0, text: 'Component Mounted!'}]});
   }
 
   // static getDerivedStateFromProps(nextProps, prevState) { // Use props to change State
@@ -40,10 +38,11 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.todos.map(todo => (
-          <Todo key={todo.id} title={`${todo.id}:${todo.text}`} />
-        ))}
-        <Button title="Add Todo" onPress={this.addTodo} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
       </View>
     );
   }
@@ -52,8 +51,17 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#333',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5fcff',
+    alignContent: 'center',
+  },
+  box: {
+    width: 80,
+    height: 80,
+    backgroundColor: '#F00',
+    margin: 10,
+    transform: [{rotateZ: '20deg'}],
   },
 });
