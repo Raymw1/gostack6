@@ -8,6 +8,25 @@ export default class App extends Component {
     todos: [],
   };
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({todos: [{id: 0, text: 'Component Mounted!'}]});
+    }, 3000);
+  }
+
+  // static getDerivedStateFromProps(nextProps, prevState) { // Use props to change State
+  //   return {todos: nextProps.todos};
+  // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // Prevent render
+    return nextState.todos.length < 10;
+  }
+
+  // componentDidUpdate(prevProps, prevState) {}
+
+  // componentWillUnmount() {}
+
   addTodo = () => {
     const {todos} = this.state;
     this.setState({
