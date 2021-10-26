@@ -1,6 +1,7 @@
 import './config/ReactotronConfig';
+import './config/DevToolsConfig';
 import React, {Component} from 'react';
-import {View, StyleSheet, Button} from 'react-native';
+import {View, StyleSheet, Button, Text, Platform} from 'react-native';
 
 import Todo from '~/components/Todo';
 
@@ -41,11 +42,11 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.box} />
-        <View style={styles.box} />
-        <View style={styles.box} />
-        <View style={styles.box} />
-        <View style={styles.box} />
+        <Todo title="Make coffee" />
+        <Todo title="Study GoNative" />
+        <Text style={styles.text}>
+          Pletform: {Platform.OS === 'ios' ? 'IOS' : 'Android'}
+        </Text>
       </View>
     );
   }
@@ -55,10 +56,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#333',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
   },
   box: {
     width: 80,
@@ -66,5 +66,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#F00',
     margin: 10,
     transform: [{rotateZ: '20deg'}],
+  },
+  text: {
+    ...Platform.select({
+      ios: {
+        color: '#F00',
+      },
+      android: {
+        color: '#FF0',
+      },
+    }),
   },
 });
