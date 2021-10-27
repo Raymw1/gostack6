@@ -36,7 +36,7 @@ export default class Welcome extends Component {
   };
 
   saveUser = async username => {
-    await AsyncStorage.setItem('@Githuber/username', username);
+    await AsyncStorage.setItem('@Githuber:username', username);
   };
 
   render() {
