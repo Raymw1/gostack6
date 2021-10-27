@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Welcome = () => {
-  return (
-    <View>
-      <Text>Welcome</Text>
-    </View>
-  );
-};
+import styles from './styles';
+
+const Welcome = () => (
+  <View style={styles.container}>
+    <Text>Welcome</Text>
+  </View>
+);
 
 export default Welcome;
