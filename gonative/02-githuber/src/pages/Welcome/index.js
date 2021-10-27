@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
 import api from '../../services/api';
-import {View, Text, TextInput, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StatusBar,
+  ActivityIndicator,
+} from 'react-native';
 import {colors} from '../../styles';
 
 import styles from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Welcome extends Component {
-  state = {username: ''};
+  state = {username: '', loading: false, error: false};
 
   checkUserExists = async username => {
     const user = await api.get(`/users/${username}`);
@@ -15,6 +22,7 @@ export default class Welcome extends Component {
   };
 
   handleSignIn = async () => {
+    this.setState({loading: true});
     const {username} = this.state;
     const {navigation} = this.props;
     if (!username.trim()) return;
@@ -23,7 +31,7 @@ export default class Welcome extends Component {
       await this.saveUser(username);
       navigation.navigate('Repositories');
     } catch (error) {
-      console.log('User not found!');
+      this.setState({loading: false, error: true});
     }
   };
 
@@ -32,7 +40,7 @@ export default class Welcome extends Component {
   };
 
   render() {
-    const {username} = this.state;
+    const {username, loading, error} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar
@@ -43,6 +51,7 @@ export default class Welcome extends Component {
         <Text style={styles.text}>
           We need you to let us now your user on Github, to continue
         </Text>
+        {error && <Text style={styles.error}>User not found!</Text>}
         <View style={styles.form}>
           <TextInput
             style={styles.input}
@@ -54,7 +63,11 @@ export default class Welcome extends Component {
             onChangeText={text => this.setState({username: text})}
           />
           <TouchableOpacity style={styles.button} onPress={this.handleSignIn}>
-            <Text style={styles.buttonText}>Next</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="#FFF" />
+            ) : (
+              <Text style={styles.buttonText}>Next</Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>

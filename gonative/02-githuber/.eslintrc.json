@@ -17,11 +17,13 @@
   },
   "plugins": [
     "react",
-    "import"
+    "import",
+    "prettier"
   ],
   "rules": {
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "prettier/prettier": "error"
   },
   "globals": {
     "__DEV__": true
