@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import api from '../../services/api';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -14,6 +15,12 @@ import styles from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Welcome extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {username: '', loading: false, error: false};
 
   checkUserExists = async username => {

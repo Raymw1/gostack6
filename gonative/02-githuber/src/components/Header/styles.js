@@ -17,7 +17,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: colors.dark,
+    color: colors.darker,
+  },
+  icon: {
+    color: colors.darker,
   },
 });
 
