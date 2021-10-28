@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, FlatList} from 'react-native';
 import api from '../../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import RepositoryItem from './RepositoryItem';
 import Header from '../../components/Header';
 
+import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TabIcon = ({tintColor}) => (
@@ -32,14 +34,24 @@ export default class Repositories extends Component {
     this.setState({data, loading: false});
   }
 
-  renderList = () =>
-    this.state.data.map(repo => <Text key={repo.id}>{repo.name}</Text>);
+  renderListItem = ({item}) => <RepositoryItem repository={item} />;
+
+  renderList = () => {
+    const {data} = this.state;
+    return (
+      <FlatList
+        data={data}
+        key={item => String(item.id)}
+        renderItem={this.renderListItem}
+      />
+    );
+  };
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Header title="Repositories" />
-        {this.state.loading ? <ActivityIndicator /> : this.renderList}
+        {this.state.loading ? <ActivityIndicator /> : this.renderList()}
       </View>
     );
   }
