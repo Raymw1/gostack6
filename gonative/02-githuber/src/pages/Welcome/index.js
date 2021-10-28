@@ -36,7 +36,7 @@ export default class Welcome extends Component {
     try {
       await this.checkUserExists(username);
       await this.saveUser(username);
-      navigation.navigate('Repositories');
+      navigation.navigate('User');
     } catch (error) {
       this.setState({loading: false, error: true});
     }

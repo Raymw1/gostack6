@@ -18,6 +18,12 @@ target 'githuber' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'githuberTests' do
     inherit! :complete
     # Pods for testing
