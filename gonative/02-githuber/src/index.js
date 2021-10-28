@@ -8,6 +8,7 @@ import createNavigator from './routes';
 LogBox.ignoreLogs([
   'If you want to use Reanimated 2',
   "EventEmitter.removeListener('change', ...)",
+  "EventEmitter.removeListener('keyboardDid",
 ]);
 
 export default class App extends Component {
