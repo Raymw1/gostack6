@@ -12,7 +12,10 @@
   "dependencies": {
     "babel-plugin-module-resolver": "^4.1.0",
     "react": "17.0.2",
-    "react-native": "0.66.1"
+    "react-native": "0.66.1",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-vector-icons": "^9.0.0",
+    "react-navigation": "^4.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
