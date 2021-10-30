@@ -20,6 +20,13 @@ const OpacityButton = ({onPress, children, status, currentStatus}) => (
   </TouchableOpacity>
 );
 
+OpacityButton.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  children: PropTypes.element,
+  status: PropTypes.string.isRequired,
+  currentStatus: PropTypes.string.isRequired,
+};
+
 export default class Issues extends Component {
   static navigationOptions = props => ({
     ...HeaderConfig,
@@ -29,6 +36,7 @@ export default class Issues extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
+      getParam: PropTypes.func.isRequired,
     }).isRequired,
   };
 

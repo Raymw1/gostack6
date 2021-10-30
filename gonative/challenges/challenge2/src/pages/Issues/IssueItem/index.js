@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Linking} from 'react-native';
 import PropTypes from 'prop-types';
 
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const IssueItem = ({issue, navigation}) => {
-  // function handleNavigate() {
-  //   navigation.navigate('Issues', {repositoryId: issue.id});
-  // }
+  function handleNavigate() {
+    Linking.openURL(issue.html_url);
+  }
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handleNavigate}>
       <View style={styles.issue}>
         <Image
           style={styles.avatar}
@@ -34,6 +34,7 @@ const IssueItem = ({issue, navigation}) => {
 IssueItem.propTypes = {
   issue: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    html_url: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     user: PropTypes.shape({
       login: PropTypes.string.isRequired,
