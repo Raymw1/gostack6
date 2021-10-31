@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import api from 'services/api';
+import {ActivityIndicator} from 'react-native';
 
 import {Container, Input, Button, ButtonText, Error} from './styles';
 
@@ -15,19 +15,12 @@ class Login extends Component {
 
   handleSubmit = async () => {
     const {username} = this.state;
-    const {loginSuccess, loginFailure, navigation} = this.props;
-    try {
-      await api.get(`/users/${username}`);
-      loginSuccess(username);
-      navigation.navigate('Repositories');
-    } catch (error) {
-      loginFailure();
-    }
+    this.props.loginRequest(username);
   };
 
   render() {
     const {username} = this.state;
-    const {error} = this.props;
+    const {error, loading} = this.props;
     return (
       <Container>
         {error && <Error>User not found!</Error>}
@@ -39,7 +32,11 @@ class Login extends Component {
           onChangeText={text => this.setState({username: text})}
         />
         <Button onPress={this.handleSubmit}>
-          <ButtonText>Login</ButtonText>
+          {loading ? (
+            <ActivityIndicator size="small" color="#FFF" />
+          ) : (
+            <ButtonText>Login</ButtonText>
+          )}
         </Button>
       </Container>
     );
@@ -48,6 +45,7 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   error: state.login.error,
+  loading: state.login.loading,
 });
 
 const mapDispatchToProps = dispatch =>
