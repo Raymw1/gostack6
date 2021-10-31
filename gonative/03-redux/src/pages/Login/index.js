@@ -3,7 +3,11 @@ import api from 'services/api';
 
 import {Container, Input, Button, ButtonText, Error} from './styles';
 
-export default class Login extends Component {
+import * as LoginActions from 'store/actions/login';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+class Login extends Component {
   state = {
     username: '',
     error: false,
@@ -11,15 +15,22 @@ export default class Login extends Component {
 
   handleSubmit = async () => {
     const {username} = this.state;
+    const {loginSuccess, loginFailure, navigation} = this.props;
     try {
       await api.get(`/users/${username}`);
-    } catch (error) {}
+      loginSuccess(username);
+      navigation.navigate('Repositories');
+    } catch (error) {
+      loginFailure();
+    }
   };
 
   render() {
     const {username} = this.state;
+    const {error} = this.props;
     return (
       <Container>
+        {error && <Error>User not found!</Error>}
         <Input
           autoCapitalize="none"
           autoCorrect={false}
@@ -34,3 +45,12 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  error: state.login.error,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(LoginActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
