@@ -10,8 +10,12 @@ function reducer(state = INITIAL_STATE, action) {
     case 'ADD_TODO':
       return [
         ...state,
-        {id: state[state.length - 1]?.id + 1 || 1, text: action.payload.todo},
+        {id: state[state.length - 1]?.id + 1 || 1, text: action.payload.text},
       ];
+    case 'MARK_AS_COMPLETED':
+      return state.map(todo =>
+        todo.id === action.payload.id ? {...todo, done: !todo.done} : todo,
+      );
     case 'REMOVE_TODO':
       return state.filter((todo, index) => index !== action.payload);
     default:
