@@ -5,7 +5,8 @@ import rootReducer from './reducers';
 import rootSaga from './sagas';
 
 const middlewares = [];
-const sagaMiddleware = createSagaMiddleware();
+const sagaMonitor = __DEV__ ? console.tron.createSagaMonitor() : null;
+const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 middlewares.push(sagaMiddleware);
 
 const composer = __DEV__
