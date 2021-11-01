@@ -11,7 +11,7 @@ middlewares.push(sagaMiddleware);
 
 const composer = __DEV__
   ? compose(applyMiddleware(...middlewares), console.tron.createEnhancer())
-  : applyMiddleware(...[]);
+  : applyMiddleware(...middlewares);
 
 const store = createStore(rootReducer, composer);
 
