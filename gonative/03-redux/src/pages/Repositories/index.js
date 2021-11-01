@@ -5,7 +5,7 @@ import {Container} from './styles';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as RepositoriesActions from 'store/actions/repositories';
+import {Creators as RepositoriesActions} from 'store/ducks/repositories';
 
 class Repositories extends Component {
   componentDidMount() {

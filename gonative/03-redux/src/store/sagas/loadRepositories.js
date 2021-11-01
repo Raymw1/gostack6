@@ -1,7 +1,7 @@
 import {call, put, select} from '@redux-saga/core/effects';
 import api from 'services/api';
 
-import * as RepositoriesActions from 'store/actions/repositories';
+import {Creators as RepositoriesActions} from 'store/ducks/repositories';
 
 export default function* loadRepositories() {
   try {
