@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import MapView from 'react-native-maps';
+import {Text} from 'react-native';
+import MapView, {Callout} from 'react-native-maps';
 
 import AddUser from 'components/AddUser';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Creators as ModalActions} from 'store/ducks/modal';
+
+import {Avatar, PopupContainer, PopupTitle} from './styles';
 
 class Map extends Component {
   state = {
@@ -23,23 +26,42 @@ class Map extends Component {
   };
 
   render() {
+    const {region} = this.state;
+    const {
+      user: {data: users},
+    } = this.props;
     return (
       <>
         <AddUser />
         <MapView
           style={{flex: 1}}
-          region={this.state.region}
+          initialRegion={region}
           onLongPress={e => {
             this.addUser(e.nativeEvent.coordinate);
-          }}
-        />
+          }}>
+          {users.map(user => (
+            <MapView.Marker
+              key={user.id}
+              coordinate={{...user.latLng}}
+              name={user.name}
+              bio={user.bio}>
+              <Avatar source={{uri: user.avatar}} />
+              <Callout>
+                <PopupContainer>
+                  <PopupTitle>{user.name}</PopupTitle>
+                  <Text numberOfLines={5}>{user.bio}</Text>
+                </PopupContainer>
+              </Callout>
+            </MapView.Marker>
+          ))}
+        </MapView>
       </>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  modal: state.modal,
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch =>

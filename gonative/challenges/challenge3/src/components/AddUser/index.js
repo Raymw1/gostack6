@@ -21,19 +21,15 @@ class AddUser extends Component {
     githubUser: '',
   };
 
-  componentDidMount() {
-    console.tron.log(this.props.latLng);
-  }
-
   addUser = async () => {
     const {githubUser} = this.state;
+    if (!githubUser.trim()) return;
     const {
       modal: {latLng},
       addUserRequest,
     } = this.props;
-    if (githubUser) {
-      await addUserRequest(githubUser, latLng);
-    }
+    await addUserRequest(githubUser, latLng);
+    this.setState({githubUser: ''});
   };
 
   render() {
