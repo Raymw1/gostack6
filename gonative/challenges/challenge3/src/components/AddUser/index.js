@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Modal, ActivityIndicator} from 'react-native';
+import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -17,6 +18,21 @@ import {
 } from './styles';
 
 class AddUser extends Component {
+  static propTypes = {
+    modal: PropTypes.shape({
+      modalVisibility: PropTypes.bool.isRequired,
+      latLng: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+      }),
+    }).isRequired,
+    user: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+    }).isRequired,
+    toggleModalSuccess: PropTypes.func.isRequired,
+    addUserRequest: PropTypes.func.isRequired,
+  };
+
   state = {
     githubUser: '',
   };

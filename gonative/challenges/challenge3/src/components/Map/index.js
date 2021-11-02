@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text} from 'react-native';
 import MapView, {Callout} from 'react-native-maps';
+import PropTypes from 'prop-types';
 
 import AddUser from 'components/AddUser';
 
@@ -11,6 +12,20 @@ import {Creators as ModalActions} from 'store/ducks/modal';
 import {Avatar, PopupContainer, PopupTitle} from './styles';
 
 class Map extends Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          name: PropTypes.string,
+          bio: PropTypes.string,
+          avatar: PropTypes.string,
+        }),
+      ).isRequired,
+    }).isRequired,
+    toggleModalSuccess: PropTypes.func.isRequired,
+  };
+
   state = {
     region: {
       latitude: -27.2177659,
