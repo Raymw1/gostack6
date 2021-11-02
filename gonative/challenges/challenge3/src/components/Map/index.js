@@ -19,7 +19,7 @@ class Map extends Component {
 
   addUser = async coordinate => {
     await this.props.toggleModalSuccess(true, coordinate);
-    return <AddUser latLng={coordinate} />;
+    return <AddUser />;
   };
 
   render() {

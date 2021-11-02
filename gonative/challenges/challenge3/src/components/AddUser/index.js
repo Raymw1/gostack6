@@ -4,6 +4,7 @@ import {Modal, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Creators as ModalActions} from '../../store/ducks/modal';
+import {Creators as UserActions} from '../../store/ducks/user';
 
 import {
   Container,
@@ -20,17 +21,28 @@ class AddUser extends Component {
     githubUser: '',
   };
 
+  componentDidMount() {
+    console.tron.log(this.props.latLng);
+  }
+
   addUser = async () => {
     const {githubUser} = this.state;
-    const {addUserRequest} = this.props;
+    const {
+      modal: {latLng},
+      addUserRequest,
+    } = this.props;
     if (githubUser) {
-      await addUserRequest(githubUser);
+      await addUserRequest(githubUser, latLng);
     }
   };
 
   render() {
     const {githubUser} = this.state;
-    const {modalVisibility, loading, toggleModalSuccess} = this.props;
+    const {
+      modal: {modalVisibility},
+      user: {loading},
+      toggleModalSuccess,
+    } = this.props;
     return (
       <Modal
         animationType="slide"
@@ -71,11 +83,11 @@ class AddUser extends Component {
 }
 
 const mapStateToProps = state => ({
-  modalVisibility: state.modal.modalVisibility,
-  // loading: state.users.loading,
+  modal: state.modal,
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(ModalActions, dispatch);
+  bindActionCreators({...ModalActions, ...UserActions}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
