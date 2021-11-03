@@ -3,9 +3,16 @@ import {Text, View, Animated} from 'react-native';
 
 // Animated.View, Animated.Text, Animated.Image, Animated.ScrollView
 
+const ballY = new Animated.Value(0);
+// const ballX = new Animated.add(ballY, 0);
+// const ballX = new Animated.subtract(ballY, 0);
+// const ballX = new Animated.multiply(ballY, 5);
+const ballX = new Animated.divide(ballY, 5);
+
 export default class App extends Component {
   state = {
-    ballY: new Animated.Value(0),
+    ballY,
+    ballX,
   };
 
   componentDidMount() {
@@ -40,7 +47,9 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Animated.View style={[styles.ball, {top: this.state.ballY}]} />
+        <Animated.View
+          style={[styles.ball, {top: this.state.ballY, left: this.state.ballX}]}
+        />
       </View>
     );
   }
