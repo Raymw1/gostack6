@@ -9,12 +9,33 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    // this.timingAnimation();
+    // this.springAnimation();
+    this.decayAnimation();
+  }
+
+  timingAnimation = () => {
     Animated.timing(this.state.ballY, {
       toValue: 500,
       duration: 1000,
       useNativeDriver: false,
     }).start();
-  }
+  };
+
+  springAnimation = () => {
+    Animated.spring(this.state.ballY, {
+      toValue: 300,
+      bounciness: 30,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  decayAnimation = () => {
+    Animated.decay(this.state.ballY, {
+      velocity: 1,
+      useNativeDriver: false,
+    }).start();
+  };
 
   render() {
     return (
