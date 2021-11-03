@@ -4,10 +4,11 @@ import {Text, View, Animated} from 'react-native';
 // Animated.View, Animated.Text, Animated.Image, Animated.ScrollView
 
 const ballY = new Animated.Value(0);
+const ballX = new Animated.Value(0);
 // const ballX = new Animated.add(ballY, 0);
 // const ballX = new Animated.subtract(ballY, 0);
 // const ballX = new Animated.multiply(ballY, 5);
-const ballX = new Animated.divide(ballY, 5);
+// const ballX = new Animated.divide(ballY, 5);
 
 export default class App extends Component {
   state = {
@@ -18,7 +19,11 @@ export default class App extends Component {
   componentDidMount() {
     // this.timingAnimation();
     // this.springAnimation();
-    this.decayAnimation();
+    // this.decayAnimation();
+    // this.sequenceAnimation();
+    // this.parallelAnimation();
+    // this.staggerAnimation();
+    this.loopAnimation();
   }
 
   timingAnimation = () => {
@@ -42,6 +47,89 @@ export default class App extends Component {
       velocity: 1,
       useNativeDriver: false,
     }).start();
+  };
+
+  sequenceAnimation = () => {
+    // Wait the first one
+    Animated.sequence([
+      Animated.timing(this.state.ballY, {
+        toValue: 200,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.delay(500),
+      Animated.timing(this.state.ballX, {
+        toValue: 200,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  parallelAnimation = () => {
+    // All together
+    Animated.parallel([
+      Animated.timing(this.state.ballY, {
+        toValue: 200,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.timing(this.state.ballX, {
+        toValue: 200,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  staggerAnimation = () => {
+    // Wait the first one with delay
+    Animated.stagger(500, [
+      Animated.timing(this.state.ballY, {
+        toValue: 200,
+        duration: 1000,
+        useNativeDriver: false,
+      }),
+      Animated.timing(this.state.ballX, {
+        toValue: 200,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  loopAnimation = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.state.ballY, {
+          toValue: 200,
+          duration: 500,
+          useNativeDriver: false,
+        }),
+        Animated.delay(500),
+        Animated.timing(this.state.ballX, {
+          toValue: 200,
+          duration: 500,
+          useNativeDriver: false,
+        }),
+        Animated.delay(500),
+        Animated.timing(this.state.ballY, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: false,
+        }),
+        Animated.delay(500),
+        Animated.timing(this.state.ballX, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: false,
+        }),
+        Animated.delay(500),
+      ]),
+      {
+        iterations: 3,
+      },
+    ).start();
   };
 
   render() {
