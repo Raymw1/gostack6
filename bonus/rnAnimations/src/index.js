@@ -102,13 +102,13 @@ export default class App extends Component {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.state.ballY, {
-          toValue: 200,
+          toValue: 300,
           duration: 500,
           useNativeDriver: false,
         }),
         Animated.delay(500),
         Animated.timing(this.state.ballX, {
-          toValue: 200,
+          toValue: 300,
           duration: 500,
           useNativeDriver: false,
         }),
@@ -136,7 +136,18 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Animated.View
-          style={[styles.ball, {top: this.state.ballY, left: this.state.ballX}]}
+          style={[
+            styles.ball,
+            {
+              top: this.state.ballY,
+              left: this.state.ballX,
+              opacity: this.state.ballY.interpolate({
+                inputRange: [0, 100, 200],
+                outputRange: [1, 1, 0.2],
+                extrapolate: 'clamp',
+              }),
+            },
+          ]}
         />
       </View>
     );
