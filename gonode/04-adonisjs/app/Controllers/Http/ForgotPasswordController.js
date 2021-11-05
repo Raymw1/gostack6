@@ -40,10 +40,6 @@ class ForgotPasswordController {
     try {
       const { token, password } = request.all()
       const user = await User.findByOrFail('token', token)
-      if (!user)
-        return response
-          .status(400)
-          .send({ error: { message: 'User not found' } })
       const tokenExpired = moment()
         .subtract('2', 'days')
         .isAfter(user.token_created_at)
