@@ -31,6 +31,7 @@
     "adonis-kue": "^5.0.1",
     "moment": "^2.29.1",
     "pg": "^8.7.1",
+    "raven": "^2.6.4",
     "youch": "^2.2.2"
   },
   "devDependencies": {
