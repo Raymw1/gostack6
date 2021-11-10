@@ -5,7 +5,8 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Appointment = use('App/Models/Appointment')
-const Mail = use('Mail')
+const Kue = use('Kue')
+const Job = use('App/Jobs/ShareAppointmentMail')
 const moment = require('moment')
 
 /**
@@ -101,25 +102,20 @@ class AppointmentController {
    * Share a appointment with id.
    * SHARE share/:id
    */
-  async share({ params, request, response }) {
+  async share({ params, request, response, auth }) {
     try {
       const email = request.input('email')
       const appointment = await Appointment.findOrFail(params.id)
-      await appointment.load('user')
-      await Mail.send(
-        ['emails.share'],
+      Kue.dispatch(
+        Job.key,
         {
-          organizer: appointment.user.username,
+          email,
+          organizer: auth.user.username,
           title: appointment.title,
           location: appointment.location,
-          date: moment(appointment.date).formatU('LLL')
+          date: moment(appointment.date).format('LLL')
         },
-        (message) => {
-          message
-            .to(email)
-            .from('rayan@gonode.com', 'Rayan | GoNode')
-            .subject('Appointment Invitation')
-        }
+        { attempts: 3 }
       )
     } catch (err) {
       return response.status(err.status).send({
