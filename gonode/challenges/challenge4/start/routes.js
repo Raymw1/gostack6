@@ -21,4 +21,5 @@ Route.post('/sessions', 'SessionController.store')
 
 Route.group(() => {
   Route.put('/users', 'UserController.update')
+  Route.resource('/appointments', 'AppointmentController').apiOnly()
 }).middleware(['auth'])
