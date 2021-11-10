@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class Share {
   get validateAll() {
     return true
@@ -9,6 +11,10 @@ class Share {
     return {
       email: 'required|email'
     }
+  }
+
+  get messages() {
+    return Antl.list('validation')
   }
 }
 
