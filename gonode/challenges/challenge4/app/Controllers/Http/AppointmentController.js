@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Appointment = use('App/Models/Appointment')
+const Mail = use('Mail')
 const moment = require('moment')
 
 /**
@@ -94,6 +95,39 @@ class AppointmentController {
         .status(401)
         .send({ error: { message: 'Appointment already happened!' } })
     await appointment.delete()
+  }
+
+  /**
+   * Share a appointment with id.
+   * SHARE share/:id
+   */
+  async share({ params, request, response }) {
+    try {
+      const email = request.input('email')
+      const appointment = await Appointment.findOrFail(params.id)
+      await appointment.load('user')
+      await Mail.send(
+        ['emails.share'],
+        {
+          organizer: appointment.user.username,
+          title: appointment.title,
+          location: appointment.location,
+          date: moment(appointment.date).formatU('LLL')
+        },
+        (message) => {
+          message
+            .to(email)
+            .from('rayan@gonode.com', 'Rayan | GoNode')
+            .subject('Appointment Invitation')
+        }
+      )
+    } catch (err) {
+      return response.status(err.status).send({
+        error: {
+          message: 'Something went wrong! Does this appointment really exists?'
+        }
+      })
+    }
   }
 }
 
