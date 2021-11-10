@@ -16,11 +16,13 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('/users', 'UserController.store')
-Route.post('/sessions', 'SessionController.store')
+Route.post('/users', 'UserController.store').validator('User')
+Route.post('/sessions', 'SessionController.store').validator('Session')
 
 Route.group(() => {
-  Route.put('/users', 'UserController.update')
-  Route.resource('/appointments', 'AppointmentController').apiOnly()
-  Route.post('/share/:id', 'AppointmentController.share')
+  Route.put('/users', 'UserController.update').validator('UserUpdate')
+  Route.resource('/appointments', 'AppointmentController')
+    .apiOnly()
+    .validator('Appointment')
+  Route.post('/share/:id', 'AppointmentController.share').validator('Share')
 }).middleware(['auth'])

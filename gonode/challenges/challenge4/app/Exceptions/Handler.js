@@ -24,7 +24,7 @@ class ExceptionHandler extends BaseExceptionHandler {
    */
   async handle(error, { request, response }) {
     if (error.name === 'ValidationException')
-      return response.status(error.status).send(error.message)
+      return response.status(error.status).send(error.messages)
 
     if (Env.get('NODE_ENV') === 'development') {
       const youch = new Youch(error, request.request)
