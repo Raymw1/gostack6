@@ -1,15 +1,23 @@
 {
   "name": "05-tests",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "sequelize": "^6.9.0"
   },
   "devDependencies": {
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.3.0",
+    "sqlite3": "^5.0.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "NODE_ENV=test jest",
+    "start": "node .",
+    "dev": "nodemon . --ignore __tests__"
   }
 }
