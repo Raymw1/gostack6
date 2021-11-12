@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../src/app");
-const { User } = require("../../src/app/models");
 const truncate = require("../utils/truncate");
+const factory = require("../factories");
 
 describe("Authentication", () => {
   beforeEach(async () => {
@@ -10,9 +10,7 @@ describe("Authentication", () => {
   // ========== beforeAll, afterEach, afterAll ==========
 
   it("should be able to authenticate with valid credentials", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: "rayan@rocketseat.com.br",
+    const user = await factory.create("User", {
       password: "123123",
     });
     // POST /sessions { email, password }
@@ -24,10 +22,8 @@ describe("Authentication", () => {
   });
 
   it("should not be able to authenticate with invalid credentials", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: "rayan@rocketseat.com.br",
-      password: "123123",
+    const user = await factory.create("User", {
+      password: "1231231",
     });
     // POST /sessions { email, !password }
     const response = await request(app).post("/sessions").send({
@@ -38,9 +34,7 @@ describe("Authentication", () => {
   });
 
   it("should return jwt token when authenticated", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: "rayan@rocketseat.com.br",
+    const user = await factory.create("User", {
       password: "123123",
     });
     // POST /sessions { email, password }
@@ -52,9 +46,7 @@ describe("Authentication", () => {
   });
 
   it("shoud be able to access private routes when authenticated", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: "rayan@rocketseat.com.br",
+    const user = await factory.create("User", {
       password: "123123",
     });
     // POST /sessions { email, password }
