@@ -32,7 +32,7 @@ describe("Authentication", () => {
     expect(response.status).toBe(200);
   });
 
-  it("should not be able to authenticate with invalid credentials", async () => {
+  it("should not be able to authenticate with invalid password", async () => {
     const user = await factory.create("User", {
       password: "1231231",
     });
@@ -41,6 +41,14 @@ describe("Authentication", () => {
       email: user.email,
       password: "123456",
     });
+    expect(response.status).toBe(401);
+  });
+
+  it("should not be able to authenticate with invalid email", async () => {
+    // POST /sessions { !email }
+    const response = await request(app)
+      .post("/sessions")
+      .send({ email: "anyemail@any.com", password: "any" });
     expect(response.status).toBe(401);
   });
 
