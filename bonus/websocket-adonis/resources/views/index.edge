@@ -9,8 +9,18 @@
   </head>
 
   <body>
-    <div id="status"></div>
-    Status
+    <div id="content">
+      <header>
+        <div id="status"></div>
+        Status
+      </header>
+      <section>
+        <ul></ul>
+      </section>
+      <footer>
+        <textarea placeholder="What are you thinking about?"></textarea>
+      </footer>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
     <script src="https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js"></script>
     <script>
@@ -27,6 +37,43 @@
       ws.on("close", () => {
         status.classList.remove("online");
         console.warn("Disconnected!");
+      });
+
+      const url = new URLSearchParams(window.location.search);
+      const name = url.get("name");
+
+      const chat = ws.subscribe("chat");
+
+      const textarea = document.querySelector("textarea");
+      textarea.addEventListener("keypress", (e) => {
+        if (e.code === "Enter") {
+          e.preventDefault();
+          chat.emit("message", { text: textarea.value, name });
+          textarea.value = "";
+        }
+      });
+
+      function generateMessage(text, author) {
+        const messageBox = document.querySelector("ul");
+        const messageElement = document.createElement("li");
+        const authorElement = document.createElement("b");
+        const messageText = document.createTextNode(text);
+        const authorText = document.createTextNode(author);
+        authorElement.setAttribute("style", "margin-right: 8px");
+        authorElement.appendChild(authorText);
+        messageElement.appendChild(authorElement);
+        messageElement.appendChild(messageText);
+        messageBox.appendChild(messageElement);
+      }
+
+      function scrollSection() {
+        const section = document.querySelector("section");
+        section.scrollTop = section.scrollHeight;
+      }
+
+      chat.on("message", (data) => {
+        generateMessage(data.text, data.name);
+        scrollSection();
       });
     </script>
   </body>
