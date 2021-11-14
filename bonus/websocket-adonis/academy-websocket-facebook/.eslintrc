@@ -1,5 +1,7 @@
 {
-  "extends": "standard",
+  "extends": ["standard", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {"prettier/prettier": "error"},
   "globals": {
     "use": true
   }
