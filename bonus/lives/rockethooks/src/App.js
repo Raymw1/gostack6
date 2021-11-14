@@ -12,39 +12,39 @@ function counter(state, action) {
 }
 
 export default function App() {
-  const [counter, setCounter] = useState(0);
+  const [data, setData] = useState([]);
   // const [state, dispatch] = useReducer(counter, { counter: 0 });
   // ==== VALUE || CHANGE VALUE FUNCTION ====
 
   useEffect(() => {
-    document.title = counter;
-  }, [counter]);
+    async function fetchData() {
+      const response = await fetch("https://api.github.com/users/raymw1/repos");
+      const responseData = await response.json();
+      setData(responseData);
+    }
+    fetchData();
+  }, []);
 
-  useEffect(() => {
-    return () => {
-      // componentWillUnmount
-    };
-  });
-
-  /// useEffect (1 param): componentDidMount, compontDidUpdate
+  // useEffect (1 param): componentDidMount, compontDidUpdate
+  // useEffect (1 param, []): componentDidMount
   // useEffect (2 params): componentDidMount, compontDidUpdate (shouldUpdate)
   // useEffect (1 params, return function): componentWillUnmount
 
-  function increment() {
-    setCounter(counter + 1);
-    // dispatch({ type: "increment" });
-  }
+  // function increment() {
+  //   setCounter(counter + 1);
+  //   // dispatch({ type: "increment" });
+  // }
 
-  function decrement() {
-    setCounter(counter - 1);
-    // dispatch({ type: "decrement" });
-  }
+  // function decrement() {
+  //   setCounter(counter - 1);
+  //   // dispatch({ type: "decrement" });
+  // }
 
   return (
-    <>
-      <h1>Counter: {counter}</h1>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={increment}>Increment</button>
-    </>
+    <ul>
+      {data.map((repo) => (
+        <li key={repo.id}>{repo.name}</li>
+      ))}
+    </ul>
   );
 }
