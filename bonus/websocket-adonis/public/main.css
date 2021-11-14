@@ -1,0 +1,49 @@
+#status {
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: red;
+  display: inline-block;
+}
+
+#status.online {
+  background: green;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.121);
+  border-radius: 3px;
+}
+
+#content header {
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.121);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+#content section ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#content section {
+  height: 400px;
+  overflow-y: scroll;
+}
+
+#content section ul li {
+  padding: 5px 2px;
+}
+
+#content footer {
+  display: flex;
+}
+#content footer textarea {
+  flex: 1;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
