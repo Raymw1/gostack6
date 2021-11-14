@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Facebook</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="fb-buttons.css">
+</head>
+
+<body>
+  <header id="main-header">
+    <div class="content">
+      <nav>
+        <div>
+          <img src="images/logo.svg" alt="Logo Facebook">
+          <div class="search">
+            <input type="text" placeholder="Search on Facebook">
+            <button></button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="side">
+
+        <img class="profile" src="images/avatar.png" alt="">
+        <ul class="pages">
+          <li>Usuário</li>
+          <li>Página Inicial</li>
+          <li>Criar</li>
+        </ul>
+        <ul class="actions">
+          <li><img src="images/friends.svg" alt="Friends" /></li>
+          <li><img src="images/chat.svg" alt="Chat" /></li>
+          <li><img src="images/notification.svg" alt="Notification" /></li>
+        </ul>
+        <img src="images/triangle.svg" alt="" />
+      </div>
+    </div>
+  </header>
+
+  <div class="wrapper-content content">
+    <aside class="profile">
+      <div class="user">
+        <img class="avatar" src="images/avatar.png" alt="Diego Fernandes">
+        <span>Higo Ribeiro</span>
+      </div>
+      <ul class="list">
+        <li class="activate"><img src="images/place.svg" alt="Place"> Feed de notícias</li>
+        <li><img src="images/chat.svg" alt="URL">Messenger</li>
+        <li><img src="images/joined.svg" alt="Joined">Marketplace</li>
+      </ul>
+    </aside>
+
+    <section class="timeline">
+      <div class="newsfeed">
+        <div class="header">
+          <img src="images/pencil.svg" alt="Pencil" />
+          Status
+          <img src="images/photo.svg" alt="Pencil" />
+          Photo / Video
+        </div>
+        <div class="post-area">
+          <div class="group">
+            <img class="avatar" src="images/avatar.png" alt="Diego Fernandes">
+            <textarea id="post" placeholder="Write something"></textarea>
+          </div>
+          <button id="publish-post" class="uibutton large confirm" type="submit">Publish</button>
+        </div>
+      </div>
+
+
+      <ul class="posts">
+      </ul>
+    </section>
+
+    <aside class="widgets">
+      <div class="widget notification">
+        <div class="title">
+          <strong>Notifications</strong>
+        </div>
+        <ul>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
+<script>(function ($) {
+    autosize($('textarea'))
+  })(jQuery);</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+<script src="https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js"></script>
+<script src="utils.js"></script>
+<script src="template.js"></script>
+<script src="main.js"></script>
+
+</html>
