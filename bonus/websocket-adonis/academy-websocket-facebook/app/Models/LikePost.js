@@ -3,11 +3,17 @@
 const Model = use('Model')
 
 class LikePost extends Model {
-  post () {
+  static boot() {
+    super.boot()
+    this.addHook('afterCreate', 'LikePostHook.sendWs')
+    this.addHook('afterDelete', 'LikePostHook.sendWs')
+  }
+
+  post() {
     return this.belongsTo('App/Models/Post')
   }
 
-  user () {
+  user() {
     return this.belongsTo('App/Models/User')
   }
 }

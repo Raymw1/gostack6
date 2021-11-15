@@ -32,3 +32,7 @@ function ajax(url, data, method = 'post') {
     data
   })
 }
+
+function $likes(likes, type = 'post') {
+  $(`span[data-${type}-id="${likes.id}"]`).text(likes.count)
+}
