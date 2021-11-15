@@ -58,5 +58,16 @@ const Template = {
         <button data-post-id="1" class="uibutton large confirm comment-post" type="submit">Comment</button>
       </div>
     </li>`
+  },
+  notification({ content }) {
+    return `<li>
+      <div class="profile">
+        <img src="images/avatar.png" alt="Avatar">
+        <div class="info">
+          ${content}
+        </div>
+      </div>
+      <a href="">x</a>
+    </li>`
   }
 }

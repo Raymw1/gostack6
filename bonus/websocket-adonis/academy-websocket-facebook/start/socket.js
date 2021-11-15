@@ -16,3 +16,4 @@
 const Ws = use('Ws')
 
 Ws.channel('posts', 'PostController').middleware(['auth'])
+Ws.channel('notification:*', 'NotificationController').middleware(['auth'])

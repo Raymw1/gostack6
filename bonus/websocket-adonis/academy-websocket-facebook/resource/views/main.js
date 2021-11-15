@@ -8,6 +8,11 @@
   posts.on('new', (post) => $('.posts').prepend(Template.post(post)))
   posts.on('likes', (likes) => $likes(likes))
 
+  const notifications = ws.subscribe(`notification:${userId}`)
+  notifications.on('message', (notification) =>
+    $('.notification > ul').prepend(Template.notification(notification))
+  )
+
   $('#publish-post').on('click', async () => {
     const content = $('#post').val()
     $('#post').val('')

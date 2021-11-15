@@ -3,7 +3,12 @@
 const Model = use('Model')
 
 class Notification extends Model {
-  user () {
+  static boot() {
+    super.boot()
+    this.addHook('afterCreate', 'NotificationHook.sendWs')
+  }
+
+  user() {
     return this.belongsTo('App/Models/User')
   }
 }
