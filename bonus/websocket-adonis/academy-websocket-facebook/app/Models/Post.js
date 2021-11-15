@@ -3,19 +3,24 @@
 const Model = use('Model')
 
 class Post extends Model {
-  user () {
+  static boot() {
+    super.boot()
+    this.addHook('afterCreate', 'PostHook.sendWs')
+  }
+
+  user() {
     return this.belongsTo('App/Models/User')
   }
 
-  likes () {
+  likes() {
     return this.hasMany('App/Models/LikePost')
   }
 
-  comments () {
+  comments() {
     return this.hasMany('App/Models/Comment')
   }
 
-  static scopeWithLikes (query) {
+  static scopeWithLikes(query) {
     return query.select('*', function () {
       return this.count('*')
         .from('like_posts')
