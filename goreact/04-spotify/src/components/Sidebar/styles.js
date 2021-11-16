@@ -25,7 +25,7 @@ export const Nav = styled.ul`
       color: inherit;
       text-decoration: none;
       font-size: 1.3rem;
-      line-height: 3.2rem;
+      line-height: 2.8rem;
       font-weight: ${(props) => (props.main ? "bold" : "normal")};
       &:hover {
         color: #fff;
