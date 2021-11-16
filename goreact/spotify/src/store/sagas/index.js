@@ -4,7 +4,5 @@ import { all, takeLatest } from "redux-saga/effects";
 // import { addPlaylist } from "./playlist";
 
 export default function* rootSaga() {
-  yield all([
-    // takeLatest(PlaylistTypes.ADD_REQUEST, addPlaylist)
-  ]);
+  yield all([takeLatest()]);
 }
