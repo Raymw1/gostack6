@@ -1,5 +1,12 @@
+import "./config/ReactotronConfig";
 import React from "react";
+import { Provider } from "react-redux";
+import store from "./store";
 
 export default function App() {
-  return <h1>Hello, World!</h1>;
+  return (
+    <Provider store={store}>
+      <h1>Hello, World!</h1>
+    </Provider>
+  );
 }
