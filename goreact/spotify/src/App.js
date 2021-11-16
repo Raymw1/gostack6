@@ -1,13 +1,16 @@
 import "./config/ReactotronConfig";
+import GlobalStyle from "./styles/global";
 import React from "react";
+
 import { Provider } from "react-redux";
 import store from "./store";
-import GlobalStyle from "./styles/global";
+
+import Sidebar from "./components/Sidebar";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <h1>Hello, World!</h1>
+      <Sidebar />
       <GlobalStyle />
     </Provider>
   );
