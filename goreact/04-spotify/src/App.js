@@ -1,7 +1,8 @@
 import "./config/ReactotronConfig";
 import "./styles";
-import GlobalStyle from "./styles/global";
 import React from "react";
+import GlobalStyle from "./styles/global";
+import { BrowserRouter } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -11,19 +12,24 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Player from "./components/Player";
 
+import Routes from "./routes";
+
 export default function App() {
   return (
     <Provider store={store}>
-      <Wrapper>
-        <Container>
-          <Sidebar />
-          <Content>
-            <Header />
-          </Content>
-        </Container>
-        <Player />
-      </Wrapper>
-      <GlobalStyle />
+      <BrowserRouter>
+        <Wrapper>
+          <Container>
+            <Sidebar />
+            <Content>
+              <Header />
+              <Routes />
+            </Content>
+          </Container>
+          <Player />
+        </Wrapper>
+        <GlobalStyle />
+      </BrowserRouter>
     </Provider>
   );
 }

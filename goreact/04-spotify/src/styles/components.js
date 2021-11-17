@@ -19,4 +19,5 @@ export const Content = styled.div`
   background-size: 100% 25rem, 100%;
   background-repeat: no-repeat;
   background-position: top;
+  padding: 0 2rem;
 `;
