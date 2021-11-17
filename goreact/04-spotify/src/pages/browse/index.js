@@ -6,7 +6,7 @@ const Browse = () => (
   <Container>
     <Title>Browse</Title>
     <List>
-      <Playlist href="">
+      <Playlist to="/playlists/1">
         <img
           src="https://carrefourbr.vtexassets.com/arquivos/ids/7146517/MP28868605_Kit-de-Camisetas-Camisas-Iron-Maiden-Com-2-Pecas-G_3_Zoom.jpg?v=637348691650500000"
           alt="Iron Maiden"
@@ -14,7 +14,7 @@ const Browse = () => (
         <strong>Best rocks</strong>
         <p>Relax while you are coding, listening just the best rock songs!</p>
       </Playlist>
-      <Playlist href="">
+      <Playlist to="/playlists/1">
         <img
           src="https://carrefourbr.vtexassets.com/arquivos/ids/7146517/MP28868605_Kit-de-Camisetas-Camisas-Iron-Maiden-Com-2-Pecas-G_3_Zoom.jpg?v=637348691650500000"
           alt="Iron Maiden"
@@ -22,7 +22,7 @@ const Browse = () => (
         <strong>Best rocks</strong>
         <p>Relax while you are coding, listening just the best rock songs!</p>
       </Playlist>
-      <Playlist href="">
+      <Playlist to="/playlists/1">
         <img
           src="https://carrefourbr.vtexassets.com/arquivos/ids/7146517/MP28868605_Kit-de-Camisetas-Camisas-Iron-Maiden-Com-2-Pecas-G_3_Zoom.jpg?v=637348691650500000"
           alt="Iron Maiden"
@@ -30,7 +30,7 @@ const Browse = () => (
         <strong>Best rocks</strong>
         <p>Relax while you are coding, listening just the best rock songs!</p>
       </Playlist>
-      <Playlist href="">
+      <Playlist to="/playlists/1">
         <img
           src="https://carrefourbr.vtexassets.com/arquivos/ids/7146517/MP28868605_Kit-de-Camisetas-Camisas-Iron-Maiden-Com-2-Pecas-G_3_Zoom.jpg?v=637348691650500000"
           alt="Iron Maiden"
