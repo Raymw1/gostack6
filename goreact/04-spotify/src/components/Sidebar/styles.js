@@ -17,6 +17,9 @@ export const Container = styled.aside`
 export const Nav = styled.ul`
   list-style: none;
   margin-top: 2.4rem;
+  /* overflow-y: ${(props) => (props.playlists ? "scroll" : "initial")};
+  height: ${(props) => (props.playlists ? "8rem" : "initial")}; */
+
   &:first-child {
     margin-top: 0;
   }

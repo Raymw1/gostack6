@@ -34,7 +34,7 @@ class Sidebar extends Component {
         <div>
           <Nav main>
             <li>
-              <a href="">Explore</a>
+              <Link to="/">Browse</Link>
             </li>
             <li>
               <a href="">Radio</a>
@@ -72,7 +72,7 @@ class Sidebar extends Component {
               <a href="">Podcasts</a>
             </li>
           </Nav>
-          <Nav>
+          <Nav playlists>
             <li>
               <span>Playlists</span>
             </li>
