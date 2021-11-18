@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { Creators as PlaylistsActions } from "../../store/ducks/playlists";
 import { bindActionCreators } from "redux";
 
+import Loading from "../../components/Loading";
+
 class Browse extends Component {
   static propTypes = {
     getPlaylistsRequest: PropTypes.func.isRequired,
@@ -30,7 +32,7 @@ class Browse extends Component {
   render() {
     return (
       <Container>
-        <Title>Browse</Title>
+        <Title>Browse {this.props.playlists.loading && <Loading />}</Title>
         <List>
           {this.props.playlists.data.map((playlist) => (
             <Playlist key={playlist.id} to={`/playlists/${playlist.id}`}>

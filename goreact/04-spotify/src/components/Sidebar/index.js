@@ -7,6 +7,7 @@ import { Creators as PlaylistsActions } from "../../store/ducks/playlists";
 import { bindActionCreators } from "redux";
 
 import { Container, Nav, NewPlaylist } from "./styles";
+import Loading from "../Loading";
 
 import AddPlaylistIcon from "../../assets/images/add_playlist.svg";
 
@@ -72,9 +73,10 @@ class Sidebar extends Component {
               <a href="">Podcasts</a>
             </li>
           </Nav>
-          <Nav playlists>
+          <Nav>
             <li>
               <span>Playlists</span>
+              {this.props.playlists.loading && <Loading />}
             </li>
             {this.props.playlists.data.map((playlist) => (
               <li key={playlist.id}>
