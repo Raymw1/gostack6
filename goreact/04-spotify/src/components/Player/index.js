@@ -31,14 +31,18 @@ const Player = ({ player }) => (
       <Sound url={player.currentSong.file} playStatus={player.status} />
     )}
     <Current>
-      <img
-        src="https://carrefourbr.vtexassets.com/arquivos/ids/7146517/MP28868605_Kit-de-Camisetas-Camisas-Iron-Maiden-Com-2-Pecas-G_3_Zoom.jpg?v=637348691650500000"
-        alt="Ironn"
-      />
-      <div>
-        <span>The Trooper</span>
-        <small>Iron Maiden</small>
-      </div>
+      {!!player.currentSong && (
+        <>
+          <img
+            src={player.currentSong.thumbnail}
+            alt={player.currentSong.title}
+          />
+          <div>
+            <span>{player.currentSong.title}</span>
+            <small>{player.currentSong.author}</small>
+          </div>
+        </>
+      )}
     </Current>
 
     <Progress>
@@ -88,6 +92,10 @@ Player.propTypes = {
   player: PropTypes.shape({
     currentSong: PropTypes.shape({
       file: PropTypes.string,
+      id: PropTypes.number,
+      title: PropTypes.string,
+      thumbnail: PropTypes.string,
+      author: PropTypes.string,
     }),
     status: PropTypes.string,
   }).isRequired,

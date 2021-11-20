@@ -10,6 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Current = styled.div`
+  width: 22rem;
   display: flex;
   align-items: center;
   gap: 1.2rem;
