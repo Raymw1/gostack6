@@ -1,6 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Slider from "rc-slider";
 import Sound from "react-sound";
+
+import { connect } from "react-redux";
+// import {bindActionCreators} from 'redux';
+// import {Creators as PlayerActions} from '../../store/ducks/player';
 
 import {
   Container,
@@ -20,8 +25,11 @@ import PlayIcon from "../../assets/images/play.svg";
 import ForwardIcon from "../../assets/images/forward.svg";
 import RepeatIcon from "../../assets/images/repeat.svg";
 
-const Player = () => (
+const Player = ({ player }) => (
   <Container>
+    {!!player.currentSong && (
+      <Sound url={player.currentSong.file} playStatus={player.status} />
+    )}
     <Current>
       <img
         src="https://carrefourbr.vtexassets.com/arquivos/ids/7146517/MP28868605_Kit-de-Camisetas-Camisas-Iron-Maiden-Com-2-Pecas-G_3_Zoom.jpg?v=637348691650500000"
@@ -76,4 +84,17 @@ const Player = () => (
   </Container>
 );
 
-export default Player;
+Player.propTypes = {
+  player: PropTypes.shape({
+    currentSong: PropTypes.shape({
+      file: PropTypes.string,
+    }),
+    status: PropTypes.string,
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  player: state.player,
+});
+
+export default connect(mapStateToProps)(Player);

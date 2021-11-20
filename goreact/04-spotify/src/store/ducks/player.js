@@ -1,4 +1,4 @@
-import { status } from "react-sound";
+import Sound from "react-sound";
 
 export const Types = {
   LOAD: "player/LOAD",
@@ -6,7 +6,7 @@ export const Types = {
 
 const INITIAL_STATE = {
   currentSong: null,
-  status: status.PLAYING,
+  status: Sound.status.PLAYING,
 };
 
 export default function player(state = INITIAL_STATE, action) {
@@ -15,7 +15,7 @@ export default function player(state = INITIAL_STATE, action) {
       return {
         ...state,
         currentSong: action.payload.song,
-        status: status.PLAYING,
+        status: Sound.status.PLAYING,
       };
     default:
       return state;
