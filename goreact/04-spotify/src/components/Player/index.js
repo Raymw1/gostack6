@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "rc-slider";
+import Sound from "react-sound";
 
 import {
   Container,
