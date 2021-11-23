@@ -6,10 +6,20 @@ class TodoList extends Component {
     todos: [],
   };
 
+  componentDidMount() {
+    const todos = localStorage.getItem("todos");
+    if (todos) this.setState({ todos: JSON.parse(todos) });
+  }
+
   handleAddTodo = () => {
     const { newTodo } = this.state;
     if (newTodo.trim() === "") return;
-    this.setState({ todos: [...this.state.todos, newTodo], newTodo: "" });
+    this.setState(
+      { todos: [...this.state.todos, newTodo], newTodo: "" },
+      () => {
+        localStorage.setItem("todos", JSON.stringify(this.state.todos));
+      }
+    );
   };
 
   render() {
@@ -17,7 +27,7 @@ class TodoList extends Component {
       <div>
         <ul>
           {this.state.todos.map((todo) => (
-            <li>{todo}</li>
+            <li key={todo}>{todo}</li>
           ))}
         </ul>
         <input
