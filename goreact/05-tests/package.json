@@ -8,7 +8,9 @@
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -38,6 +40,7 @@
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6"
+    "enzyme-adapter-react-16": "^1.15.6",
+    "redux-mock-store": "^1.5.4"
   }
 }
