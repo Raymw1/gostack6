@@ -27,6 +27,14 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/store/ducks/*.js",
+      "src/store/sagas/*.js",
+      "src/*.js",
+      "!src/index.js"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
