@@ -10,6 +10,7 @@ const Home = () => (
     <Head>
       <title>Home</title>
     </Head>
+    <img src="/static/shrek.jpg" alt="Shrek" width="200" />
     <h1>Hello, World!</h1>
     <Link href="/users">
       <a>Users</a>
