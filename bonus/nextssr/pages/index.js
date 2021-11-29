@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import Head from "next/head";
 
-import withAnalytics from "../src/hocs/withAnalytics";
+import withAnalytics from "~/hocs/withAnalytics";
 
 const Title = styled.h1`
   color: #069;
