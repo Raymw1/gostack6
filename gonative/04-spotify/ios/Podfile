@@ -12,6 +12,10 @@ target 'spotify' do
     :hermes_enabled => false
   )
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'spotifyTests' do
     inherit! :complete
     # Pods for testing

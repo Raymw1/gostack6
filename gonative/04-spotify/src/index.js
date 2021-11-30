@@ -1,15 +1,14 @@
 import './config/ReactotronConfig';
+import './config/StatusBarConfig';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {View, Text} from 'react-native';
 
 import store from './store';
+import Routes from 'routes';
 
 const App = () => (
   <Provider store={store}>
-    <View>
-      <Text>Hello!!!</Text>
-    </View>
+    <Routes />
   </Provider>
 );
 
