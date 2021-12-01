@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux';
 
+import {reducer as podcasts} from './podcasts';
+
 const reducers = combineReducers({
-  // ...
-  test: () => [],
+  podcasts,
 });
 
 export default reducers;
