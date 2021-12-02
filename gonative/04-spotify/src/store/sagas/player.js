@@ -25,5 +25,13 @@ export function* setPodcast({podcast, episodeId}) {
     yield put(PlayerActions.setCurrent(episodeId));
   }
 
+  yield put(PlayerActions.play());
+}
+
+export function* play() {
   yield call(TrackPlayer.play);
+}
+
+export function* pause() {
+  yield call(TrackPlayer.pause);
 }
