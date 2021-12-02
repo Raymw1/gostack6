@@ -18,6 +18,8 @@ target 'spotify' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
+
   target 'spotifyTests' do
     inherit! :complete
     # Pods for testing

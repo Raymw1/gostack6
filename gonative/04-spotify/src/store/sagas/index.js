@@ -3,6 +3,13 @@ import {takeLatest, all} from 'redux-saga/effects';
 import {PodcastTypes} from 'store/ducks/podcasts';
 import {load as loadPodcasts} from './podcasts';
 
+import {PlayerTypes} from 'store/ducks/player';
+import {init as initPlayer, setPodcast} from './player';
+
 export default function* rootSaga() {
-  return yield all([takeLatest(PodcastTypes.LOAD_REQUEST, loadPodcasts)]);
+  return yield all([
+    initPlayer(),
+    takeLatest(PodcastTypes.LOAD_REQUEST, loadPodcasts),
+    takeLatest(PlayerTypes.SET_PODCAST_REQUEST, setPodcast),
+  ]);
 }
