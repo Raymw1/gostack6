@@ -16,6 +16,8 @@ target 'spotify' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'spotifyTests' do
     inherit! :complete
     # Pods for testing
