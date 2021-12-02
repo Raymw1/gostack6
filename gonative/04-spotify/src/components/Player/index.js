@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import PlayerActions from 'store/ducks/player';
+
 import {
   Container,
   CoverBackground,
@@ -11,29 +15,42 @@ import {
   ControlIcon,
 } from './styles';
 
-const Player = () => (
-  <Container>
-    <CoverBackground
-      source={{
-        uri: 'https://storage.googleapis.com/golden-wind/nextlevelweek/05-podcastr/funcional.jpg',
-      }}
-    />
-    <EpisodeInfo>
-      <Title>Papercut</Title>
-      <Author>Linkin Park</Author>
-    </EpisodeInfo>
-    <Controls>
-      <ControlButton onPress={() => {}}>
-        <ControlIcon name="skip-previous" />
-      </ControlButton>
-      <ControlButton onPress={() => {}}>
-        <ControlIcon name="play-circle-filled" />
-      </ControlButton>
-      <ControlButton onPress={() => {}}>
-        <ControlIcon name="skip-next" />
-      </ControlButton>
-    </Controls>
-  </Container>
-);
+const Player = ({player, currentEpisode}) =>
+  player.current && (
+    <Container>
+      <CoverBackground
+        source={{
+          uri: currentEpisode.artwork,
+        }}
+      />
+      <EpisodeInfo>
+        <Title>{currentEpisode.title}</Title>
+        <Author>{currentEpisode.artist}</Author>
+      </EpisodeInfo>
+      <Controls>
+        <ControlButton onPress={() => {}}>
+          <ControlIcon name="skip-previous" />
+        </ControlButton>
+        <ControlButton onPress={() => {}}>
+          <ControlIcon name="play-circle-filled" />
+        </ControlButton>
+        <ControlButton onPress={() => {}}>
+          <ControlIcon name="skip-next" />
+        </ControlButton>
+      </Controls>
+    </Container>
+  );
 
-export default Player;
+const mapStateToProps = state => ({
+  player: state.player,
+  currentEpisode: state.player.podcast
+    ? state.player.podcast.tracks.find(
+        episode => episode.id === state.player.current,
+      )
+    : null,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(PlayerActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

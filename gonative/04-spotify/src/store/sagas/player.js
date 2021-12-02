@@ -25,10 +25,5 @@ export function* setPodcast({podcast, episodeId}) {
     yield put(PlayerActions.setCurrent(episodeId));
   }
 
-  // if (!!episodeId) {
-  //   yield call(TrackPlayer.add, podcast.tracks[episodeId]);
-  // } else {
-  //   yield call(TrackPlayer.add, [...podcast.tracks]);
-  // }
   yield call(TrackPlayer.play);
 }
