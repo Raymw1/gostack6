@@ -11,6 +11,7 @@ import {
   pause,
   next,
   previous,
+  reset,
 } from './player';
 
 export default function* rootSaga() {
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     takeLatest(PlayerTypes.PAUSE, pause),
     takeLatest(PlayerTypes.NEXT, next),
     takeLatest(PlayerTypes.PREVIOUS, previous),
+    // takeLatest(PlayerTypes.RESET, reset),
   ]);
 }
