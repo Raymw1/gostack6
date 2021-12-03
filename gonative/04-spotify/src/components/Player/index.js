@@ -20,12 +20,12 @@ const Player = ({player, currentEpisode, previous, play, pause, next}) =>
     <Container>
       <CoverBackground
         source={{
-          uri: currentEpisode.artwork,
+          uri: currentEpisode?.artwork,
         }}
       />
       <EpisodeInfo>
-        <Title>{currentEpisode.title}</Title>
-        <Author>{currentEpisode.artist}</Author>
+        <Title>{currentEpisode?.title}</Title>
+        <Author>{currentEpisode?.artist}</Author>
       </EpisodeInfo>
       <Controls>
         <ControlButton onPress={previous}>

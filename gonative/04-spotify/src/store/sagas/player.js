@@ -1,12 +1,30 @@
-import {call, put, select} from '@redux-saga/core/effects';
+import {call, put, select, take} from 'redux-saga/effects';
+import {eventChannel} from 'redux-saga';
 import TrackPlayer from 'react-native-track-player';
 
 import PlayerActions from 'store/ducks/player';
 
+// function* trackChanged() {
+//   const channel = eventChannel(emitter => {
+//     const onTrackChange = TrackPlayer.addEventListener(
+//       'playback-track-changed',
+//       emitter,
+//     );
+//     return () => onTrackChange.remove();
+//   });
+//   try {
+//     while (true) {
+//       const {nextTrack} = yield take(channel);
+//       yield put(PlayerActions.setCurrent(nextTrack));
+//     }
+//   } finally {
+//     channel.close();
+//   }
+// }
+
 export function* init() {
   yield call(TrackPlayer.setupPlayer);
-  TrackPlayer.addEventListener('playback-track-changed', console.tron.log);
-  TrackPlayer.addEventListener('playback-state', console.tron.log);
+  TrackPlayer.addEventListener('playback-state', () => {});
 }
 
 export function* setPodcast({podcast, episodeId}) {
@@ -18,7 +36,6 @@ export function* setPodcast({podcast, episodeId}) {
     yield call(TrackPlayer.add, [...podcast.tracks]);
     yield put(PlayerActions.setPodcastSuccess(podcast));
   }
-  console.tron.log(episodeId);
 
   if (episodeId) {
     yield call(TrackPlayer.skip, Number(episodeId));
@@ -26,6 +43,7 @@ export function* setPodcast({podcast, episodeId}) {
   }
 
   yield put(PlayerActions.play());
+  // yield call(trackChanged);
 }
 
 export function* play() {
