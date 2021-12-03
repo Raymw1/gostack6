@@ -35,3 +35,25 @@ export function* play() {
 export function* pause() {
   yield call(TrackPlayer.pause);
 }
+
+export function* next() {
+  const player = yield select(state => state.player);
+  const currentIndex = player.podcast.tracks.findIndex(
+    episode => episode.id === player.current,
+  );
+  if (player.podcast.tracks[currentIndex + 1]) {
+    yield call(TrackPlayer.skipToNext);
+    yield put(PlayerActions.play());
+  }
+}
+
+export function* previous() {
+  const player = yield select(state => state.player);
+  const currentIndex = player.podcast.tracks.findIndex(
+    episode => episode.id === player.current,
+  );
+  if (player.podcast.tracks[currentIndex - 1]) {
+    yield call(TrackPlayer.skipToPrevious);
+    yield put(PlayerActions.play());
+  }
+}

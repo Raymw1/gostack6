@@ -7,6 +7,8 @@ const {Types, Creators} = createActions({
   setCurrent: ['episodeId'],
   play: null,
   pause: null,
+  next: null,
+  previous: null,
 });
 
 export const PlayerTypes = Types;

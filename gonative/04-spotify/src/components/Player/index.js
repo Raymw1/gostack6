@@ -15,7 +15,7 @@ import {
   ControlIcon,
 } from './styles';
 
-const Player = ({player, currentEpisode, play, pause}) =>
+const Player = ({player, currentEpisode, previous, play, pause, next}) =>
   player.current && (
     <Container>
       <CoverBackground
@@ -28,7 +28,7 @@ const Player = ({player, currentEpisode, play, pause}) =>
         <Author>{currentEpisode.artist}</Author>
       </EpisodeInfo>
       <Controls>
-        <ControlButton onPress={() => {}}>
+        <ControlButton onPress={previous}>
           <ControlIcon name="skip-previous" />
         </ControlButton>
         <ControlButton onPress={player.playing ? pause : play}>
@@ -36,7 +36,7 @@ const Player = ({player, currentEpisode, play, pause}) =>
             name={player.playing ? 'pause-circle-filled' : 'play-circle-filled'}
           />
         </ControlButton>
-        <ControlButton onPress={() => {}}>
+        <ControlButton onPress={next}>
           <ControlIcon name="skip-next" />
         </ControlButton>
       </Controls>
