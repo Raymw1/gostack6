@@ -4,6 +4,8 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
+import styles from 'styles';
+
 import Main from 'pages/Main';
 import Test from 'pages/Main';
 
@@ -13,7 +15,7 @@ const defaultNavigationOptions = {
   headerStyle: {
     height: Platform.OS === 'ios' ? 74 : 54,
     paddingTop: Platform.OS === 'ios' ? 40 : 0,
-    backgroundColor: '#fff',
+    backgroundColor: styles.colors.white,
     borderBottomWidth: 0,
     elevation: 0,
     shadowOpacity: 0,
@@ -21,9 +23,9 @@ const defaultNavigationOptions = {
   headerTitleStyle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FF989B',
+    color: styles.colors.secondary,
   },
-  headerTintColor: '#FF989B',
+  headerTintColor: styles.colors.secondary,
   headerBackTitle: null,
   headerTitleAlign: 'center',
 };
@@ -62,10 +64,10 @@ const Routes = createAppContainer(
       tabBarOptions: {
         showIcon: true,
         showLabel: false,
-        activeTintColor: '#FF989B',
-        inactiveTintColor: '#b1b1b1',
+        activeTintColor: styles.colors.secondary,
+        inactiveTintColor: styles.colors.regular,
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: styles.colors.white,
         },
       },
     },
