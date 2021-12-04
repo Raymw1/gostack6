@@ -5,11 +5,21 @@ import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import {Container, CategoryList, Category, CategoryText} from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TabIcon = ({tintColor}) => (
   <Icon name="home" size={20} color={tintColor} />
 );
+
+const list = [
+  'Camisetas',
+  'Calças',
+  'Camisetas de Couro',
+  'Calças de Couro',
+  'Camisetas de Algodão',
+  'Calças de Algodão',
+];
 
 class Main extends Component {
   static navigationOptions = {
@@ -22,9 +32,17 @@ class Main extends Component {
 
   render() {
     return (
-      <View>
-        <Text> Main </Text>
-      </View>
+      <Container>
+        <CategoryList
+          data={list}
+          keyExtractor={item => item}
+          renderItem={({item}) => (
+            <Category>
+              <CategoryText>{item}</CategoryText>
+            </Category>
+          )}
+        />
+      </Container>
     );
   }
 }
