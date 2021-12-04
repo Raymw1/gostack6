@@ -5,9 +5,15 @@ import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const TabIcon = ({tintColor}) => (
+  <Icon name="home" size={20} color={tintColor} />
+);
+
 class Main extends Component {
   static navigationOptions = {
-    // TO DO
+    tabBarIcon: TabIcon,
   };
 
   static propTypes = {
