@@ -8,6 +8,7 @@ export default {
   black: '#000',
   primary: '#f5f5f5',
   secondary: '#FF9696',
+  third: '#00CCB5',
   success: '#9DCA83',
   danger: '#E37A7A',
   warning: '#FFB75D',
