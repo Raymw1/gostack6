@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
+    "axios": "^0.24.0",
     "react": "17.0.2",
     "react-native": "0.66.3",
     "react-native-gesture-handler": "^2.0.0",
@@ -21,6 +22,8 @@
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-navigation-tabs": "^2.11.1",
+    "reduxsauce": "^1.2.1",
+    "seamless-immutable": "^7.1.4",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
