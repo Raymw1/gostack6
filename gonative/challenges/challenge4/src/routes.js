@@ -7,6 +7,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import styles from 'styles';
 
 import Main from 'pages/Main';
+import Product from 'pages/Product';
 import Test from 'pages/Main';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -36,6 +37,7 @@ const Routes = createAppContainer(
       GoCommerce: createStackNavigator(
         {
           GoCommerce: Main,
+          Product,
         },
         {
           defaultNavigationOptions,

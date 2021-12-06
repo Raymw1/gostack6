@@ -20,6 +20,10 @@ class Products extends Component {
     loadProductsRequest(categoryId);
   }
 
+  handleProduct = product => {
+    this.props.navigation.navigate('Product', {product});
+  };
+
   render() {
     const {
       data: {products},
@@ -33,7 +37,7 @@ class Products extends Component {
             justifyContent: 'space-between',
           }}
           renderItem={({item}) => (
-            <Product>
+            <Product onPress={() => this.handleProduct(item)}>
               <ProductImage source={{uri: item.image}} />
               <ProductTitle>{item.name}</ProductTitle>
               <ProductBrand>{item.brand}</ProductBrand>

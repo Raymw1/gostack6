@@ -13,7 +13,7 @@ class Main extends Component {
     return (
       <Container>
         <CategoryList />
-        <ProductList />
+        <ProductList navigation={this.props.navigation} />
       </Container>
     );
   }
