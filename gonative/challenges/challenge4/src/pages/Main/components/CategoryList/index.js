@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import CategoriesActions from 'store/ducks/categories';
+import ProductsActions from 'store/ducks/products';
 
 import {CategoryList, Category, CategoryText} from './styles';
 
@@ -11,6 +12,11 @@ class Categories extends Component {
     this.props.loadCategoriesRequest();
   }
 
+  handleCategory = async id => {
+    await this.props.changeCategoryRequest(id);
+    this.props.loadProductsRequest(id);
+  };
+
   render() {
     const {data, activeCategory} = this.props.categories;
     return (
@@ -18,7 +24,7 @@ class Categories extends Component {
         data={data}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <Category>
+          <Category onPress={() => this.handleCategory(item.id)}>
             <CategoryText active={item.id === activeCategory}>
               {item.title}
             </CategoryText>
@@ -33,6 +39,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(CategoriesActions, dispatch);
+  bindActionCreators({...CategoriesActions, ...ProductsActions}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);
