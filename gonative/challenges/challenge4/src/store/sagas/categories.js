@@ -5,8 +5,8 @@ import CategoriesActions from 'store/ducks/categories';
 export default function* loadCategories() {
   try {
     const response = yield call(api.get, '/categories');
-    yield put(CategoriesActions.loadSuccess(response.data));
+    yield put(CategoriesActions.loadCategoriesSuccess(response.data));
   } catch (error) {
-    yield put(CategoriesActions.loadFailure());
+    yield put(CategoriesActions.loadCategoriesFailure());
   }
 }

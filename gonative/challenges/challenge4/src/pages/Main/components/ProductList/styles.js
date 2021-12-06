@@ -25,6 +25,7 @@ export const Product = styled.TouchableOpacity.attrs({
   margin-bottom: ${metrics.baseMargin}px;
   border-radius: ${metrics.baseRadius}px;
   overflow: hidden;
+  padding: ${metrics.baseMargin}px;
 `;
 
 export const ProductImage = styled.Image`
@@ -32,17 +33,14 @@ export const ProductImage = styled.Image`
   object-fit: cover;
 `;
 
-export const ProductInfo = styled.View`
-  margin: ${metrics.baseMargin}px;
-`;
-
 export const ProductTitle = styled.Text`
   font-size: 16px;
   font-weight: bold;
+  margin-top: ${metrics.baseMargin}px;
   color: ${colors.darker};
 `;
 
-export const ProductSign = styled.Text`
+export const ProductBrand = styled.Text`
   color: ${colors.regular};
 `;
 

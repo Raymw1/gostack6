@@ -6,18 +6,9 @@ import CategoriesActions from 'store/ducks/categories';
 
 import {CategoryList, Category, CategoryText} from './styles';
 
-const list = [
-  'Camisetas',
-  'Calças',
-  'Camisetas de Couro',
-  'Calças de Couro',
-  'Camisetas de Algodão',
-  'Calças de Algodão',
-];
-
 class Categories extends Component {
   componentDidMount() {
-    this.props.loadRequest();
+    this.props.loadCategoriesRequest();
   }
 
   render() {

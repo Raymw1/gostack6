@@ -2,19 +2,18 @@ import {createReducer, createActions} from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 
 const {Types, Creators} = createActions({
-  loadCategoriesRequest: null,
-  loadCategoriesSuccess: ['data'],
-  loadCategoriesFailure: null,
+  loadProductsRequest: ['id'],
+  loadProductsSuccess: ['data'],
+  loadProductsFailure: null,
 });
 
-export const CategoriesTypes = Types;
+export const ProductsTypes = Types;
 export default Creators;
 
 export const INITIAL_STATE = Immutable({
   data: [],
-  activeCategory: 1,
 });
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.LOAD_CATEGORIES_SUCCESS]: (state, {data}) => state.merge({data}),
+  [Types.LOAD_PRODUCTS_SUCCESS]: (state, {data}) => state.merge({data}),
 });
