@@ -47,7 +47,8 @@ export class Cart extends Component {
                     this.props.setProductCartRequest(item.id, Number(text))
                   }
                 />
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity
+                  onPress={() => this.props.removeCartRequest(item.id)}>
                   <Icon name="delete" size={20} color="#BBB" />
                 </TouchableOpacity>
               </ProductActions>

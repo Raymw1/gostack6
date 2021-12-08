@@ -6,6 +6,7 @@ const {Types, Creators} = createActions({
   addCartSuccess: ['cart'],
   addCartFailure: null,
   setProductCartRequest: ['id', 'quantity'],
+  removeCartRequest: ['id'],
 });
 
 export const CartTypes = Types;

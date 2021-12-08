@@ -1,4 +1,4 @@
-import {call, put, select} from '@redux-saga/core/effects';
+import {put, select} from '@redux-saga/core/effects';
 
 import CartActions from 'store/ducks/cart';
 
@@ -32,6 +32,14 @@ export function* setCart({id, quantity}) {
   const oldProduct = {...newData[indexProduct]};
   oldProduct.quantity = quantity;
   newData[indexProduct] = oldProduct;
+  const subtotal = calculateSubTotal(newData);
+  const cart = {data: newData, subtotal};
+  yield put(CartActions.addCartSuccess(cart));
+}
+
+export function* removeCart({id}) {
+  const {data} = yield select(state => state.cart);
+  const newData = data.filter(product => product.id !== id);
   const subtotal = calculateSubTotal(newData);
   const cart = {data: newData, subtotal};
   yield put(CartActions.addCartSuccess(cart));
