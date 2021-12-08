@@ -8,7 +8,7 @@ import styles from 'styles';
 
 import Main from 'pages/Main';
 import Product from 'pages/Product';
-import Test from 'pages/Main';
+import Cart from 'pages/Cart';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -50,7 +50,7 @@ const Routes = createAppContainer(
       ),
       Cart: createStackNavigator(
         {
-          Cart: Test,
+          Cart,
         },
         {
           defaultNavigationOptions,
