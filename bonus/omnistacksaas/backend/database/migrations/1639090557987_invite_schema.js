@@ -4,14 +4,14 @@
 const Schema = use('Schema')
 
 class InviteSchema extends Schema {
-  up () {
+  up() {
     this.create('invites', (table) => {
       table.increments()
       table.timestamps()
     })
   }
 
-  down () {
+  down() {
     this.drop('invites')
   }
 }
