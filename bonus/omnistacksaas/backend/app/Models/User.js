@@ -26,7 +26,9 @@ class User extends Model {
   }
 
   teams() {
-    this.belongsToMany('App/Models/Team').pivotModel('App/Models/UserTeam')
+    return this.belongsToMany('App/Models/Team').pivotModel(
+      'App/Models/UserTeam'
+    )
   }
 }
 
