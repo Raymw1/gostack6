@@ -11,7 +11,8 @@
     },
     "plugins": ["prettier"],
     "rules": {
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "camelcase": "off"
     },
     "globals": {
       "use": true
