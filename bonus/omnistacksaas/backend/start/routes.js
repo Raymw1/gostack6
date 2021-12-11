@@ -18,6 +18,6 @@ const Route = use('Route')
 
 Route.post('/sessions', 'SessionController.store')
 
-Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
-})
+Route.group(() => {
+  Route.resource('/teams', 'TeamController').apiOnly()
+}).middleware(['auth'])
