@@ -5,7 +5,13 @@ const Model = use('Model')
 
 class Project extends Model {
   users() {
-    this.belongsToMany('App/Models/User').pivotModel('App/Models/UserTeam')
+    return this.belongsToMany('App/Models/User').pivotModel(
+      'App/Models/UserTeam'
+    )
+  }
+
+  projects() {
+    return this.belongsToMany('App/Models/Project')
   }
 }
 
