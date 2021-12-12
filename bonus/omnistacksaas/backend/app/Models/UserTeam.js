@@ -20,7 +20,7 @@ class UserTeam extends Model {
   }
 
   user() {
-    return this.belongsToMany('App/Models/User')
+    return this.belongsTo('App/Models/User')
   }
 }
 
