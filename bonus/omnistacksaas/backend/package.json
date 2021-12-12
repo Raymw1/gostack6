@@ -28,6 +28,7 @@
     "@adonisjs/mail": "^3.1.0",
     "@adonisjs/redis": "^2.1.0",
     "@adonisjs/validator": "^5.1.0",
+    "adonis-acl": "^1.1.1",
     "adonis-kue": "^5.0.1",
     "pg": "^8.7.1"
   },
