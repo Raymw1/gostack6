@@ -7,24 +7,22 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "prettier",
-    "standard",
-    "jsx-a11y",
-    "import"
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
-        "jsx": true
+      "jsx": true
     },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
   "plugins": [
     "react",
-    "prettier"
+    "prettier",
+    "jsx-a11y",
+    "import"
   ],
   "rules": {
-    "prettier/prettier": "error",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "import/prefer-default-export": "off"
   }
