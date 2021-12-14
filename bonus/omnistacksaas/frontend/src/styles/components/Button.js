@@ -40,9 +40,7 @@ const colors = {
   `,
 };
 
-const Button = styled.button.attrs({
-  type: "button",
-})`
+const Button = styled.button`
   border-radius: 0.3rem;
   transition: background-color 0.15s ease;
   background-color: #7289da;
