@@ -10,8 +10,8 @@ export const AuthTypes = Types;
 export default Creators;
 
 export const INITIAL_STATE = Immutable({
-  signedIn: false,
-  token: null,
+  signedIn: !!localStorage.getItem("@Omni:token"),
+  token: localStorage.getItem("@Omni:token") || null,
 });
 
 const successReducer = (state, { token }) =>
