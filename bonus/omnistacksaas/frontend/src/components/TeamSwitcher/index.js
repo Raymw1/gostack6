@@ -10,6 +10,7 @@ import { Container, TeamList, Team } from "./styles";
 class TeamSwitcher extends Component {
   static propTypes = {
     getTeamsRequest: PropTypes.func.isRequired,
+    selectTeam: PropTypes.func.isRequired,
     teams: PropTypes.shape({
       data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -29,7 +30,7 @@ class TeamSwitcher extends Component {
       <Container>
         <TeamList>
           {this.props.teams.data.map((team) => (
-            <Team key={team.id}>
+            <Team key={team.id} onClick={() => this.props.selectTeam(team)}>
               <img
                 src={`https://ui-avatars.com/api/?font-size=0.33&background=7159C1&color=fff&name=${team.name}`}
                 alt={team.name}
