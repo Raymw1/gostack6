@@ -30,3 +30,20 @@ export const Team = styled.button`
     border-radius: 30%;
   }
 `;
+
+export const NewTeam = styled.button`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 0 0.8rem;
+  background: transparent;
+  font-weight: bold;
+  transition: all 0.2s;
+
+  &:hover {
+    border: 1px dashed rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.6);
+  }
+`;
