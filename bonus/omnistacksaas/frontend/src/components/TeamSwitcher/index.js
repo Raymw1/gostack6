@@ -12,6 +12,7 @@ import { Container, TeamList, Team, NewTeam } from "./styles";
 class TeamSwitcher extends Component {
   static propTypes = {
     getTeamsRequest: PropTypes.func.isRequired,
+    createTeamRequest: PropTypes.func.isRequired,
     selectTeam: PropTypes.func.isRequired,
     openTeamModal: PropTypes.func.isRequired,
     closeTeamModal: PropTypes.func.isRequired,
@@ -26,12 +27,27 @@ class TeamSwitcher extends Component {
     }).isRequired,
   };
 
+  state = {
+    newTeam: "",
+  };
+
   componentDidMount() {
     this.props.getTeamsRequest();
   }
 
+  handleInputChange = (e) => {
+    if (!e.target.value) return;
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleCreateTeam = (e) => {
+    e.preventDefault();
+    this.props.createTeamRequest(this.state.newTeam);
+  };
+
   render() {
     const { teams, openTeamModal, closeTeamModal, selectTeam } = this.props;
+    const { newTeam } = this.state;
     return (
       <Container>
         <TeamList>
@@ -47,9 +63,14 @@ class TeamSwitcher extends Component {
           {teams.teamModalOpen && (
             <Modal>
               <h1>Create team</h1>
-              <form onSubmit={() => {}}>
+              <form onSubmit={this.handleCreateTeam}>
                 <span>Name</span>
-                <input type="text" name="newTeam" />
+                <input
+                  type="text"
+                  name="newTeam"
+                  value={newTeam}
+                  onChange={this.handleInputChange}
+                />
                 <Button size="big" type="submit">
                   Save
                 </Button>
