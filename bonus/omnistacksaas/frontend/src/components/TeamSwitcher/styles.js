@@ -47,3 +47,20 @@ export const NewTeam = styled.button`
     color: rgba(255, 255, 255, 0.6);
   }
 `;
+
+export const Logout = styled.button`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px dashed #e04848;
+  background: transparent;
+  color: #e04848;
+  font-weight: bold;
+  transition: all 0.2s;
+  font-size: 1rem;
+
+  &:hover {
+    border-color: #a43d3d;
+    color: #a43d3d;
+  }
+`;
