@@ -6,7 +6,7 @@ import { AuthTypes } from "store/ducks/auth";
 import { getTeams, createTeam } from "./teams";
 import { TeamsTypes } from "store/ducks/teams";
 
-import { getProjects } from "./projects";
+import { getProjects, createProject } from "./projects";
 import { ProjectsTypes } from "store/ducks/projects";
 
 export default function* rootSaga() {
@@ -17,5 +17,6 @@ export default function* rootSaga() {
     takeLatest(TeamsTypes.CREATE_TEAM_REQUEST, createTeam),
     takeLatest(TeamsTypes.SELECT_TEAM, getProjects),
     takeLatest(ProjectsTypes.GET_PROJECTS_REQUEST, getProjects),
+    takeLatest(ProjectsTypes.CREATE_PROJECT_REQUEST, createProject),
   ]);
 }

@@ -5,12 +5,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ProjectsActions from "store/ducks/projects";
 
+import Modal from "components/Modal";
 import Button from "styles/components/Button";
 import { Container, Project } from "./styles";
 
 class Projects extends Component {
   static propTypes = {
     getProjectsRequest: PropTypes.func.isRequired,
+    openProjectModal: PropTypes.func.isRequired,
+    closeProjectModal: PropTypes.func.isRequired,
+    createProjectRequest: PropTypes.func.isRequired,
     activeTeam: PropTypes.shape({
       name: PropTypes.string,
     }).isRequired,
@@ -21,7 +25,12 @@ class Projects extends Component {
           title: PropTypes.string,
         })
       ),
+      projectModalOpen: PropTypes.bool.isRequired,
     }),
+  };
+
+  state = {
+    newProject: "",
   };
 
   componentDidMount() {
@@ -31,15 +40,25 @@ class Projects extends Component {
     }
   }
 
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleCreateProject = (e) => {
+    e.preventDefault();
+    this.props.createProjectRequest(this.state.newProject);
+  };
+
   render() {
-    const { activeTeam, projects } = this.props;
+    const { activeTeam, projects, openProjectModal, closeProjectModal } =
+      this.props;
     if (!activeTeam) return null;
     return (
       <Container>
         <header>
           <h1>{activeTeam.name}</h1>
           <div>
-            <Button onClick={() => {}}>+ New</Button>
+            <Button onClick={openProjectModal}>+ New</Button>
             <Button onClick={() => {}}>Members</Button>
           </div>
         </header>
@@ -49,6 +68,26 @@ class Projects extends Component {
             <p>{project.title}</p>
           </Project>
         ))}
+
+        {projects.projectModalOpen && (
+          <Modal>
+            <h1>Create project</h1>
+            <form onSubmit={this.handleCreateProject}>
+              <span>Name</span>
+              <input
+                type="text"
+                name="newProject"
+                onChange={this.handleInputChange}
+              />
+              <Button size="big" type="submit">
+                Save
+              </Button>
+              <Button size="small" color="gray" onClick={closeProjectModal}>
+                Cancel
+              </Button>
+            </form>
+          </Modal>
+        )}
       </Container>
     );
   }

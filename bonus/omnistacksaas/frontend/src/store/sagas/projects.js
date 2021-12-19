@@ -8,3 +8,19 @@ export function* getProjects() {
   const response = yield call(api.get, "/projects");
   yield put(ProjectsActions.getProjectsSuccess(response.data));
 }
+
+export function* createProject({ title }) {
+  try {
+    const response = yield call(api.post, "/projects", { title });
+    yield put(ProjectsActions.createProjectSuccess(response.data));
+    yield put(ProjectsActions.closeProjectModal());
+  } catch (err) {
+    yield put(
+      toastrActions.add({
+        type: "error",
+        title: "Error on operation",
+        message: "Something went wrong, try again!",
+      })
+    );
+  }
+}
