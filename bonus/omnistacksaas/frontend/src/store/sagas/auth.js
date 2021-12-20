@@ -24,6 +24,25 @@ export function* signIn({ email, password }) {
   }
 }
 
+export function* signUp({ name, email, password }) {
+  try {
+    const {
+      data: { token },
+    } = yield call(api.post, "/users", { name, email, password });
+    localStorage.setItem("@Omni:token", token);
+    yield put(AuthActions.signInSuccess(token));
+    yield put(push("/"));
+  } catch (err) {
+    yield put(
+      toastrActions.add({
+        type: "error",
+        title: "Signup failure",
+        message: "Have you been invited to any team?",
+      })
+    );
+  }
+}
+
 export function* signOut() {
   localStorage.removeItem("@Omni:token");
   localStorage.removeItem("@Omni:team");

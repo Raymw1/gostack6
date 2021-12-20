@@ -20,7 +20,7 @@ class Projects extends Component {
     createProjectRequest: PropTypes.func.isRequired,
     activeTeam: PropTypes.shape({
       name: PropTypes.string,
-    }).isRequired,
+    }),
     projects: PropTypes.shape({
       data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -33,6 +33,10 @@ class Projects extends Component {
     members: PropTypes.shape({
       membersModalOpen: PropTypes.bool.isRequired,
     }),
+  };
+
+  static defaultProps = {
+    activeTeam: null,
   };
 
   state = {
