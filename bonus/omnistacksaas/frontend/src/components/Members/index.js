@@ -9,13 +9,14 @@ import MembersActions from "store/ducks/members";
 
 import Modal from "components/Modal";
 import Button from "styles/components/Button";
-import { MembersList } from "./styles";
+import { MembersList, Invite } from "./styles";
 
 class Members extends Component {
   static propTypes = {
     closeMembersModal: PropTypes.func.isRequired,
     getMembersRequest: PropTypes.func.isRequired,
     updateMemberRequest: PropTypes.func.isRequired,
+    inviteMemberRequest: PropTypes.func.isRequired,
     members: PropTypes.shape({
       data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -23,6 +24,12 @@ class Members extends Component {
           user: PropTypes.shape({
             name: PropTypes.string,
           }),
+          roles: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number,
+              name: PropTypes.string,
+            })
+          ),
         })
       ),
     }),
@@ -30,6 +37,7 @@ class Members extends Component {
 
   state = {
     roles: [],
+    invite: "",
   };
 
   componentDidMount() {
@@ -46,12 +54,31 @@ class Members extends Component {
     this.props.updateMemberRequest(id, roles);
   };
 
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleInvite = (e) => {
+    e.preventDefault();
+    this.props.inviteMemberRequest(this.state.invite);
+  };
+
   render() {
     const { closeMembersModal, members } = this.props;
-    const { roles } = this.state;
+    const { roles, invite } = this.state;
     return (
       <Modal size="big">
         <h1>Members</h1>
+        <Invite onSubmit={this.handleInvite}>
+          <input
+            type="text"
+            name="invite"
+            placeholder="Invite to the team"
+            value={invite}
+            onChange={this.handleInputChange}
+          />
+          <Button type="submit">Submit</Button>
+        </Invite>
         <form>
           <MembersList>
             {members.data.map((member) => (
@@ -69,7 +96,7 @@ class Members extends Component {
             ))}
           </MembersList>
           <Button onClick={closeMembersModal} filled={false} color="gray">
-            Cancel
+            Close
           </Button>
         </form>
       </Modal>

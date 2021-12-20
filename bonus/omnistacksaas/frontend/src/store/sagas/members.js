@@ -31,3 +31,24 @@ export function* updateMember({ id, roles }) {
     );
   }
 }
+
+export function* inviteMember({ email }) {
+  try {
+    yield call(api.post, `/invites`, { invites: [email] });
+    yield put(
+      toastrActions.add({
+        type: "success",
+        title: "Invite sent",
+        message: "We've sent an invite to the user to join the team!",
+      })
+    );
+  } catch (err) {
+    yield put(
+      toastrActions.add({
+        type: "error",
+        title: "Error on operation",
+        message: "Something went wrong, try again!",
+      })
+    );
+  }
+}
