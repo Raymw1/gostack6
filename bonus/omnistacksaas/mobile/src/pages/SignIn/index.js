@@ -1,4 +1,10 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import AuthActions from 'store/ducks/auth';
+
 import {
   Text,
   View,
@@ -7,10 +13,13 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-
 import styles from './styles';
 
-export default class SingIn extends Component {
+class SignIn extends Component {
+  static propTypes = {
+    signInRequest: PropTypes.func.isRequired,
+  };
+
   state = {
     email: '',
     password: '',
@@ -18,6 +27,7 @@ export default class SingIn extends Component {
 
   handleSubmit = () => {
     const {email, password} = this.state;
+    this.props.signInRequest(email, password);
   };
 
   render() {
@@ -64,3 +74,8 @@ export default class SingIn extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(AuthActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(SignIn);
