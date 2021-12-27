@@ -8,6 +8,7 @@ const {Types, Creators} = createActions({
   signOut: null,
   getPermissionsRequest: null,
   getPermissionsSuccess: ['roles', 'permissions'],
+  initCheckSuccess: null,
 });
 
 export const AuthTypes = Types;
@@ -29,8 +30,11 @@ export const logout = state => state.merge({signedIn: false, token: null});
 export const permissionsSuccess = (state, {roles, permissions}) =>
   state.merge({roles, permissions});
 
+export const checkSuccess = state => state.merge({authChecked: true});
+
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_SUCCESS]: successReducer,
   [Types.SIGN_OUT]: logout,
   [Types.GET_PERMISSIONS_SUCCESS]: permissionsSuccess,
+  [Types.INIT_CHECK_SUCCESS]: checkSuccess,
 });
