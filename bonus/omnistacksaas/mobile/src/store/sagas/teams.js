@@ -1,5 +1,6 @@
 import {call, put} from 'redux-saga/effects';
 import api from 'services/api';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import TeamsActions from 'store/ducks/teams';
 
@@ -16,4 +17,8 @@ export function* createTeam({name}) {
   } catch (err) {
     console.error(err);
   }
+}
+
+export function* setActiveTeam({team}) {
+  yield call([AsyncStorage, 'setItem'], '@Omni:team', JSON.stringify(team));
 }

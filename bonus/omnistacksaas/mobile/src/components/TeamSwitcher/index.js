@@ -27,14 +27,14 @@ export class TeamSwitcher extends Component {
   }
 
   render() {
-    const {teams} = this.props;
+    const {teams, selectTeam} = this.props;
     return (
       <View style={styles.container}>
         {teams.data.map(team => (
           <TouchableOpacity
             key={team.id}
             style={styles.teamContainer}
-            onPress={() => {}}>
+            onPress={() => selectTeam(team)}>
             <Image
               style={styles.teamAvatar}
               source={{
