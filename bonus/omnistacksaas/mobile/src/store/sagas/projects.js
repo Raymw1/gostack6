@@ -1,26 +1,19 @@
-import { call, put } from "redux-saga/effects";
-import { actions as toastrActions } from "react-redux-toastr";
-import api from "services/api";
+import {call, put} from 'redux-saga/effects';
+import api from 'services/api';
 
-import ProjectsActions from "store/ducks/projects";
+import ProjectsActions from 'store/ducks/projects';
 
 export function* getProjects() {
-  const response = yield call(api.get, "/projects");
+  const response = yield call(api.get, '/projects');
   yield put(ProjectsActions.getProjectsSuccess(response.data));
 }
 
-export function* createProject({ title }) {
+export function* createProject({title}) {
   try {
-    const response = yield call(api.post, "/projects", { title });
+    const response = yield call(api.post, '/projects', {title});
     yield put(ProjectsActions.createProjectSuccess(response.data));
     yield put(ProjectsActions.closeProjectModal());
   } catch (err) {
-    yield put(
-      toastrActions.add({
-        type: "error",
-        title: "Error on operation",
-        message: "Something went wrong, try again!",
-      })
-    );
+    console.error(err);
   }
 }

@@ -8,6 +8,7 @@ import {Text, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import TeamSwitcher from 'components/TeamSwitcher';
+import Projects from 'components/Projects';
 
 class Main extends Component {
   static propTypes = {
@@ -55,6 +56,7 @@ class Main extends Component {
                 <Icon name="group" size={24} color="#FFF" />
               </TouchableOpacity>
             </View>
+            <Projects />
           </View>
         </SideMenu>
       </View>

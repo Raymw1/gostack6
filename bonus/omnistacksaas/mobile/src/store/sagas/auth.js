@@ -31,19 +31,6 @@ export function* signIn({email, password}) {
   }
 }
 
-export function* signUp({name, email, password}) {
-  try {
-    const {
-      data: {token},
-    } = yield call(api.post, '/users', {name, email, password});
-    yield call([AsyncStorage, 'setItem'], '@Omni:token', token);
-    yield put(AuthActions.signInSuccess(token));
-    // yield put(push('/'));
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 export function* signOut() {
   yield call([AsyncStorage, 'clear']);
   // yield put(push('/signin'));
