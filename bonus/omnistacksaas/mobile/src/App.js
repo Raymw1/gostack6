@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {LogBox} from 'react-native';
+LogBox.ignoreLogs([
+  'Animated: `useNativeDriver`',
+  'Warning: ',
+  'Require cycle',
+]);
 
 import {connect} from 'react-redux';
 
