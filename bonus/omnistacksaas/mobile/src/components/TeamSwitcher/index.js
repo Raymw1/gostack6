@@ -8,6 +8,7 @@ import TeamsActions from 'store/ducks/teams';
 import {View, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
+import NewTeam from 'components/NewTeam';
 
 export class TeamSwitcher extends Component {
   static propTypes = {
@@ -22,12 +23,25 @@ export class TeamSwitcher extends Component {
     }).isRequired,
   };
 
+  state = {
+    isModalOpen: false,
+  };
+
   componentDidMount() {
     this.props.getTeamsRequest();
   }
 
+  toggleModalOpen = () => {
+    this.setState({isModalOpen: true});
+  };
+
+  toggleModalClosed = () => {
+    this.setState({isModalOpen: false});
+  };
+
   render() {
     const {teams, selectTeam} = this.props;
+    const {isModalOpen} = this.state;
     return (
       <View style={styles.container}>
         {teams.data.map(team => (
@@ -43,9 +57,13 @@ export class TeamSwitcher extends Component {
             />
           </TouchableOpacity>
         ))}
-        <TouchableOpacity style={styles.newTeam} onPress={() => {}}>
+        <TouchableOpacity style={styles.newTeam} onPress={this.toggleModalOpen}>
           <Icon name="add" size={24} color="#999" />
         </TouchableOpacity>
+        <NewTeam
+          visible={isModalOpen}
+          onRequestClose={this.toggleModalClosed}
+        />
       </View>
     );
   }

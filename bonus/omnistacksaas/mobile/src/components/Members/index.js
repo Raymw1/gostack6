@@ -10,11 +10,19 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export class Members extends Component {
-  // static propTypes = {};
-
-  // static defaultProps = {};
-
-  // state = {};
+  static propTypes = {
+    getMembersRequest: PropTypes.func.isRequired,
+    members: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          user: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+          }),
+        }),
+      ),
+    }),
+  };
 
   componentDidMount() {
     this.props.getMembersRequest();
