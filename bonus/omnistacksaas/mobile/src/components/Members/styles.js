@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {colors, general} from 'styles';
 
 const styles = StyleSheet.create({
@@ -9,13 +8,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundDarker,
     paddingHorizontal: 20,
-    paddingTop: getStatusBarHeight() + 25,
+    paddingTop: 18,
   },
 
   title: {
     fontSize: 16,
     fontWeight: 'bold',
     color: colors.white,
+    textTransform: 'uppercase',
   },
 
   memberList: {

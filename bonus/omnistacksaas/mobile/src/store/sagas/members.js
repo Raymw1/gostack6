@@ -1,54 +1,29 @@
-import { call, put } from "redux-saga/effects";
-import { actions as toastrActions } from "react-redux-toastr";
-import api from "services/api";
+import {call, put} from 'redux-saga/effects';
+import api from 'services/api';
 
-import MembersActions from "store/ducks/members";
+import MembersActions from 'store/ducks/members';
 
 export function* getMembers() {
-  const response = yield call(api.get, "/members");
+  const response = yield call(api.get, '/members');
   yield put(MembersActions.getMembersSuccess(response.data));
 }
 
-export function* updateMember({ id, roles }) {
+export function* updateMember({id, roles}) {
   try {
     yield call(api.put, `/members/${id}`, {
-      roles: roles.map((role) => role.id),
+      roles: roles.map(role => role.id),
     });
-    yield put(
-      toastrActions.add({
-        type: "success",
-        title: "Member updated",
-        message: "The member was updated with success!",
-      })
-    );
+    console.log('SUCCESS');
   } catch (err) {
-    yield put(
-      toastrActions.add({
-        type: "error",
-        title: "Error on operation",
-        message: "Something went wrong, try again!",
-      })
-    );
+    console.log('ERROR');
   }
 }
 
-export function* inviteMember({ email }) {
+export function* inviteMember({email}) {
   try {
-    yield call(api.post, `/invites`, { invites: [email] });
-    yield put(
-      toastrActions.add({
-        type: "success",
-        title: "Invite sent",
-        message: "We've sent an invite to the user to join the team!",
-      })
-    );
+    yield call(api.post, `/invites`, {invites: [email]});
+    console.log('SUCCESS');
   } catch (err) {
-    yield put(
-      toastrActions.add({
-        type: "error",
-        title: "Error on operation",
-        message: "Something went wrong, try again!",
-      })
-    );
+    console.log('ERROR');
   }
 }

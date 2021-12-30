@@ -18,7 +18,6 @@ export const INITIAL_STATE = Immutable({
   data: [],
   teamModalOpen: false,
   active: null,
-  // active: JSON.parse(localStorage.getItem("@Omni:team")) || null,
 });
 
 export const getSuccess = (state, {data}) => state.merge({data});
