@@ -8,11 +8,23 @@ import ProjectsActions from 'store/ducks/projects';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
+import NewProject from 'components/NewProject';
 
 export class Projects extends Component {
   static propTypes = {
-    // prop: PropTypes
+    getProjectsRequest: PropTypes.func.isRequired,
+    activeTeam: PropTypes.object,
+    projects: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+        }),
+      ),
+    }),
   };
+
+  state = {isModalOpen: false};
 
   componentDidMount() {
     const {getProjectsRequest, activeTeam} = this.props;
@@ -21,8 +33,17 @@ export class Projects extends Component {
     }
   }
 
+  toggleModalOpen = () => {
+    this.setState({isModalOpen: true});
+  };
+
+  toggleModalClosed = () => {
+    this.setState({isModalOpen: false});
+  };
+
   render() {
     const {projects, activeTeam} = this.props;
+    const {isModalOpen} = this.state;
     if (!activeTeam) return null;
     return (
       <View style={styles.container}>
@@ -36,9 +57,15 @@ export class Projects extends Component {
             </View>
           )}
         />
-        <TouchableOpacity style={styles.newProjectButton} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.newProjectButton}
+          onPress={this.toggleModalOpen}>
           <Icon name="add" size={28} color="#fff" />
         </TouchableOpacity>
+        <NewProject
+          visible={isModalOpen}
+          onRequestClose={this.toggleModalClosed}
+        />
       </View>
     );
   }

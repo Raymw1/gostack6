@@ -3,46 +3,46 @@ import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import TeamsActions from 'store/ducks/teams';
+import ProjectsActions from 'store/ducks/projects';
 
 import {Text, TextInput, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Modal from 'components/Modal';
 
-export class NewTeam extends Component {
+export class NewProject extends Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
-    createTeamRequest: PropTypes.func.isRequired,
+    createProjectRequest: PropTypes.func.isRequired,
   };
 
   state = {
-    newTeam: '',
+    newProject: '',
   };
 
   handleSubmit = () => {
-    const {createTeamRequest, onRequestClose} = this.props;
-    createTeamRequest(this.state.newTeam);
+    const {createProjectRequest, onRequestClose} = this.props;
+    createProjectRequest(this.state.newProject);
     onRequestClose();
   };
 
   render() {
     const {visible, onRequestClose} = this.props;
-    const {newTeam} = this.state;
+    const {newProject} = this.state;
     return (
       <Modal visible={visible} onRequestClose={onRequestClose}>
-        <Text style={styles.label}>NAME</Text>
+        <Text style={styles.label}>TITLE</Text>
         <TextInput
           style={styles.input}
           autoFocus
           underlineColorAndroid="transparent"
           returnKeyType="send"
           onSubmitEditing={this.handleSubmit}
-          value={newTeam}
-          onChangeText={text => this.setState({newTeam: text})}
+          value={newProject}
+          onChangeText={text => this.setState({newProject: text})}
         />
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text style={styles.buttonText}>CREATE TEAM</Text>
+          <Text style={styles.buttonText}>CREATE PROJECT</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.cancel} onPress={onRequestClose}>
@@ -54,6 +54,6 @@ export class NewTeam extends Component {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(TeamsActions, dispatch);
+  bindActionCreators(ProjectsActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(NewTeam);
+export default connect(null, mapDispatchToProps)(NewProject);
