@@ -10,6 +10,7 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import InviteMember from 'components/InviteMember';
 import RoleUpdater from 'components/RoleUpdater';
+import Can from 'components/Can';
 
 export class Members extends Component {
   static propTypes = {
@@ -65,19 +66,23 @@ export class Members extends Component {
           renderItem={({item}) => (
             <View style={styles.memberContainer}>
               <Text style={styles.memberName}>{item.user.name}</Text>
-              <TouchableOpacity
-                hitSlop={{top: 5, left: 5, right: 5, bottom: 5}}
-                onPress={() => this.toggleRoleModalOpen(item)}>
-                <Icon name="settings" size={20} color="#b0b0b0" />
-              </TouchableOpacity>
+              <Can checkRole="administrator">
+                <TouchableOpacity
+                  hitSlop={{top: 5, left: 5, right: 5, bottom: 5}}
+                  onPress={() => this.toggleRoleModalOpen(item)}>
+                  <Icon name="settings" size={20} color="#b0b0b0" />
+                </TouchableOpacity>
+              </Can>
             </View>
           )}
           ListFooterComponent={() => (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={this.toggleInviteModalOpen}>
-              <Text style={styles.buttonText}>Invite</Text>
-            </TouchableOpacity>
+            <Can checkPermission="invites_create">
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.toggleInviteModalOpen}>
+                <Text style={styles.buttonText}>Invite</Text>
+              </TouchableOpacity>
+            </Can>
           )}
         />
 
@@ -88,10 +93,12 @@ export class Members extends Component {
             member={memberEdit}
           />
         )}
-        <InviteMember
-          visible={isInviteModalOpen}
-          onRequestClose={this.toggleInviteModalClosed}
-        />
+        <Can checkPermission="invites_create">
+          <InviteMember
+            visible={isInviteModalOpen}
+            onRequestClose={this.toggleInviteModalClosed}
+          />
+        </Can>
       </View>
     );
   }

@@ -9,6 +9,7 @@ import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import NewProject from 'components/NewProject';
+import Can from 'components/Can';
 
 export class Projects extends Component {
   static propTypes = {
@@ -57,15 +58,17 @@ export class Projects extends Component {
             </View>
           )}
         />
-        <TouchableOpacity
-          style={styles.newProjectButton}
-          onPress={this.toggleModalOpen}>
-          <Icon name="add" size={28} color="#fff" />
-        </TouchableOpacity>
-        <NewProject
-          visible={isModalOpen}
-          onRequestClose={this.toggleModalClosed}
-        />
+        <Can checkPermission="projects_create">
+          <TouchableOpacity
+            style={styles.newProjectButton}
+            onPress={this.toggleModalOpen}>
+            <Icon name="add" size={28} color="#fff" />
+          </TouchableOpacity>
+          <NewProject
+            visible={isModalOpen}
+            onRequestClose={this.toggleModalClosed}
+          />
+        </Can>
       </View>
     );
   }

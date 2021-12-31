@@ -9,6 +9,7 @@ import MembersActions from 'store/ducks/members';
 import {View, Text, TouchableOpacity, Switch} from 'react-native';
 import styles from './styles';
 import Modal from 'components/Modal';
+import Can from 'components/Can';
 
 export class RoleUpdater extends Component {
   static propTypes = {
@@ -55,12 +56,14 @@ export class RoleUpdater extends Component {
           {roles.map(role => (
             <View key={role.id} style={styles.roleContainer}>
               <Text style={styles.roleText}>{role.name}</Text>
-              <Switch
-                value={
-                  !!member.roles.find(memberRole => role.id === memberRole.id)
-                }
-                onValueChange={value => this.handleRoleChange(value, role)}
-              />
+              <Can checkRole="administrator">
+                <Switch
+                  value={
+                    !!member.roles.find(memberRole => role.id === memberRole.id)
+                  }
+                  onValueChange={value => this.handleRoleChange(value, role)}
+                />
+              </Can>
             </View>
           ))}
           <TouchableOpacity onPress={onRequestClose} style={styles.cancel}>
