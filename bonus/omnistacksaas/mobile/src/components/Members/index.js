@@ -8,6 +8,7 @@ import MembersActions from 'store/ducks/members';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import InviteMember from 'components/InviteMember';
 
 export class Members extends Component {
   static propTypes = {
@@ -24,12 +25,25 @@ export class Members extends Component {
     }),
   };
 
+  state = {
+    isInviteModalOpen: false,
+  };
+
   componentDidMount() {
     this.props.getMembersRequest();
   }
 
+  toggleModalOpen = modal => {
+    this.setState({[`is${modal}ModalOpen`]: true});
+  };
+
+  toggleModalClosed = modal => {
+    this.setState({[`is${modal}ModalOpen`]: false});
+  };
+
   render() {
     const {members} = this.props;
+    const {isInviteModalOpen} = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Members</Text>
@@ -48,10 +62,16 @@ export class Members extends Component {
             </View>
           )}
           ListFooterComponent={() => (
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.toggleModalOpen('Invite')}>
               <Text style={styles.buttonText}>Invite</Text>
             </TouchableOpacity>
           )}
+        />
+        <InviteMember
+          visible={isInviteModalOpen}
+          onRequestClose={() => this.toggleModalClosed('Invite')}
         />
       </View>
     );
