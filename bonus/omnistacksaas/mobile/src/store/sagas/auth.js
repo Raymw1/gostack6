@@ -2,6 +2,7 @@ import {call, put, select} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from 'services/api';
 import NavigationService from 'services/navigation';
+import {ToastActionsCreators} from 'react-native-redux-toast';
 
 import AuthActions from 'store/ducks/auth';
 import TeamsActions from 'store/ducks/teams';
@@ -27,7 +28,7 @@ export function* signIn({email, password}) {
     yield put(AuthActions.signInSuccess(token));
     NavigationService.navigate('Main');
   } catch (err) {
-    console.error(err);
+    yield put(ToastActionsCreators.displayError('Invalid credentials'));
   }
 }
 

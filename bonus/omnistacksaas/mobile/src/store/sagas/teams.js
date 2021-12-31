@@ -1,6 +1,7 @@
 import {call, put} from 'redux-saga/effects';
 import api from 'services/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import {ToastActionsCreators} from 'react-native-redux-toast';
 
 import TeamsActions from 'store/ducks/teams';
 
@@ -14,8 +15,9 @@ export function* createTeam({name}) {
     const response = yield call(api.post, '/teams', {name});
     yield put(TeamsActions.createTeamSuccess(response.data));
     yield put(TeamsActions.closeTeamModal());
+    yield put(ToastActionsCreators.displayInfo('Team created'));
   } catch (err) {
-    console.error(err);
+    yield put(ToastActionsCreators.displayError('Error creating team'));
   }
 }
 
