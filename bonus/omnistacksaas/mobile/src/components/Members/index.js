@@ -9,6 +9,7 @@ import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import InviteMember from 'components/InviteMember';
+import RoleUpdater from 'components/RoleUpdater';
 
 export class Members extends Component {
   static propTypes = {
@@ -27,23 +28,33 @@ export class Members extends Component {
 
   state = {
     isInviteModalOpen: false,
+    isRoleModalOpen: false,
+    memberEdit: null,
   };
 
   componentDidMount() {
     this.props.getMembersRequest();
   }
 
-  toggleModalOpen = modal => {
-    this.setState({[`is${modal}ModalOpen`]: true});
+  toggleInviteModalOpen = () => {
+    this.setState({isInviteModalOpen: true});
   };
 
-  toggleModalClosed = modal => {
-    this.setState({[`is${modal}ModalOpen`]: false});
+  toggleInviteModalClosed = () => {
+    this.setState({isInviteModalOpen: false});
+  };
+
+  toggleRoleModalOpen = member => {
+    this.setState({isRoleModalOpen: true, memberEdit: member});
+  };
+
+  toggleRoleModalClosed = () => {
+    this.setState({isRoleModalOpen: false, memberEdit: null});
   };
 
   render() {
     const {members} = this.props;
-    const {isInviteModalOpen} = this.state;
+    const {isInviteModalOpen, isRoleModalOpen, memberEdit} = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Members</Text>
@@ -56,7 +67,7 @@ export class Members extends Component {
               <Text style={styles.memberName}>{item.user.name}</Text>
               <TouchableOpacity
                 hitSlop={{top: 5, left: 5, right: 5, bottom: 5}}
-                onPress={() => {}}>
+                onPress={() => this.toggleRoleModalOpen(item)}>
                 <Icon name="settings" size={20} color="#b0b0b0" />
               </TouchableOpacity>
             </View>
@@ -64,14 +75,22 @@ export class Members extends Component {
           ListFooterComponent={() => (
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.toggleModalOpen('Invite')}>
+              onPress={this.toggleInviteModalOpen}>
               <Text style={styles.buttonText}>Invite</Text>
             </TouchableOpacity>
           )}
         />
+
+        {memberEdit && (
+          <RoleUpdater
+            visible={isRoleModalOpen}
+            onRequestClose={this.toggleRoleModalClosed}
+            member={memberEdit}
+          />
+        )}
         <InviteMember
           visible={isInviteModalOpen}
-          onRequestClose={() => this.toggleModalClosed('Invite')}
+          onRequestClose={this.toggleInviteModalClosed}
         />
       </View>
     );
