@@ -1,0 +1,42 @@
+{
+  "name": "pizzadonjuan",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "description": "A management orders delivery pizzas application",
+  "author": "Rayan Wilbert",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "dependencies": {
+    "@sentry/node": "^6.16.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "express-handlebars": "^6.0.2",
+    "express-validation": "^3.0.8",
+    "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "kue": "^0.11.6",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.7.2",
+    "nodemailer-express-handlebars": "^4.0.0",
+    "pg": "^8.7.1",
+    "require-dir": "^1.2.0",
+    "youch": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  }
+}
