@@ -26,6 +26,7 @@
     "nodemailer-express-handlebars": "^4.0.0",
     "pg": "^8.7.1",
     "require-dir": "^1.2.0",
+    "sequelize": "^6.12.5",
     "youch": "^3.0.0"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.2.0",
     "nodemon": "^2.0.15",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "sequelize-cli": "^6.3.0"
   }
 }
