@@ -8,7 +8,7 @@ describe("Create User", () => {
     const response = await request(app).post("/users").send({
       name: "Rayan",
       email: "rayan@rocketseat.com",
-      password_hash: "123123",
+      password: "123123",
     });
     expect(response.status).toBe(200);
   });
