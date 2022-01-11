@@ -1,10 +1,14 @@
 const request = require("supertest");
 
+const truncate = require("../utils/truncate");
 const app = require("../../src/server");
-
-// const { User } = require("../../src/app/models");
+const { User } = require("../../src/app/models");
 
 describe("Create User", () => {
+  beforeEach(async () => {
+    await truncate();
+  });
+
   it("should be able to create user with valid credentials", async () => {
     // POST /users { name, email, password }
     const response = await request(app).post("/users").send({
@@ -15,16 +19,37 @@ describe("Create User", () => {
     expect(response.status).toBe(200);
   });
 
-  it("should not be able to create user with empty invalid credentials", async () => {
+  it("should not be able to create user with empty credentials", async () => {
     // POST /users { name, email }
     const response = await request(app).post("/users").send({
       name: "Rayan",
-      email: "rayan1@rocketseat.com",
+      email: "rayan@rocketseat.com",
     });
     expect(response.status).toBe(400);
   });
 
-  // it("should not be able to create user with email already registered", async () => {
-  //   // POST /users { name, email, password }
-  // });
+  it("should not be able to create user with invalid email", async () => {
+    // POST /users { name, email }
+    const response = await request(app).post("/users").send({
+      name: "Rayan",
+      email: "rayan@rocketseat",
+      password: "123456",
+    });
+    expect(response.status).toBe(400);
+  });
+
+  it("should not be able to create user with email already registered", async () => {
+    const user = await User.create({
+      name: "Rayan",
+      email: "rayan@rocketseat.com",
+      password: "123123",
+    });
+    // POST /users { name, email, password }
+    const response = await request(app).post("/users").send({
+      name: "Ana",
+      email: user.email,
+      password: "123456",
+    });
+    expect(response.status).toBe(400);
+  });
 });
