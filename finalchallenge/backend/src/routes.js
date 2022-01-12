@@ -4,6 +4,7 @@ const { validate } = require("express-validation");
 
 const controllers = require("./app/controllers");
 const validators = require("./app/validators");
+const middlewares = require("./app/middlewares");
 
 // routes.post("/test", validate(), handle(controllers.test.store))
 
@@ -14,5 +15,9 @@ routes.post(
 );
 
 routes.post("/sessions", handle(controllers.SessionController.store));
+
+routes.use(middlewares.authMiddleware);
+
+routes.get("/", (req, res) => res.send());
 
 module.exports = routes;

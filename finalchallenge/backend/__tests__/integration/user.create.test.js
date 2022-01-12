@@ -3,6 +3,7 @@ const request = require("supertest");
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
 const { User } = require("../../src/app/models");
+const generateMail = require("../utils/generateMail");
 
 describe("Create User", () => {
   beforeEach(async () => {
@@ -13,7 +14,7 @@ describe("Create User", () => {
     // POST /users { name, email, password }
     const response = await request(app).post("/users").send({
       name: "Rayan",
-      email: "rayan@rocketseat.com",
+      email: generateMail(),
       password: "123123",
     });
     expect(response.status).toBe(200);
@@ -23,7 +24,7 @@ describe("Create User", () => {
     // POST /users { name, email }
     const response = await request(app).post("/users").send({
       name: "Rayan",
-      email: "rayan@rocketseat.com",
+      email: generateMail(),
     });
     expect(response.status).toBe(400);
   });
@@ -32,7 +33,7 @@ describe("Create User", () => {
     // POST /users { name, email }
     const response = await request(app).post("/users").send({
       name: "Rayan",
-      email: "rayan@rocketseat",
+      email: "generateMail()@rayan",
       password: "123456",
     });
     expect(response.status).toBe(400);
@@ -41,7 +42,7 @@ describe("Create User", () => {
   it("should not be able to create user with email already registered", async () => {
     const user = await User.create({
       name: "Rayan",
-      email: "rayan@rocketseat.com",
+      email: generateMail(),
       password: "123123",
     });
     // POST /users { name, email, password }
