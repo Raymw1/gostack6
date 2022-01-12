@@ -5,7 +5,7 @@ const app = require("../../src/server");
 const { User } = require("../../src/app/models");
 const bcrypt = require("bcryptjs");
 
-describe("Create User", () => {
+describe("User", () => {
   beforeEach(async () => {
     await truncate();
   });

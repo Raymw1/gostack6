@@ -13,4 +13,6 @@ routes.post(
   handle(controllers.UserController.store)
 );
 
+routes.post("/sessions", handle(controllers.SessionController.store));
+
 module.exports = routes;
