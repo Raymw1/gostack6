@@ -2,8 +2,8 @@ const request = require("supertest");
 
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
-const { User } = require("../../src/app/models");
 const generateMail = require("../utils/generateMail");
+const factory = require("../factories");
 
 describe("Authentication", () => {
   beforeEach(async () => {
@@ -11,9 +11,7 @@ describe("Authentication", () => {
   });
 
   it("should be able to authenticate with valid credentials", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: generateMail(),
+    const user = await factory.create("User", {
       password: "123456",
     });
     // POST /sessions { email, password }
@@ -32,11 +30,7 @@ describe("Authentication", () => {
   });
 
   it("should not be able to authenticate with invalid password", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: generateMail(),
-      password: "123456",
-    });
+    const user = await factory.create("User");
     // POST /sessions { email, password }
     const response = await request(app)
       .post("/sessions")
@@ -45,9 +39,7 @@ describe("Authentication", () => {
   });
 
   it("should return JWT token when authenticated", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: generateMail(),
+    const user = await factory.create("User", {
       password: "123456",
     });
     // POST /sessions { email, password }
@@ -58,11 +50,7 @@ describe("Authentication", () => {
   });
 
   it("should be able to access private routes when authenticated", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: generateMail(),
-      password: "123456",
-    });
+    const user = await factory.create("User");
     // GET /
     const response = await request(app)
       .get("/")

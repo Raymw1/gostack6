@@ -2,8 +2,8 @@ const request = require("supertest");
 
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
-const { User } = require("../../src/app/models");
 const generateMail = require("../utils/generateMail");
+const factory = require("../factories");
 
 describe("Create User", () => {
   beforeEach(async () => {
@@ -40,11 +40,7 @@ describe("Create User", () => {
   });
 
   it("should not be able to create user with email already registered", async () => {
-    const user = await User.create({
-      name: "Rayan",
-      email: generateMail(),
-      password: "123123",
-    });
+    const user = await factory.create("User");
     // POST /users { name, email, password }
     const response = await request(app).post("/users").send({
       name: "Ana",
