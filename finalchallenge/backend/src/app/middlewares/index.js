@@ -1,3 +1,4 @@
 const authMiddleware = require("./auth");
+const providerMiddleware = require("./provider");
 
-module.exports = { authMiddleware };
+module.exports = { authMiddleware, providerMiddleware };

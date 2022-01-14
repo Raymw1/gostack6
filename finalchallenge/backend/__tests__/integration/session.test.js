@@ -63,4 +63,22 @@ describe("Authentication", () => {
     const response = await request(app).get("/");
     expect(response.status).toBe(401);
   });
+
+  it("should be able to access private routes when user is a provider", async () => {
+    const user = await factory.create("User", { provider: true });
+    // GET /provider
+    const response = await request(app)
+      .get("/provider")
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(200);
+  });
+
+  it("should not be able to access private routes when user is not a provider", async () => {
+    const user = await factory.create("User");
+    // GET /provider
+    const response = await request(app)
+      .get("/provider")
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(401);
+  });
 });

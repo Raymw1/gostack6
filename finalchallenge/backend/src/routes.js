@@ -20,4 +20,8 @@ routes.use(middlewares.authMiddleware);
 
 routes.get("/", (req, res) => res.send());
 
+routes.use(middlewares.providerMiddleware);
+
+routes.get("/provider", (req, res) => res.send());
+
 module.exports = routes;
