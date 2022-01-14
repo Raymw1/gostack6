@@ -14,11 +14,15 @@ routes.post(
   handle(controllers.UserController.store)
 );
 
-routes.post("/sessions", handle(controllers.SessionController.store));
+routes.post(
+  "/sessions",
+  validate(validators.Session),
+  handle(controllers.SessionController.store)
+);
 
 routes.use(middlewares.authMiddleware);
 
-routes.get("/", (req, res) => res.send());
+routes.get("/products", handle(controllers.ProductController.index));
 
 routes.use(middlewares.providerMiddleware);
 

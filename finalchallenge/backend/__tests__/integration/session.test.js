@@ -53,14 +53,14 @@ describe("Authentication", () => {
     const user = await factory.create("User");
     // GET /
     const response = await request(app)
-      .get("/")
+      .get("/products")
       .set("Authorization", `Bearer ${await user.generateToken()}`);
     expect(response.status).toBe(200);
   });
 
   it("should not be able to access private routes when not authenticated", async () => {
     // GET /
-    const response = await request(app).get("/");
+    const response = await request(app).get("/products");
     expect(response.status).toBe(401);
   });
 
