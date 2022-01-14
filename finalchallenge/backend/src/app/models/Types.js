@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Types.associate = (models) => {
-    Types.belongsTo(models.Products);
+    Types.belongsTo(models.Products, { foreignKey: "product_id" });
     Types.hasMany(models.Sizes);
   };
 

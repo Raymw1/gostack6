@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Sizes.associate = (models) => {
-    Sizes.belongsTo(models.Types);
+    Sizes.belongsTo(models.Types, { foreignKey: "type_id" });
   };
 
   return Sizes;
