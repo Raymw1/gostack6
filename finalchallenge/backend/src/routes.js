@@ -26,6 +26,12 @@ routes.get("/products", handle(controllers.ProductController.index));
 
 routes.use(middlewares.providerMiddleware);
 
+routes.post(
+  "/products",
+  // validate(validators.Product),
+  handle(controllers.ProductController.store)
+);
+
 routes.get("/provider", (req, res) => res.send());
 
 module.exports = routes;

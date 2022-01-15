@@ -8,7 +8,16 @@ class ProductController {
 
   async show(req, res) {}
 
-  async store(req, res) {}
+  async store(req, res) {
+    try {
+      const product = await Products.create(req.body);
+      return res.status(201).json({ product });
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ error: "Something went wrong, try again!" });
+    }
+  }
 
   async update(req, res) {}
 

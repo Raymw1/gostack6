@@ -24,6 +24,48 @@ describe("Products", () => {
     expect(response.status).toBe(401);
   });
 
-  // it("should be able to get the product", async () => {});
-  // it("should not be able to get the product", async () => {});
+  // TODO: it("should be able to get the product", async () => {});
+  // TODO: it("should not be able to get the product", async () => {});
+
+  it("should be able to create product when user is a provider", async () => {
+    const user = await factory.create("User", { provider: true });
+    // POST /products { title, thumb, description, preparation_time }
+    const response = await request(app)
+      .post("/products")
+      .set("Authorization", `Bearer ${await user.generateToken()}`)
+      .send({
+        title: "FirstProduct",
+        thumb: "Test",
+        description: "Description here",
+        preparation_time: 5,
+      });
+    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("product");
+  });
+
+  it("should not be able to create product when user is not authenticated", async () => {
+    // POST /products { title, thumb, description, preparation_time }
+    const response = await request(app).post("/products").send({
+      title: "FirstProduct",
+      thumb: "Test",
+      description: "Description here",
+      preparation_time: 5,
+    });
+    expect(response.status).toBe(401);
+  });
+
+  it("should not be able to create product when user is not a provider", async () => {
+    const user = await factory.create("User");
+    // POST /products { title, thumb, description, preparation_time }
+    const response = await request(app)
+      .post("/products")
+      .set("Authorization", `Bearer ${await user.generateToken()}`)
+      .send({
+        title: "FirstProduct",
+        thumb: "Test",
+        description: "Description here",
+        preparation_time: 5,
+      });
+    expect(response.status).toBe(401);
+  });
 });
