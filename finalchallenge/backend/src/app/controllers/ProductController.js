@@ -10,8 +10,8 @@ class ProductController {
 
   async store(req, res) {
     try {
-      const product = await Products.create(req.body);
-      return res.status(201).json({ product });
+      // const product = await Products.create(req.body);
+      return res.status(201).json({ body: req.body, file: req.file });
     } catch (error) {
       return res
         .status(400)

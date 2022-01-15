@@ -1,6 +1,8 @@
 const routes = require("express").Router();
 const handle = require("express-async-handler");
 const { validate } = require("express-validation");
+const multerConfig = require("./config/multer");
+const upload = require("multer")(multerConfig);
 
 const controllers = require("./app/controllers");
 const validators = require("./app/validators");
@@ -29,6 +31,7 @@ routes.use(middlewares.providerMiddleware);
 routes.post(
   "/products",
   // validate(validators.Product),
+  upload.single("file"),
   handle(controllers.ProductController.store)
 );
 
