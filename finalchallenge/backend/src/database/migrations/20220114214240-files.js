@@ -2,34 +2,22 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("sizes", {
+    return queryInterface.createTable("files", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
+      originalname: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      file_id: {
-        type: Sequelize.INTEGER,
-        references: { model: "files", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
-      value: {
-        type: Sequelize.FLOAT,
+      filename: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      type_id: {
-        type: Sequelize.INTEGER,
-        references: { model: "types", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        allowNull: false,
-      },
+      url: Sequelize.STRING,
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -42,6 +30,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("sizes");
+    return queryInterface.dropTable("files");
   },
 };

@@ -13,7 +13,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      thumb: Sequelize.STRING,
+      file_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "files", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       product_id: {
         type: Sequelize.INTEGER,
         references: { model: "products", key: "id" },
