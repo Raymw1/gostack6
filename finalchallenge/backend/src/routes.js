@@ -30,8 +30,8 @@ routes.use(middlewares.providerMiddleware);
 
 routes.post(
   "/products",
-  // validate(validators.Product),
   upload.single("file"),
+  validate(validators.Product),
   handle(controllers.ProductController.store)
 );
 
