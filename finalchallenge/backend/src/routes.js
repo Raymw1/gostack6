@@ -25,6 +25,7 @@ routes.post(
 routes.use(middlewares.authMiddleware);
 
 routes.get("/products", handle(controllers.ProductController.index));
+routes.get("/products/:id", handle(controllers.ProductController.show));
 
 routes.use(middlewares.providerMiddleware);
 

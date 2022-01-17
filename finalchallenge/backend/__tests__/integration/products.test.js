@@ -24,8 +24,21 @@ describe("Product", () => {
     expect(response.status).toBe(401);
   });
 
-  // TODO: it("should be able to get the product", async () => {});
-  // TODO: it("should not be able to get the product", async () => {});
+  it("should be able to get the product when authenticated", async () => {
+    const user = await factory.create("User", { provider: true });
+    const product = await factory.create("Product");
+    // GET /products/:id
+    const response = await request(app)
+      .get(`/products/${product.id}`)
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(200);
+  });
+
+  it("should not be able to get the product when not authenticated", async () => {
+    // GET /products/:id
+    const response = await request(app).get(`/products/1`);
+    expect(response.status).toBe(401);
+  });
 
   it("should be able to create product when user is a provider", async () => {
     const user = await factory.create("User", { provider: true });

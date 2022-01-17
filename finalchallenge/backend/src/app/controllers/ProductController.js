@@ -6,7 +6,13 @@ class ProductController {
     return res.json({ products });
   }
 
-  async show(req, res) {}
+  async show(req, res) {
+    const product = await Product.findOne({
+      where: { id: req.params.id },
+      include: "File",
+    });
+    return res.json({ product });
+  }
 
   async store(req, res) {
     const product = await Product.create(req.body);
