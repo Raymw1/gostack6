@@ -34,13 +34,20 @@ describe("Product", () => {
     expect(response.status).toBe(200);
   });
 
+  it("should not be able to get the product when product does not exist", async () => {
+    const user = await factory.create("User");
+    // GET /products/:id
+    const response = await request(app)
+      .get(`/products/3333`)
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(404);
+  });
+
   it("should not be able to get the product when not authenticated", async () => {
     // GET /products/:id
     const response = await request(app).get(`/products/1`);
     expect(response.status).toBe(401);
   });
-
-  // TODO: it("should not be able to get the product when product does not exist", async () => {});
 
   it("should be able to create product when user is a provider", async () => {
     const user = await factory.create("User", { provider: true });
@@ -73,6 +80,42 @@ describe("Product", () => {
     const response = await request(app)
       .post("/products")
       .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(401);
+  });
+
+  it("should be able to update product when user is a provider", async () => {
+    const user = await factory.create("User", { provider: true });
+    const product = await factory.create("Product");
+    // PUT /products/:id
+    const response = await request(app)
+      .put(`/products/${product.id}`)
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(201);
+  });
+
+  it("should not be able to update product when it does not exist", async () => {
+    const user = await factory.create("User", { provider: true });
+    // PUT /products/:id
+    const response = await request(app)
+      .put("/products/3333")
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(404);
+  });
+
+  it("should not be able to update product when user is not a provider", async () => {
+    const user = await factory.create("User");
+    const product = await factory.create("Product");
+    // PUT /products/:id
+    const response = await request(app)
+      .put(`/products/${product.id}`)
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(401);
+  });
+
+  it("should not be able to update product when user is not authenticated", async () => {
+    const product = await factory.create("Product");
+    // PUT /products/:id
+    const response = await request(app).put(`/products/${product.id}`);
     expect(response.status).toBe(401);
   });
 

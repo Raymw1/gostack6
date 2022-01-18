@@ -5,5 +5,6 @@ module.exports = {
     title: Joi.string().required(),
     description: Joi.string(),
     preparation_time: Joi.number(),
+    FileId: Joi.number(),
   }),
 };
