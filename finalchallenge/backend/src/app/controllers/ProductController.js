@@ -16,7 +16,8 @@ class ProductController {
 
   async store(req, res) {
     const product = await Product.create(req.body);
-    if (req.file) await product.createFile(req.file);
+    if (req.file)
+      await product.createFile({ ...req.file, url: req.file.location });
     return res.status(201).json({ product });
   }
 

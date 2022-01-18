@@ -6,6 +6,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const validate = require("express-validation");
 const Youch = require("youch");
+const path = require("path");
 // const Sentry = require("@sentry/node");
 // const databaseConfig
 // const sentryConfig
@@ -24,6 +25,10 @@ class App {
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(cors());
     this.express.use(morgan("combined"));
+    this.express.use(
+      "/files",
+      express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
+    );
   }
 
   routes() {
