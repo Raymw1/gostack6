@@ -23,7 +23,12 @@ class ProductController {
 
   async update(req, res) {}
 
-  async destroy(req, res) {}
+  async destroy(req, res) {
+    const product = await Product.findByPk(req.params.id);
+    if (!product) return res.status(404).json({ error: "Product not found" });
+    await product.destroy();
+    return res.json();
+  }
 }
 
 module.exports = new ProductController();

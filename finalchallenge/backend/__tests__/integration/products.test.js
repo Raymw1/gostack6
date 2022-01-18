@@ -40,6 +40,8 @@ describe("Product", () => {
     expect(response.status).toBe(401);
   });
 
+  // TODO: it("should not be able to get the product when product does not exist", async () => {});
+
   it("should be able to create product when user is a provider", async () => {
     const user = await factory.create("User", { provider: true });
     // POST /products { title, thumb, description, preparation_time }
@@ -70,13 +72,43 @@ describe("Product", () => {
     // POST /products { title, thumb, description, preparation_time }
     const response = await request(app)
       .post("/products")
-      .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstProduct",
-        thumb: "Test",
-        description: "Description here",
-        preparation_time: 5,
-      });
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(401);
+  });
+
+  it("should be able to delete product when user is a provider", async () => {
+    const user = await factory.create("User", { provider: true });
+    const product = await factory.create("Product");
+    // DELETE /products/:id
+    const response = await request(app)
+      .delete(`/products/${product.id}`)
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(200);
+  });
+
+  it("should not be able to delete product when it does not exist", async () => {
+    const user = await factory.create("User", { provider: true });
+    // DELETE /products/:id
+    const response = await request(app)
+      .delete("/products/3333")
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(404);
+  });
+
+  it("should not be able to delete product when user is not a provider", async () => {
+    const user = await factory.create("User");
+    const product = await factory.create("Product");
+    // DELETE /products/:id
+    const response = await request(app)
+      .delete(`/products/${product.id}`)
+      .set("Authorization", `Bearer ${await user.generateToken()}`);
+    expect(response.status).toBe(401);
+  });
+
+  it("should not be able to delete product when user is not authenticated", async () => {
+    const product = await factory.create("Product");
+    // DELETE /products/:id
+    const response = await request(app).delete(`/products/${product.id}`);
     expect(response.status).toBe(401);
   });
 });

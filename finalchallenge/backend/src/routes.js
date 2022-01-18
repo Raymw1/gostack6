@@ -35,6 +35,7 @@ routes.post(
   validate(validators.Product),
   handle(controllers.ProductController.store)
 );
+routes.delete("/products/:id", handle(controllers.ProductController.destroy));
 
 routes.get("/provider", (req, res) => res.send());
 
