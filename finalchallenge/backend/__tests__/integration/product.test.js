@@ -10,7 +10,7 @@ describe("Product", () => {
   });
 
   it("should be able to get products list when authenticated", async () => {
-    const user = await factory.create("User", { provider: true });
+    const user = await factory.create("User");
     // GET /products
     const response = await request(app)
       .get("/products")
@@ -25,7 +25,7 @@ describe("Product", () => {
   });
 
   it("should be able to get the product when authenticated", async () => {
-    const user = await factory.create("User", { provider: true });
+    const user = await factory.create("User");
     const product = await factory.create("Product");
     // GET /products/:id
     const response = await request(app)
