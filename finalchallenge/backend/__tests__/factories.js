@@ -1,5 +1,5 @@
 const { factory } = require("factory-girl");
-const { User, Product, Type } = require("../src/app/models");
+const { User, Product, Type, Size } = require("../src/app/models");
 const generateMail = require("./utils/generateMail");
 
 factory.define("User", User, {
@@ -16,6 +16,11 @@ factory.define("Product", Product, {
 
 factory.define("Type", Type, {
   title: "Test",
+});
+
+factory.define("Size", Size, {
+  title: "Test",
+  value: 10,
 });
 
 module.exports = factory;
