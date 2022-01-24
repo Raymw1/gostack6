@@ -1,4 +1,4 @@
-const { Type, Product, File } = require("../models");
+const { File } = require("../models");
 
 class ProductController {
   async index(req, res) {

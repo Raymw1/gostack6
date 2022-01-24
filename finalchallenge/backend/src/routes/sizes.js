@@ -9,39 +9,41 @@ const validators = require("../app/validators");
 const middlewares = require("../app/middlewares");
 
 routes.get(
-  "/:product_id/types/",
+  "/:product_id/types/:type_id/sizes",
   middlewares.productMiddleware,
-  handle(controllers.TypeController.index)
+  middlewares.typeMiddleware,
+  handle(controllers.SizeController.index)
 );
 routes.get(
-  "/:product_id/types/:id",
+  "/:product_id/types/:type_id/sizes/:id",
   middlewares.productMiddleware,
   middlewares.typeMiddleware,
-  handle(controllers.TypeController.show)
+  middlewares.sizeMiddleware,
+  handle(controllers.SizeController.show)
 );
-
-routes.use("/", require("./sizes"));
-
 routes.use(middlewares.providerMiddleware);
 routes.post(
-  "/:product_id/types/",
+  "/:product_id/types/:type_id/sizes",
   middlewares.productMiddleware,
+  middlewares.typeMiddleware,
   upload.single("file"),
-  validate(validators.Type),
-  handle(controllers.TypeController.store)
+  validate(validators.Size),
+  handle(controllers.SizeController.store)
 );
 routes.put(
-  "/:product_id/types/:id",
+  "/:product_id/types/:type_id/sizes/:id",
   middlewares.productMiddleware,
   middlewares.typeMiddleware,
+  middlewares.sizeMiddleware,
   upload.single("file"),
-  handle(controllers.TypeController.update)
+  handle(controllers.SizeController.update)
 );
 routes.delete(
-  "/:product_id/types/:id",
+  "/:product_id/types/:type_id/sizes/:id",
   middlewares.productMiddleware,
   middlewares.typeMiddleware,
-  handle(controllers.TypeController.destroy)
+  middlewares.sizeMiddleware,
+  handle(controllers.SizeController.destroy)
 );
 
 module.exports = routes;

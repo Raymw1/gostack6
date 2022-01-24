@@ -77,7 +77,7 @@ describe("Size", () => {
     const size = await factory.create("Size", { type_id: type.id });
     const wrongProduct = await factory.create("Product");
     const wrongType = await factory.create("Type", {
-      wrongProduct_id: wrongProduct.id,
+      product_id: wrongProduct.id,
     });
     // GET /products/:product_id/types/:type_id/sizes/:id
     const response = await request(app)
@@ -229,7 +229,7 @@ describe("Size", () => {
     const wrongProduct = await factory.create("Product");
     // PUT /products/:product_id/types/:type_id/sizes/:id { title, value }
     const response = await request(app)
-      .put(`/products/${wrongProduct.id}/types/${type.id}/sizes${size.id}`)
+      .put(`/products/${wrongProduct.id}/types/${type.id}/sizes/${size.id}`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
       .send({
         title: "SecondSize",
@@ -245,11 +245,13 @@ describe("Size", () => {
     const size = await factory.create("Size", { type_id: type.id });
     const wrongProduct = await factory.create("Product");
     const wrongType = await factory.create("Type", {
-      wrongProduct_id: wrongProduct.id,
+      product_id: wrongProduct.id,
     });
     // PUT /products/:product_id/types/:type_id/sizes/:id { title, value }
     const response = await request(app)
-      .put(`/products/${wrongProduct.id}/types/${wrongType.id}/sizes${size.id}`)
+      .put(
+        `/products/${wrongProduct.id}/types/${wrongType.id}/sizes/${size.id}`
+      )
       .set("Authorization", `Bearer ${await user.generateToken()}`)
       .send({
         title: "SecondSize",
@@ -350,7 +352,7 @@ describe("Size", () => {
     const size = await factory.create("Size", { type_id: type.id });
     const wrongProduct = await factory.create("Product");
     const wrongType = await factory.create("Type", {
-      wrongProduct_id: wrongProduct.id,
+      product_id: wrongProduct.id,
     });
     // DELETE /products/:product_id/types/:type_id/sizes/:id
     const response = await request(app)

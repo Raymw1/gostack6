@@ -24,7 +24,8 @@ class App {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(cors());
-    this.express.use(morgan("combined"));
+    if (process.env.NODE_ENV === "development")
+      this.express.use(morgan("combined"));
     this.express.use(
       "/files",
       express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
