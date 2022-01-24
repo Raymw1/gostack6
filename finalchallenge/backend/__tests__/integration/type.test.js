@@ -97,9 +97,10 @@ describe("Type", () => {
 
   it("should not be able to create type when user is not a provider", async () => {
     const user = await factory.create("User");
+    const product = await factory.create("Product");
     // POST /products/:product_id/types { title }
     const response = await request(app)
-      .post("/products/1/types")
+      .post(`/products/${product.id}/types`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
       .send({
         title: "FirstType",

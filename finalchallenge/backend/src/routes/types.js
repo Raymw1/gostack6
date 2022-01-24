@@ -8,38 +8,30 @@ const controllers = require("../app/controllers");
 const validators = require("../app/validators");
 const middlewares = require("../app/middlewares");
 
+routes.get("/", handle(controllers.TypeController.index));
 routes.get(
-  "/:product_id/types/",
-  middlewares.productMiddleware,
-  handle(controllers.TypeController.index)
-);
-routes.get(
-  "/:product_id/types/:id",
-  middlewares.productMiddleware,
+  "/:id",
   middlewares.typeMiddleware,
   handle(controllers.TypeController.show)
 );
 
-routes.use("/", require("./sizes"));
+routes.use("/:type_id/sizes", middlewares.typeMiddleware, require("./sizes"));
 
 routes.use(middlewares.providerMiddleware);
 routes.post(
-  "/:product_id/types/",
-  middlewares.productMiddleware,
+  "/",
   upload.single("file"),
   validate(validators.Type),
   handle(controllers.TypeController.store)
 );
 routes.put(
-  "/:product_id/types/:id",
-  middlewares.productMiddleware,
+  "/:id",
   middlewares.typeMiddleware,
   upload.single("file"),
   handle(controllers.TypeController.update)
 );
 routes.delete(
-  "/:product_id/types/:id",
-  middlewares.productMiddleware,
+  "/:id",
   middlewares.typeMiddleware,
   handle(controllers.TypeController.destroy)
 );

@@ -11,7 +11,11 @@ const middlewares = require("../app/middlewares");
 routes.get("/", handle(controllers.ProductController.index));
 routes.get("/:id", handle(controllers.ProductController.show));
 
-routes.use("/", require("./types"));
+routes.use(
+  "/:product_id/types",
+  middlewares.productMiddleware,
+  require("./types")
+);
 
 routes.use(middlewares.providerMiddleware);
 routes.post(
