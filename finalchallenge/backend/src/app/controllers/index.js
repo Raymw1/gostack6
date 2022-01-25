@@ -3,6 +3,7 @@ const SessionController = require("./SessionController");
 const ProductController = require("./ProductController");
 const TypeController = require("./TypeController");
 const SizeController = require("./SizeController");
+const CartController = require("./CartController");
 
 module.exports = {
   UserController,
@@ -10,4 +11,5 @@ module.exports = {
   ProductController,
   TypeController,
   SizeController,
+  CartController,
 };
