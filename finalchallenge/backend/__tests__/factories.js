@@ -1,5 +1,12 @@
 const { factory } = require("factory-girl");
-const { User, Product, Type, Size } = require("../src/app/models");
+const {
+  User,
+  Product,
+  Type,
+  Size,
+  Order,
+  OrdersSizes,
+} = require("../src/app/models");
 const generateMail = require("./utils/generateMail");
 
 factory.define("User", User, {
@@ -14,13 +21,19 @@ factory.define("Product", Product, {
   preparation_time: 5,
 });
 
-factory.define("Type", Type, {
-  title: "Test",
-});
+factory.define("Type", Type, { title: "Test" });
 
-factory.define("Size", Size, {
-  title: "Test",
+factory.define("Size", Size, { title: "Test", value: 10 });
+
+factory.define("Order", Order, {
+  observation: "Test",
+  cep: "11111111",
+  street: "Test",
+  number: 1,
+  neighborhood: "Test",
   value: 10,
 });
+
+factory.define("OrdersSizes", OrdersSizes, {});
 
 module.exports = factory;
