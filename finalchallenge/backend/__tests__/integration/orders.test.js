@@ -3,7 +3,7 @@ const request = require("supertest");
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
 const factory = require("../factories");
-const generateOrders = require("../utils/generateOrders");
+const generateOrder = require("../utils/generateOrder");
 
 const dataOrders = {
   observation: "Test",
@@ -21,7 +21,11 @@ describe("Orders", () => {
 
   it("should be able to get orders when authenticated", async () => {
     const user = await factory.create("User");
-    const orders = await generateOrders(user.id);
+    const ordersPromise = [
+      await generateOrder(user.id),
+      await generateOrder(user.id),
+    ];
+    const orders = await Promise.all(ordersPromise);
     // GET /orders
     const response = await request(app)
       .get("/orders")
@@ -39,22 +43,23 @@ describe("Orders", () => {
 
   it("should be able to get order when authenticated", async () => {
     const user = await factory.create("User");
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
+    // console.log(order);
     // GET /orders/:id
     const response = await request(app)
-      .get(`/orders/${orders[0].id}`)
+      .get(`/orders/${order[0].order_id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("order");
     expect(response.body.order).toHaveProperty("id");
-    expect(response.body.order.id).toBe(orders[0].id);
+    expect(response.body.order.id).toBe(order[0].order_id);
   });
 
   it("should not be able to get order when user is not authenticated", async () => {
     const user = await factory.create("User");
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
     // GET /orders/:id
-    const response = await request(app).get(`/orders/${orders[0].id}`);
+    const response = await request(app).get(`/orders/${order[0].order_id}`);
     expect(response.status).toBe(401);
   });
 
@@ -62,7 +67,7 @@ describe("Orders", () => {
     const user = await factory.create("User");
     // GET /orders/:id
     const response = await request(app)
-      .get("/orders/1")
+      .get("/orders/9999")
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(404);
   });
@@ -111,16 +116,16 @@ describe("Orders", () => {
     const type = await factory.create("Type", { product_id: product.id });
     const sizes = await factory.createMany("Size", 5, { type_id: type.id });
     const sizesIds = sizes.map((size) => size.id);
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put(`/orders/${orders[0].id}`)
+      .put(`/orders/${order[0].order_id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`)
       .send({ ...dataOrders, sizesIds });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("order");
     expect(response.body.order).toHaveProperty("id");
-    expect(response.body.order.id).toBe(orders[0].id);
+    expect(response.body.order.id).toBe(order[0].order_id);
   });
 
   it("should not be able to update order when user is not a provider", async () => {
@@ -129,10 +134,10 @@ describe("Orders", () => {
     const type = await factory.create("Type", { product_id: product.id });
     const sizes = await factory.createMany("Size", 5, { type_id: type.id });
     const sizesIds = sizes.map((size) => size.id);
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put(`/orders/${orders[0].id}`)
+      .put(`/orders/${order[0].order_id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`)
       .send({ ...dataOrders, sizesIds });
     expect(response.status).toBe(401);
@@ -142,7 +147,7 @@ describe("Orders", () => {
     const user = await factory.create("User", { provider: true });
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put("/orders/1")
+      .put("/orders/9999")
       .set("Authorization", `Bearer ${user.generateToken()}`)
       .send({ ...dataOrders, sizesIds });
     expect(response.status).toBe(404);
@@ -150,10 +155,10 @@ describe("Orders", () => {
 
   it("should not be able to update order when sizes does not exist", async () => {
     const user = await factory.create("User", { provider: true });
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put(`/orders/${orders[0].id}`)
+      .put(`/orders/${order[0].order_id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`)
       .send({ ...dataOrders, sizesIds: [1, 2, 3, 4, 5] });
     expect(response.status).toBe(400);
@@ -161,20 +166,20 @@ describe("Orders", () => {
 
   it("should be able to delete order when user is a provider", async () => {
     const user = await factory.create("User", { provider: true });
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
     // DELETE /orders/:id
     const response = await request(app)
-      .delete(`/orders/${orders[0].id}`)
+      .delete(`/orders/${order[0].order_id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(204);
   });
 
   it("should not be able to delete order when user is not a provider", async () => {
     const user = await factory.create("User");
-    const orders = await generateOrders(user.id);
+    const order = await generateOrder(user.id);
     // DELETE /orders/:id
     const response = await request(app)
-      .delete(`/orders/${orders[0].id}`)
+      .delete(`/orders/${order[0].order_id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(401);
   });
@@ -183,7 +188,7 @@ describe("Orders", () => {
     const user = await factory.create("User", { provider: true });
     // DELETE /orders/:id
     const response = await request(app)
-      .delete("/orders/1")
+      .delete("/orders/9999")
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(404);
   });

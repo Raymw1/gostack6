@@ -22,7 +22,7 @@ routes.use(middlewares.authMiddleware);
 
 routes.get("/cart", handle(controllers.CartController.index));
 
-routes.use("/products", require("./products"));
+routes.use(require("./orders"));
 
 routes.use(middlewares.providerMiddleware);
 
