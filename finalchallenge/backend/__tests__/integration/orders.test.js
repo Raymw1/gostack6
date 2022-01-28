@@ -58,6 +58,15 @@ describe("Orders", () => {
     expect(response.status).toBe(401);
   });
 
+  it("should not be able to get order when order does not exist", async () => {
+    const user = await factory.create("User");
+    // GET /orders/:id
+    const response = await request(app)
+      .get("/orders/1")
+      .set("Authorization", `Bearer ${user.generateToken()}`);
+    expect(response.status).toBe(404);
+  });
+
   it("should be able to order when authenticated", async () => {
     const user = await factory.create("User");
     const product = await factory.create("Product");
@@ -84,6 +93,16 @@ describe("Orders", () => {
       .post("/orders")
       .send({ ...dataOrders, sizesIds });
     expect(response.status).toBe(401);
+  });
+
+  it("should not be able to order when sizes does not exist", async () => {
+    const user = await factory.create("User");
+    // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
+    const response = await request(app)
+      .post("/orders")
+      .set("Authorization", `Bearer ${user.generateToken()}`)
+      .send({ ...dataOrders, sizesIds: [1, 2, 3, 4, 5] });
+    expect(response.status).toBe(400);
   });
 
   it("should be able to update order when user is a provider", async () => {
@@ -119,6 +138,27 @@ describe("Orders", () => {
     expect(response.status).toBe(401);
   });
 
+  it("should not be able to update order when order does not exist", async () => {
+    const user = await factory.create("User", { provider: true });
+    // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
+    const response = await request(app)
+      .put("/orders/1")
+      .set("Authorization", `Bearer ${user.generateToken()}`)
+      .send({ ...dataOrders, sizesIds });
+    expect(response.status).toBe(404);
+  });
+
+  it("should not be able to update order when sizes does not exist", async () => {
+    const user = await factory.create("User", { provider: true });
+    const orders = await generateOrders(user.id);
+    // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
+    const response = await request(app)
+      .put(`/orders/${orders[0].id}`)
+      .set("Authorization", `Bearer ${user.generateToken()}`)
+      .send({ ...dataOrders, sizesIds: [1, 2, 3, 4, 5] });
+    expect(response.status).toBe(400);
+  });
+
   it("should be able to delete order when user is a provider", async () => {
     const user = await factory.create("User", { provider: true });
     const orders = await generateOrders(user.id);
@@ -137,5 +177,14 @@ describe("Orders", () => {
       .delete(`/orders/${orders[0].id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(401);
+  });
+
+  it("should not be able to delete order when order does not exist", async () => {
+    const user = await factory.create("User", { provider: true });
+    // DELETE /orders/:id
+    const response = await request(app)
+      .delete("/orders/1")
+      .set("Authorization", `Bearer ${user.generateToken()}`);
+    expect(response.status).toBe(404);
   });
 });
