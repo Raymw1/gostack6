@@ -44,22 +44,21 @@ describe("Orders", () => {
   it("should be able to get order when authenticated", async () => {
     const user = await factory.create("User");
     const order = await generateOrder(user.id);
-    // console.log(order);
     // GET /orders/:id
     const response = await request(app)
-      .get(`/orders/${order[0].order_id}`)
+      .get(`/orders/${order.id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("order");
     expect(response.body.order).toHaveProperty("id");
-    expect(response.body.order.id).toBe(order[0].order_id);
+    expect(response.body.order.id).toBe(order.id);
   });
 
   it("should not be able to get order when user is not authenticated", async () => {
     const user = await factory.create("User");
     const order = await generateOrder(user.id);
     // GET /orders/:id
-    const response = await request(app).get(`/orders/${order[0].order_id}`);
+    const response = await request(app).get(`/orders/${order.id}`);
     expect(response.status).toBe(401);
   });
 
@@ -82,7 +81,7 @@ describe("Orders", () => {
     const response = await request(app)
       .post("/orders")
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizesIds });
+      .send({ ...dataOrders, sizes: sizesIds });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("order");
     expect(response.body.order).toHaveProperty("id");
@@ -96,7 +95,7 @@ describe("Orders", () => {
     // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .post("/orders")
-      .send({ ...dataOrders, sizesIds });
+      .send({ ...dataOrders, sizes: sizesIds });
     expect(response.status).toBe(401);
   });
 
@@ -106,7 +105,7 @@ describe("Orders", () => {
     const response = await request(app)
       .post("/orders")
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizesIds: [1, 2, 3, 4, 5] });
+      .send({ ...dataOrders, sizes: [1, 2, 3, 4, 5] });
     expect(response.status).toBe(400);
   });
 
@@ -119,13 +118,13 @@ describe("Orders", () => {
     const order = await generateOrder(user.id);
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put(`/orders/${order[0].order_id}`)
+      .put(`/orders/${order.id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizesIds });
+      .send({ ...dataOrders, sizes: sizesIds });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("order");
     expect(response.body.order).toHaveProperty("id");
-    expect(response.body.order.id).toBe(order[0].order_id);
+    expect(response.body.order.id).toBe(order.id);
   });
 
   it("should not be able to update order when user is not a provider", async () => {
@@ -137,9 +136,9 @@ describe("Orders", () => {
     const order = await generateOrder(user.id);
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put(`/orders/${order[0].order_id}`)
+      .put(`/orders/${order.id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizesIds });
+      .send({ ...dataOrders, sizes: sizesIds });
     expect(response.status).toBe(401);
   });
 
@@ -149,7 +148,7 @@ describe("Orders", () => {
     const response = await request(app)
       .put("/orders/9999")
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizesIds });
+      .send({ ...dataOrders, sizes: sizesIds });
     expect(response.status).toBe(404);
   });
 
@@ -158,9 +157,9 @@ describe("Orders", () => {
     const order = await generateOrder(user.id);
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
-      .put(`/orders/${order[0].order_id}`)
+      .put(`/orders/${order.id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizesIds: [1, 2, 3, 4, 5] });
+      .send({ ...dataOrders, sizes: [1, 2, 3, 4, 5] });
     expect(response.status).toBe(400);
   });
 
@@ -169,7 +168,7 @@ describe("Orders", () => {
     const order = await generateOrder(user.id);
     // DELETE /orders/:id
     const response = await request(app)
-      .delete(`/orders/${order[0].order_id}`)
+      .delete(`/orders/${order.id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(204);
   });
@@ -179,7 +178,7 @@ describe("Orders", () => {
     const order = await generateOrder(user.id);
     // DELETE /orders/:id
     const response = await request(app)
-      .delete(`/orders/${order[0].order_id}`)
+      .delete(`/orders/${order.id}`)
       .set("Authorization", `Bearer ${user.generateToken()}`);
     expect(response.status).toBe(401);
   });

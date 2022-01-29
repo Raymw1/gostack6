@@ -7,10 +7,15 @@ const validators = require("../app/validators");
 const middlewares = require("../app/middlewares");
 
 routes.get("/orders", handle(controllers.OrderController.index));
-routes.get("/orders/:id", handle(controllers.OrderController.show));
+routes.get(
+  "/orders/:id",
+  middlewares.orderMiddleware,
+  handle(controllers.OrderController.show)
+);
 routes.post(
-  "/",
-  // validate(validators.Order),
+  "/orders",
+  validate(validators.Order),
+  middlewares.orderMiddleware,
   handle(controllers.OrderController.store)
 );
 

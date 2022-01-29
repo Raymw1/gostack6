@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Size.associate = (models) => {
     Size.belongsTo(models.Type, { foreignKey: "type_id" });
     Size.belongsTo(models.File, { foreignKey: "file_id" });
-    Size.hasMany(models.OrdersSizes);
+    Size.belongsToMany(models.Order, { through: "OrdersSizes" });
   };
 
   return Size;

@@ -4,36 +4,23 @@ class OrderController {
   async index(req, res) {
     const orders = await Order.findAll({
       where: { user_id: req.userId },
-      include: [
-        {
-          model: OrdersSizes,
-          include: {
-            model: Size,
-            include: { model: Type, include: { model: Product } },
-          },
-        },
-      ],
+      include: {
+        model: Size,
+        include: { model: Type, include: { model: Product } },
+      },
     });
     return res.json({ orders });
   }
 
   async show(req, res) {
-    const order = await Order.findByPk(req.params.id, {
-      include: [
-        {
-          model: OrdersSizes,
-          include: {
-            model: Size,
-            include: { model: Type, include: { model: Product } },
-          },
-        },
-      ],
-    });
-    if (!order) return res.status(404).json({ error: "Order not found" });
-    return res.json({ order });
+    return res.json({ order: req.order });
   }
 
-  async store(req, res) {}
+  async store(req, res) {
+    const order = await Order.create({ ...req.body, user_id: req.userId });
+    await order.setSizes(req.body.sizes);
+    return res.status(201).json({ order });
+  }
 
   async update(req, res) {}
 
