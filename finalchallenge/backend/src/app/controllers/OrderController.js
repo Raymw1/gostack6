@@ -1,4 +1,4 @@
-const { Order, OrdersSizes, Size, Type, Product } = require("../models");
+const { Order, Size, Type, Product } = require("../models");
 
 class OrderController {
   async index(req, res) {
@@ -22,9 +22,19 @@ class OrderController {
     return res.status(201).json({ order });
   }
 
-  async update(req, res) {}
+  async update(req, res) {
+    const { order } = req;
+    await order.update(req.body);
+    if (req.body.sizes) {
+      await order.setSizes(req.body.sizes);
+    }
+    return res.status(201).json({ order });
+  }
 
-  async destroy(req, res) {}
+  async destroy(req, res) {
+    await req.order.destroy();
+    return res.status(204).json();
+  }
 }
 
 module.exports = new OrderController();

@@ -148,7 +148,7 @@ describe("Orders", () => {
     const response = await request(app)
       .put("/orders/9999")
       .set("Authorization", `Bearer ${user.generateToken()}`)
-      .send({ ...dataOrders, sizes: sizesIds });
+      .send({ ...dataOrders, sizes: [] });
     expect(response.status).toBe(404);
   });
 

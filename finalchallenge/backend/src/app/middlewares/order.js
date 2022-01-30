@@ -1,14 +1,14 @@
 const { Order, Size, Type, Product } = require("../models");
 
 module.exports = async (req, res, next) => {
-  if (req.method === "POST") {
+  if (["POST", "PUT"].includes(req.method)) {
     const sizes = await Size.findAll({
       where: { id: req.body.sizes },
     });
     if (sizes.length !== req.body.sizes.length) {
       return res.status(400).json({ error: "Invalid size" });
     }
-    return next();
+    if (req.method === "POST") return next();
   }
   const order = await Order.findByPk(req.params.id, {
     include: {

@@ -11,7 +11,6 @@ class CartController {
       .reduce((prevValue, currValue) => prevValue * 0.9 + currValue);
     return res.json({ cart, total: total.toFixed(2) });
   }
-  // FIXME: Change function return type
 }
 
 module.exports = new CartController();

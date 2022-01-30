@@ -22,7 +22,15 @@ routes.post(
 routes.use("/products", require("./products"));
 
 routes.use(middlewares.providerMiddleware);
-routes.put("/orders/:id", handle(controllers.OrderController.update));
-routes.delete("/orders/:id", handle(controllers.OrderController.destroy));
+routes.put(
+  "/orders/:id",
+  middlewares.orderMiddleware,
+  handle(controllers.OrderController.update)
+);
+routes.delete(
+  "/orders/:id",
+  middlewares.orderMiddleware,
+  handle(controllers.OrderController.destroy)
+);
 
 module.exports = routes;
