@@ -1,9 +1,16 @@
 const request = require("supertest");
+const nodemailer = require("nodemailer");
 
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
 const factory = require("../factories");
 const generateOrder = require("../utils/generateOrder");
+
+jest.mock("nodemailer");
+
+const transport = {
+  sendMail: jest.fn(),
+};
 
 const dataOrders = {
   observation: "Test",
@@ -17,6 +24,10 @@ const dataOrders = {
 describe("Orders", () => {
   beforeEach(async () => {
     await truncate();
+  });
+
+  beforeAll(() => {
+    nodemailer.createTransport.mockReturnValue(transport);
   });
 
   it("should be able to get orders when authenticated", async () => {
@@ -85,6 +96,20 @@ describe("Orders", () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("order");
     expect(response.body.order).toHaveProperty("id");
+  });
+
+  it("should receive email notification when orders a product", async () => {
+    const user = await factory.create("User");
+    const product = await factory.create("Product");
+    const type = await factory.create("Type", { product_id: product.id });
+    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
+    const sizesIds = sizes.map((size) => size.id);
+    // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
+    const response = await request(app)
+      .post("/orders")
+      .set("Authorization", `Bearer ${user.generateToken()}`)
+      .send({ ...dataOrders, sizes: sizesIds });
+    expect(transport.sendMail).toHaveBeenCalledTimes(1);
   });
 
   it("should not be able to order when user is not authenticated", async () => {
