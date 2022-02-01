@@ -11,23 +11,23 @@ describe("Cart", () => {
   });
 
   it("should be able to get products in cart when authenticated", async () => {
-    const { user, sizesId } = await generateData({});
+    const { user, sizesIds } = await generateData({});
     // GET /cart { headers: [...ids...] }
     const response = await request(app)
       .get("/cart")
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .set("cart", JSON.stringify(sizesId));
+      .set("cart", JSON.stringify(sizesIds));
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("cart");
     expect(response.body).toHaveProperty("total");
   });
 
   it("should not be able to get products in cart when user is not authenticated", async () => {
-    const { sizesId } = await generateData({});
+    const { sizesIds } = await generateData({});
     // GET /cart { headers: [...ids...] }
     const response = await request(app)
       .get("/cart")
-      .set("cart", JSON.stringify(sizesId));
+      .set("cart", JSON.stringify(sizesIds));
     expect(response.status).toBe(401);
   });
 });

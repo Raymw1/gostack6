@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
 const factory = require("../factories");
-const generateOrder = require("../utils/generateOrder");
+const generateData = require("../utils/generateData");
 
 jest.mock("nodemailer");
 
@@ -31,12 +31,8 @@ describe("Orders", () => {
   });
 
   it("should be able to get orders when authenticated", async () => {
-    const user = await factory.create("User");
-    const ordersPromise = [
-      await generateOrder(user.id),
-      await generateOrder(user.id),
-    ];
-    const orders = await Promise.all(ordersPromise);
+    const { user, order } = await generateData({ ordersQuantity: 2 });
+    const orders = await Promise.all(order);
     // GET /orders
     const response = await request(app)
       .get("/orders")
@@ -53,8 +49,7 @@ describe("Orders", () => {
   });
 
   it("should be able to get order when authenticated", async () => {
-    const user = await factory.create("User");
-    const order = await generateOrder(user.id);
+    const { user, order } = await generateData({ ordersQuantity: 1 });
     // GET /orders/:id
     const response = await request(app)
       .get(`/orders/${order.id}`)
@@ -66,15 +61,14 @@ describe("Orders", () => {
   });
 
   it("should not be able to get order when user is not authenticated", async () => {
-    const user = await factory.create("User");
-    const order = await generateOrder(user.id);
+    const { order } = await generateData({ ordersQuantity: 1 });
     // GET /orders/:id
     const response = await request(app).get(`/orders/${order.id}`);
     expect(response.status).toBe(401);
   });
 
   it("should not be able to get order when order does not exist", async () => {
-    const user = await factory.create("User");
+    const { user } = await generateData({});
     // GET /orders/:id
     const response = await request(app)
       .get("/orders/9999")
@@ -83,11 +77,7 @@ describe("Orders", () => {
   });
 
   it("should be able to order when authenticated", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesIds = sizes.map((size) => size.id);
+    const { user, sizesIds } = await generateData({ ordersQuantity: 1 });
     // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .post("/orders")
@@ -99,11 +89,7 @@ describe("Orders", () => {
   });
 
   it("should receive email notification when orders a product", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesIds = sizes.map((size) => size.id);
+    const { user, sizesIds } = await generateData({ ordersQuantity: 1 });
     // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .post("/orders")
@@ -113,10 +99,7 @@ describe("Orders", () => {
   });
 
   it("should not be able to order when user is not authenticated", async () => {
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesIds = sizes.map((size) => size.id);
+    const { sizesIds } = await generateData({ ordersQuantity: 1 });
     // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .post("/orders")
@@ -125,7 +108,7 @@ describe("Orders", () => {
   });
 
   it("should not be able to order when sizes does not exist", async () => {
-    const user = await factory.create("User");
+    const { user } = await generateData({ ordersQuantity: 1 });
     // POST /orders { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .post("/orders")
@@ -135,12 +118,10 @@ describe("Orders", () => {
   });
 
   it("should be able to update order when user is a provider", async () => {
-    const user = await factory.create("User", { provider: true });
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesIds = sizes.map((size) => size.id);
-    const order = await generateOrder(user.id);
+    const { user, sizesIds, order } = await generateData({
+      userProvider: true,
+      ordersQuantity: 1,
+    });
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .put(`/orders/${order.id}`)
@@ -153,12 +134,9 @@ describe("Orders", () => {
   });
 
   it("should not be able to update order when user is not a provider", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesIds = sizes.map((size) => size.id);
-    const order = await generateOrder(user.id);
+    const { user, sizesIds, order } = await generateData({
+      ordersQuantity: 1,
+    });
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .put(`/orders/${order.id}`)
@@ -168,7 +146,7 @@ describe("Orders", () => {
   });
 
   it("should not be able to update order when order does not exist", async () => {
-    const user = await factory.create("User", { provider: true });
+    const { user } = await generateData({ userProvider: true });
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .put("/orders/9999")
@@ -178,8 +156,10 @@ describe("Orders", () => {
   });
 
   it("should not be able to update order when sizes does not exist", async () => {
-    const user = await factory.create("User", { provider: true });
-    const order = await generateOrder(user.id);
+    const { user, order } = await generateData({
+      userProvider: true,
+      ordersQuantity: 1,
+    });
     // PUT /orders/:id { observation, cep, street, number, neighborhood, value, sizesIds }
     const response = await request(app)
       .put(`/orders/${order.id}`)
@@ -189,8 +169,10 @@ describe("Orders", () => {
   });
 
   it("should be able to delete order when user is a provider", async () => {
-    const user = await factory.create("User", { provider: true });
-    const order = await generateOrder(user.id);
+    const { user, order } = await generateData({
+      userProvider: true,
+      ordersQuantity: 1,
+    });
     // DELETE /orders/:id
     const response = await request(app)
       .delete(`/orders/${order.id}`)
@@ -199,8 +181,7 @@ describe("Orders", () => {
   });
 
   it("should not be able to delete order when user is not a provider", async () => {
-    const user = await factory.create("User");
-    const order = await generateOrder(user.id);
+    const { user, order } = await generateData({ ordersQuantity: 1 });
     // DELETE /orders/:id
     const response = await request(app)
       .delete(`/orders/${order.id}`)
@@ -209,7 +190,7 @@ describe("Orders", () => {
   });
 
   it("should not be able to delete order when order does not exist", async () => {
-    const user = await factory.create("User", { provider: true });
+    const { user } = await generateData({ userProvider: true });
     // DELETE /orders/:id
     const response = await request(app)
       .delete("/orders/9999")
