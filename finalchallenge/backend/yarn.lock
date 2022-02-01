@@ -3960,7 +3960,7 @@ kleur@^3.0.3:
 
 kue@^0.11.6:
   version "0.11.6"
-  resolved "https://registry.npmjs.org/kue/-/kue-0.11.6.tgz"
+  resolved "https://registry.yarnpkg.com/kue/-/kue-0.11.6.tgz#5b76916bcedd56636a107861471c63c94611860a"
   integrity sha512-56Jic22qSqdJ3nNpkhVr6RUx/QKalfdBdU0m70hgBKEkhBAgdt6Qr74evec+bM+LGmNbEC6zGGDskX4mcgBYcQ==
   dependencies:
     body-parser "^1.12.2"

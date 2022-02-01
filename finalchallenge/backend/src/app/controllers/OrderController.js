@@ -1,5 +1,6 @@
 const { Order, Size, Type, Product } = require("../models");
-const Mail = require("../services/MailService");
+const OrderMail = require("../jobs/OrderMail");
+const Queue = require("../services/QueueService");
 
 class OrderController {
   async index(req, res) {
@@ -20,13 +21,11 @@ class OrderController {
   async store(req, res) {
     const order = await Order.create({ ...req.body, user_id: req.userId });
     await order.setSizes(req.body.sizes);
-    await Mail.send({
-      from: '"Pizzaria Don Juan" <pizzaria@donjuan.com',
-      to: req.user.email,
-      subject: `Success on order solicitation: #${order.id}`,
-      template: "orders",
-      context: { user_name: req.user.name },
-    });
+    Queue.create(OrderMail.key, {
+      orderId: order.id,
+      username: req.user.name,
+      email: req.user.email,
+    }).save();
     return res.status(201).json({ order });
   }
 

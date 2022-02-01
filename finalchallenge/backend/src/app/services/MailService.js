@@ -11,7 +11,7 @@ class MailService {
     const viewPath = path.resolve(__dirname, "..", "views", "emails");
 
     if (process.env.NODE_ENV !== "test") {
-      transport.use(
+      transporter.use(
         "compile",
         hbs({
           viewEngine: exphbs.create({
