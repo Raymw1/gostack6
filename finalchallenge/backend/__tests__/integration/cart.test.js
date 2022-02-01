@@ -3,6 +3,7 @@ const request = require("supertest");
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
 const factory = require("../factories");
+const generateData = require("../utils/generateData");
 
 describe("Cart", () => {
   beforeEach(async () => {
@@ -10,12 +11,7 @@ describe("Cart", () => {
   });
 
   it("should be able to get products in cart when authenticated", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesId = [sizes[0].id, sizes[4].id];
-
+    const { user, sizesId } = await generateData({});
     // GET /cart { headers: [...ids...] }
     const response = await request(app)
       .get("/cart")
@@ -27,11 +23,7 @@ describe("Cart", () => {
   });
 
   it("should not be able to get products in cart when user is not authenticated", async () => {
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
-    const sizes = await factory.createMany("Size", 5, { type_id: type.id });
-    const sizesId = [sizes[0].id, sizes[4].id];
-
+    const { sizesId } = await generateData({});
     // GET /cart { headers: [...ids...] }
     const response = await request(app)
       .get("/cart")
