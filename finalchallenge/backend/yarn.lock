@@ -2399,7 +2399,7 @@ express-handlebars@^4.0.0:
 
 express-handlebars@^6.0.2:
   version "6.0.2"
-  resolved "https://registry.npmjs.org/express-handlebars/-/express-handlebars-6.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/express-handlebars/-/express-handlebars-6.0.2.tgz#4d377751e3ef70a661aba76d921dee563b08b35a"
   integrity sha512-PXNT4oDHIDbg0/QBXPwf2laTi+eqErEJ3Ldc7Ky6WHpr7xJMoltsnPM7lScjN6sWZWaIPNdDYJvV+6P9cnv1pg==
   dependencies:
     glob "^7.2.0"
@@ -4453,7 +4453,7 @@ node-releases@^2.0.1:
 
 nodemailer-express-handlebars@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npmjs.org/nodemailer-express-handlebars/-/nodemailer-express-handlebars-4.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/nodemailer-express-handlebars/-/nodemailer-express-handlebars-4.0.0.tgz#8b832872cdc29464d44520c754f8978454286014"
   integrity sha512-oUYl2D1AkFNwRe7RXt8iNTtmQGmI4Bt4PXRkE9lX891FHNNUB3I5yRDGL1WQPOujYIHH79uAvD3QzsBStG4SFA==
   dependencies:
     express-handlebars "^4.0.0"
