@@ -3,6 +3,9 @@ const request = require("supertest");
 const truncate = require("../utils/truncate");
 const app = require("../../src/server");
 const factory = require("../factories");
+const generateData = require("../utils/generateData");
+
+const dataType = { title: "firstType" };
 
 describe("Type", () => {
   beforeEach(async () => {
@@ -26,9 +29,7 @@ describe("Type", () => {
   });
 
   it("should be able to get the type when authenticated", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, product, type } = await generateData({});
     // GET /products/:product_id/types/:id
     const response = await request(app)
       .get(`/products/${product.id}/types/${type.id}`)
@@ -46,9 +47,7 @@ describe("Type", () => {
   });
 
   it("should not be able to get the type when type is not from the correct product", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, type } = await generateData({});
     const wrongProduct = await factory.create("Product");
     // GET /products/:product_id/types/:id
     const response = await request(app)
@@ -80,9 +79,7 @@ describe("Type", () => {
     const response = await request(app)
       .post(`/products/${product.id}/types`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("type");
   });
@@ -102,9 +99,7 @@ describe("Type", () => {
     const response = await request(app)
       .post(`/products/${product.id}/types`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(401);
   });
 
@@ -114,23 +109,17 @@ describe("Type", () => {
     const response = await request(app)
       .post("/products/1/types")
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(404);
   });
 
   it("should be able to update type when user is a provider", async () => {
-    const user = await factory.create("User", { provider: true });
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, product, type } = await generateData({ userProvider: true });
     // PUT /products/:product_id/types/:id { title }
     const response = await request(app)
       .put(`/products/${product.id}/types/${type.id}`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(201);
   });
 
@@ -141,9 +130,7 @@ describe("Type", () => {
     const response = await request(app)
       .put(`/products/${product.id}/types/3333`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(404);
   });
 
@@ -153,38 +140,28 @@ describe("Type", () => {
     const response = await request(app)
       .put(`/products/1/types/3333`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(404);
   });
 
   it("should not be able to update type when type is not from the correct product", async () => {
-    const user = await factory.create("User", { provider: true });
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, type } = await generateData({ userProvider: true });
     const wrongProduct = await factory.create("Product");
     // PUT /products/:product_id/types/:id { title }
     const response = await request(app)
       .put(`/products/${wrongProduct.id}/types/${type.id}`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(401);
   });
 
   it("should not be able to update type when user is not a provider", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, product, type } = await generateData({});
     // PUT /products/:product_id/types/:id { title }
     const response = await request(app)
       .put(`/products/${product.id}/types/${type.id}`)
       .set("Authorization", `Bearer ${await user.generateToken()}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(401);
   });
 
@@ -194,16 +171,12 @@ describe("Type", () => {
     // PUT /products/:product_id/types/:id { title }
     const response = await request(app)
       .put(`/products/${product.id}/types/${type.id}`)
-      .send({
-        title: "FirstType",
-      });
+      .send(dataType);
     expect(response.status).toBe(401);
   });
 
   it("should be able to delete type when user is a provider", async () => {
-    const user = await factory.create("User", { provider: true });
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, product, type } = await generateData({ userProvider: true });
     // DELETE /products/:product_id/types/:id
     const response = await request(app)
       .delete(`/products/${product.id}/types/${type.id}`)
@@ -231,9 +204,7 @@ describe("Type", () => {
   });
 
   it("should not be able to delete type when type is not from the correct product", async () => {
-    const user = await factory.create("User", { provider: true });
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, type } = await generateData({ userProvider: true });
     const wrongProduct = await factory.create("Product");
     // DELETE /products/:product_id/types/:id
     const response = await request(app)
@@ -243,9 +214,7 @@ describe("Type", () => {
   });
 
   it("should not be able to delete type when user is not a provider", async () => {
-    const user = await factory.create("User");
-    const product = await factory.create("Product");
-    const type = await factory.create("Type", { product_id: product.id });
+    const { user, product, type } = await generateData({});
     // DELETE /products/:product_id/types/:id
     const response = await request(app)
       .delete(`/products/${product.id}/types/${type.id}`)
