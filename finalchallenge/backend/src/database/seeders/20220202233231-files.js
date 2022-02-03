@@ -38,9 +38,54 @@ const productFiles = [
   },
 ];
 
+const typeFiles = [
+  {
+    originalname: "4queijos.png",
+    key: "pizzas-4queijos.png",
+    url: `${process.env.APP_URL}/files/pizzas-4queijos.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "calabresa.png",
+    key: "pizzas-calabresa.png",
+    url: `${process.env.APP_URL}/files/pizzas-calabresa.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "frangofrito.png",
+    key: "pizzas-frangofrito.png",
+    url: `${process.env.APP_URL}/files/pizzas-frangofrito.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "marguerita.png",
+    key: "pizzas-marguerita.png",
+    url: `${process.env.APP_URL}/files/pizzas-marguerita.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "peperoni.png",
+    key: "pizzas-peperoni.png",
+    url: `${process.env.APP_URL}/files/pizzas-peperoni.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "portuguesa.png",
+    key: "pizzas-portuguesa.png",
+    url: `${process.env.APP_URL}/files/pizzas-portuguesa.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("files", [...productFiles]);
+    return queryInterface.bulkInsert("files", [...productFiles, ...typeFiles]);
   },
 
   down: async (queryInterface, Sequelize) => {
