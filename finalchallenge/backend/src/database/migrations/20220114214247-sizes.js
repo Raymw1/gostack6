@@ -20,7 +20,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       value: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       type_id: {

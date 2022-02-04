@@ -83,9 +83,44 @@ const typeFiles = [
   },
 ];
 
+const sizeFiles = [
+  {
+    originalname: "pizza-gg.png",
+    key: "tamanhos-pizza-gg.png",
+    url: `${process.env.APP_URL}/files/tamanhos-pizza-gg.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "pizza-g.png",
+    key: "tamanhos-pizza-g.png",
+    url: `${process.env.APP_URL}/files/tamanhos-pizza-g.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "pizza-m.png",
+    key: "tamanhos-pizza-m.png",
+    url: `${process.env.APP_URL}/files/tamanhos-pizza-m.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    originalname: "pizza-p.png",
+    key: "tamanhos-pizza-p.png",
+    url: `${process.env.APP_URL}/files/tamanhos-pizza-p.png`,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("files", [...productFiles, ...typeFiles]);
+    return queryInterface.bulkInsert("files", [
+      ...productFiles,
+      ...typeFiles,
+      ...sizeFiles,
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
