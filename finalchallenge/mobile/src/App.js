@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 
+import createNavigator from './routes';
+
 class App extends Component {
   render() {
-    return (
-      <View>
-        <Text>Hello, World!</Text>
-      </View>
-    );
+    const Routes = createNavigator();
+    return <Routes />;
   }
 }
 

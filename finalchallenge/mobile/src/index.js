@@ -8,7 +8,7 @@ import App from './App';
 
 const index = () => (
   <Provider store={store}>
-    <App />;
+    <App />
   </Provider>
 );
 
