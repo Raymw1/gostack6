@@ -10,7 +10,7 @@ const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 const store = createStore(
   rootReducer,
   __DEV__
-    ? compose(applyMiddleware(sagaMiddleware), console.tron.createEnhacer())
+    ? compose(applyMiddleware(sagaMiddleware), console.tron.createEnhancer())
     : applyMiddleware(sagaMiddleware),
 );
 
