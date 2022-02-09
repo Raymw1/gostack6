@@ -5,8 +5,8 @@ import React, {Component} from 'react';
 // // import {bindActionCreators} from 'redux';
 // // import UserActions from 'store/ducks/user';
 
-import {View, Text} from 'react-native';
-// import styles from './styles';
+import {Text} from 'react-native';
+import {Container, Background, LinearGradient} from './styles';
 
 export default class SignIn extends Component {
   static propTypes = {};
@@ -17,9 +17,13 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <View>
-        <Text>SignIn</Text>
-      </View>
+      <Container>
+        <Background>
+          <LinearGradient>
+            <Text>SignIn</Text>
+          </LinearGradient>
+        </Background>
+      </Container>
     );
   }
 }
