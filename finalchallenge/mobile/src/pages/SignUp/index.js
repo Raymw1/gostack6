@@ -8,31 +8,40 @@ import React, {Component} from 'react';
 import {Input, Button, ButtonText, TextLink} from 'styles/components';
 import Sign from 'components/Sign';
 
-export default class SignIn extends Component {
+export default class SignUp extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
   };
 
   render() {
-    const {email, password} = this.state;
+    const {name, email, password} = this.state;
     return (
       <Sign>
+        <Input
+          name="name"
+          value={name}
+          onChangeText={name => this.setState({name})}
+          placeholder="Your full name"
+        />
         <Input
           name="email"
           value={email}
           onChangeText={email => this.setState({email})}
-          placeholder="Your email"></Input>
+          placeholder="Your email"
+        />
         <Input
           name="password"
           value={password}
           onChangeText={password => this.setState({password})}
-          placeholder="Your password"></Input>
+          placeholder="Your password"
+        />
         <Button>
-          <ButtonText>Sign In</ButtonText>
+          <ButtonText>Sign Up</ButtonText>
         </Button>
-        <TextLink onPress={() => this.props.navigation.navigate('SignUp')}>
-          Create free account
+        <TextLink onPress={() => this.props.navigation.navigate('SignIn')}>
+          I already have an account
         </TextLink>
       </Sign>
     );
@@ -46,4 +55,4 @@ export default class SignIn extends Component {
 // const mapDispatchToProps = dispatch =>
 //   bindActionCreators(UserActions, dispatch);
 
-// export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+// export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

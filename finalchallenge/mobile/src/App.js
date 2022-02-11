@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {LogBox} from 'react-native';
+LogBox.ignoreLogs(['Require cycle']);
 
 import createNavigator from './routes';
 
