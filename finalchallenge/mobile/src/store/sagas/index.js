@@ -1,10 +1,8 @@
 import {takeLatest, all} from 'redux-saga/effects';
 
-// import {Types} from "store/ducks/reducer";
-// import {sagaFunction} from "./saga"
+import {init, signIn} from './auth';
+import {AuthTypes} from 'store/ducks/auth';
 
 export default function* rootSaga() {
-  return yield all([
-    // takeLatest(Types.TYPE, sagaFunction)
-  ]);
+  return yield all([init(), takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn)]);
 }

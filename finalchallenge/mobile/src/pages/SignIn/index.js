@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
 // import PropTypes from 'prop-types';
 
-// // import {connect} from 'react-redux';
-// // import {bindActionCreators} from 'redux';
-// // import UserActions from 'store/ducks/user';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import AuthActions from 'store/ducks/auth';
 
 import {Input, Button, ButtonText, TextLink} from 'styles/components';
 import Sign from 'components/Sign';
 
-export default class SignIn extends Component {
+export class SignIn extends Component {
   state = {
     email: '',
     password: '',
+  };
+
+  hadleSubmit = () => {
+    const {email, password} = this.state;
+    this.props.signInRequest(email, password);
   };
 
   render() {
@@ -19,16 +24,30 @@ export default class SignIn extends Component {
     return (
       <Sign>
         <Input
-          name="email"
+          placeholder="Your email"
           value={email}
           onChangeText={email => this.setState({email})}
-          placeholder="Your email"></Input>
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          underlineColorAndroid="transparent"
+          autoFocus
+          returnKeyType="next"
+          onSubmitEditing={() => this.passwordInput.focus()}
+        />
         <Input
-          name="password"
+          placeholder="Your password"
           value={password}
           onChangeText={password => this.setState({password})}
-          placeholder="Your password"></Input>
-        <Button>
+          secureTextEntry
+          autoCapitalize="none"
+          autoCorrect={false}
+          underlineColorAndroid="transparent"
+          returnKeyType="send"
+          onSubmitEditing={this.hadleSubmit}
+          ref={input => (this.passwordInput = input)}
+        />
+        <Button onPress={this.handleSubmit}>
           <ButtonText>Sign In</ButtonText>
         </Button>
         <TextLink onPress={() => this.props.navigation.navigate('SignUp')}>
@@ -40,10 +59,10 @@ export default class SignIn extends Component {
 }
 
 // const mapStateToProps = state => ({
-//   //user: state.user
+//   auth: state.auth,
 // });
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(UserActions, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(AuthActions, dispatch);
 
-// export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);
