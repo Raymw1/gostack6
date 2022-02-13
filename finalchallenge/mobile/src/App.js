@@ -4,6 +4,7 @@ import {LogBox} from 'react-native';
 LogBox.ignoreLogs([
   'Require cycle',
   'componentWillReceiveProps has been renamed',
+  'Animated: `useNativeDriver`',
 ]);
 
 import {connect} from 'react-redux';

@@ -26,3 +26,16 @@ export function* signIn({email, password}) {
     yield put(ToastActionsCreators.displayError('Invalid credentials'));
   }
 }
+
+export function* signUp({name, email, password}) {
+  try {
+    const {
+      data: {token},
+    } = yield call(api.post, '/users', {name, email, password});
+    // yield call([AsyncStorage, 'setItem'], '@Pizza:token', token);
+    yield put(AuthActions.signInSuccess(token));
+    NavigationService.navigate('Main');
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError('Invalid credentials'));
+  }
+}

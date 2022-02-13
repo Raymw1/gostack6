@@ -14,7 +14,7 @@ export class SignIn extends Component {
     password: '',
   };
 
-  hadleSubmit = () => {
+  handleSubmit = () => {
     const {email, password} = this.state;
     this.props.signInRequest(email, password);
   };
@@ -44,7 +44,7 @@ export class SignIn extends Component {
           autoCorrect={false}
           underlineColorAndroid="transparent"
           returnKeyType="send"
-          onSubmitEditing={this.hadleSubmit}
+          onSubmitEditing={this.handleSubmit}
           ref={input => (this.passwordInput = input)}
         />
         <Button onPress={this.handleSubmit}>
