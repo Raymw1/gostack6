@@ -5,6 +5,7 @@ LogBox.ignoreLogs([
   'Require cycle',
   'componentWillReceiveProps has been renamed',
   'Animated: `useNativeDriver`',
+  '[react-native-gesture-handler]',
 ]);
 
 import {connect} from 'react-redux';

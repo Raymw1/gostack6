@@ -1,10 +1,8 @@
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
 
 import backgroundImage from 'images/background.jpg';
 import logo from 'images/logo.png';
-
-import {colors, fonts} from 'styles';
 
 export const Container = styled.View`
   flex: 1;
