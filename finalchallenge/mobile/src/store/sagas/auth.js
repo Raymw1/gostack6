@@ -17,11 +17,20 @@ export function* init() {
 export function* signIn({email, password}) {
   try {
     const {
-      data: {token},
+      data: {
+        token,
+        user: {provider},
+      },
     } = yield call(api.post, '/sessions', {email, password});
-    // yield call([AsyncStorage, 'setItem'], '@Pizza:token', token);
-    yield put(AuthActions.signInSuccess(token));
-    NavigationService.navigate('Main');
+    if (provider) {
+      yield put(
+        ToastActionsCreators.displayError('Please, use a normal account'),
+      );
+    } else {
+      yield call([AsyncStorage, 'setItem'], '@Pizza:token', token);
+      yield put(AuthActions.signInSuccess(token));
+      NavigationService.navigate('Main');
+    }
   } catch (error) {
     yield put(ToastActionsCreators.displayError('Invalid credentials'));
   }
@@ -32,7 +41,7 @@ export function* signUp({name, email, password}) {
     const {
       data: {token},
     } = yield call(api.post, '/users', {name, email, password});
-    // yield call([AsyncStorage, 'setItem'], '@Pizza:token', token);
+    yield call([AsyncStorage, 'setItem'], '@Pizza:token', token);
     yield put(AuthActions.signInSuccess(token));
     NavigationService.navigate('Main');
   } catch (error) {
