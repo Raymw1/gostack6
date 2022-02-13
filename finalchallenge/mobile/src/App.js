@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {LogBox} from 'react-native';
-LogBox.ignoreLogs(['Require cycle']);
+LogBox.ignoreLogs([
+  'Require cycle',
+  'componentWillReceiveProps has been renamed',
+]);
 
 import {connect} from 'react-redux';
 
