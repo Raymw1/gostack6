@@ -1,7 +1,9 @@
 export default {
   bigger: '24px',
-  big: '16px',
-  regular: '15px',
-  small: '12px',
-  smaller: '11px',
+  big: '20px',
+  regular: '18px',
+  medium: '16px',
+  small: '14px',
+  smaller: '12px',
+  smallest: '10px',
 };

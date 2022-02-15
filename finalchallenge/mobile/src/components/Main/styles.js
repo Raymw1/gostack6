@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {Dimensions} from 'react-native';
 
 import HeaderImage from 'images/header.png';
 
@@ -9,7 +10,7 @@ export const Container = styled.View`
 export const Background = styled.ImageBackground.attrs({
   source: HeaderImage,
 })`
-  width: 100%;
+  width: ${Dimensions.get('window').width};
   height: 170px;
 `;
 
@@ -18,6 +19,6 @@ export const Content = styled.View`
   inset: 0px;
   padding: 20px;
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  width: ${Dimensions.get('window').width};
+  height: ${Dimensions.get('window').height};
 `;
