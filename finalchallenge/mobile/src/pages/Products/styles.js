@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import {fonts} from 'styles';
 
@@ -12,4 +12,9 @@ export const Title = styled.Text`
   font-size: ${fonts.big};
   color: #fff;
   font-weight: bold;
+`;
+
+export const ProductsList = styled.FlatList`
+  margin-top: 20px;
+  width: 100%;
 `;

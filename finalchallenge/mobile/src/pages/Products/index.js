@@ -1,11 +1,19 @@
-import {Text, View} from 'react-native';
 import React, {Component} from 'react';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import ProductsActions from 'store/ducks/products';
+
 import Main from 'components/Main';
-import {Header, Title} from './styles';
+import {Header, Title, ProductsList} from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {colors} from 'styles';
-export default class index extends Component {
+import Product from './ProductItem';
+class Products extends Component {
+  componentDidMount() {
+    this.props.productsRequest();
+  }
+
   render() {
     return (
       <Main>
@@ -23,7 +31,21 @@ export default class index extends Component {
             }}
           />
         </Header>
+        <ProductsList
+          data={this.props.products}
+          keyExtractor={item => String(item.id)}
+          renderItem={({item}) => <Product product={item} />}
+        />
       </Main>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  products: state.products.productsData,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ProductsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
