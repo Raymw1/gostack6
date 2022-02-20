@@ -13,13 +13,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Product = ({
   product: {
+    id,
     File: {url},
     title,
     description,
     preparation_time,
   },
+  typesRequest,
 }) => (
-  <ProductContainer>
+  <ProductContainer onPress={() => typesRequest(id)}>
     <ProductImage source={{uri: url.replace('localhost', '10.0.2.2')}} />
     <ProductInfo>
       <ProductTitle>{title}</ProductTitle>

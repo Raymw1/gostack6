@@ -5,7 +5,7 @@ const {Types, Creators} = createActions({
   productsRequest: null,
   productsSuccess: ['products'],
   typesRequest: ['id'],
-  typesSuccess: ['product'],
+  typesSuccess: ['productId', 'types'],
   sizesRequest: ['id'],
   sizesSuccess: ['type'],
 });
@@ -24,8 +24,8 @@ export const INITIAL_STATE = Immutable({
 const productsReducer = (state, {products}) =>
   state.merge({productsData: products});
 
-const typesReducer = (state, {product}) =>
-  state.merge({productId: product.id, typesData: product.types});
+const typesReducer = (state, {productId, types}) =>
+  state.merge({productId, typesData: types});
 
 const sizesReducer = (state, {type}) =>
   state.merge({typeId: type.id, sizesData: type.sizes});

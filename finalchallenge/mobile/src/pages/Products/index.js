@@ -34,7 +34,9 @@ class Products extends Component {
         <ProductsList
           data={this.props.products}
           keyExtractor={item => String(item.id)}
-          renderItem={({item}) => <Product product={item} />}
+          renderItem={({item}) => (
+            <Product product={item} typesRequest={this.props.typesRequest} />
+          )}
         />
       </Main>
     );
