@@ -22,7 +22,7 @@ export function* typesRequest({id}) {
       data: {types},
     } = yield call(api.get, `/products/${id}/types`);
     yield put(ProductsActions.typesSuccess(id, types));
-    // NavigationService.navigate('Types');
+    NavigationService.navigate('Types');
   } catch (error) {
     yield put(ToastActionsCreators.displayError('Something went wrong!'));
   }
