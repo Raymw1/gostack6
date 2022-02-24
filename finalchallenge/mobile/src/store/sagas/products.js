@@ -27,3 +27,16 @@ export function* typesRequest({id}) {
     yield put(ToastActionsCreators.displayError('Something went wrong!'));
   }
 }
+
+export function* sizesRequest({id}) {
+  try {
+    const productId = yield select(state => state.products.productId);
+    const {
+      data: {sizes},
+    } = yield call(api.get, `/products/${productId}/types/${id}/sizes`);
+    yield put(ProductsActions.sizesSuccess(id, sizes));
+    // NavigationService.navigate('Types');
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError('Something went wrong!'));
+  }
+}

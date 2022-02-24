@@ -19,13 +19,16 @@ class Types extends Component {
             size={16}
             style={{marginTop: 2, marginRight: 10}}
             color="#fff"
+            onPress={() => this.props.navigation.navigate('Products')}
           />
           <Title>Selecione um tipo</Title>
         </Header>
         <TypesList
           data={this.props.types}
           keyExtractor={item => String(item.id)}
-          renderItem={({item}) => <Type type={item} />}
+          renderItem={({item}) => (
+            <Type type={item} sizesRequest={this.props.sizesRequest} />
+          )}
           numColumns={2}
           // Column gap
           columnWrapperStyle={{

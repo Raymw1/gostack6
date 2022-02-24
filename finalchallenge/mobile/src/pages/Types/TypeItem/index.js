@@ -9,9 +9,9 @@ const Type = ({
     File: {url},
     title,
   },
-  // typesRequest,
+  sizesRequest,
 }) => (
-  <TypeContainer onPress={() => {}}>
+  <TypeContainer onPress={() => sizesRequest(id)}>
     <TypeImage source={{uri: url.replace('localhost', '10.0.2.2')}} />
     <TypeTitle>{title}</TypeTitle>
   </TypeContainer>
