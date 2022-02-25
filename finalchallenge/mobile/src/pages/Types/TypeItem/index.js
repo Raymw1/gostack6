@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {TypeContainer, TypeImage, TypeTitle} from './styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Type = ({
   type: {

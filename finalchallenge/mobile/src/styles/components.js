@@ -37,3 +37,19 @@ export const TextLink = styled.Text`
   font-size: ${fonts.big};
   font-weight: 500;
 `;
+
+export const Header = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Title = styled.Text`
+  font-size: ${fonts.big};
+  color: #fff;
+  font-weight: 500;
+`;
+
+export const List = styled.FlatList`
+  margin-top: 20px;
+  width: 100%;
+`;

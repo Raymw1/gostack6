@@ -7,9 +7,9 @@ import ProductsActions from 'store/ducks/products';
 import Main from 'components/Main';
 import {Header, Title, List} from 'styles/components';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Type from './TypeItem';
+import Size from './SizeItem';
 
-class Types extends Component {
+class Sizes extends Component {
   render() {
     return (
       <Main>
@@ -24,10 +24,10 @@ class Types extends Component {
           <Title>Selecione um tipo</Title>
         </Header>
         <List
-          data={this.props.types}
+          data={this.props.sizes}
           keyExtractor={item => String(item.id)}
           renderItem={({item}) => (
-            <Type type={item} sizesRequest={this.props.sizesRequest} />
+            <Size size={item} addToCartRequest={new Function()} />
           )}
           numColumns={2}
           // Column gap
@@ -41,10 +41,10 @@ class Types extends Component {
 }
 
 const mapStateToProps = state => ({
-  types: state.products.typesData,
+  sizes: state.products.sizesData,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(ProductsActions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Types);
+export default connect(mapStateToProps, mapDispatchToProps)(Sizes);

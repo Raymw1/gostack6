@@ -35,7 +35,7 @@ export function* sizesRequest({id}) {
       data: {sizes},
     } = yield call(api.get, `/products/${productId}/types/${id}/sizes`);
     yield put(ProductsActions.sizesSuccess(id, sizes));
-    // NavigationService.navigate('Types');
+    NavigationService.navigate('Sizes');
   } catch (error) {
     yield put(ToastActionsCreators.displayError('Something went wrong!'));
   }
