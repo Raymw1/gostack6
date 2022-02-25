@@ -6,10 +6,14 @@ import SignUp from 'pages/SignUp';
 import Products from 'pages/Products';
 import Types from 'pages/Types';
 import Sizes from 'pages/Sizes';
+// import Cart from 'pages/Cart';
 
 const ProductsNavigator = createStackNavigator(
   {
-    Products, // Cart
+    Products,
+    Types,
+    Sizes,
+    // Cart,
   },
   {
     defaultNavigationOptions: {
@@ -22,7 +26,7 @@ const ProductsNavigator = createStackNavigator(
 export default function createNavigator(isLoggedIn = false) {
   return createAppContainer(
     createSwitchNavigator(
-      {SignIn, SignUp, Products: ProductsNavigator, Types, Sizes},
+      {SignIn, SignUp, Products: ProductsNavigator},
       {initialRouteName: isLoggedIn ? 'Products' : 'SignIn'},
     ),
   );
